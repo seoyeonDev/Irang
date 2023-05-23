@@ -28,4 +28,5 @@ public class Teacher {
 	@OneToOne //조인의 연관 방법
 	@JoinColumn(nullable=true)
 	private Irangclass classnum;
+	private String profile;
 }
