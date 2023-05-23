@@ -26,6 +26,6 @@ public class Teacher {
 	private String pwd;
 	private String phone;
 	@OneToOne //조인의 연관 방법
-	@JoinColumn(nullable=false)
+	@JoinColumn(nullable=true)
 	private Irangclass classnum;
 }
