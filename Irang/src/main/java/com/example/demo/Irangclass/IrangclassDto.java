@@ -13,6 +13,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class IrangclassDto {
 
-	private int class_num;
-	private String class_name;
+	private int classnum;
+	private String classname;
 }

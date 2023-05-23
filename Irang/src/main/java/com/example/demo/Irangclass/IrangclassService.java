@@ -13,7 +13,7 @@ public class IrangclassService {
 	
 	//클래스 추가 & 수정
 	public IrangclassDto save(IrangclassDto dto) {
-		Irangclass entity = dao.save(new Irangclass(dto.getClass_num(),dto.getClass_name()));
+		Irangclass entity = dao.save(new Irangclass(dto.getClassnum(),dto.getClassname()));
 		return new IrangclassDto(entity.getClassnum(),entity.getClassname());
 	}
 	

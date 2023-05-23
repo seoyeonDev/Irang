@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="/irangclass/add" method="post">
-name: <input type="text" name="name">
+name: <input type="text" name="classname">
 <input type="submit" value="클래스 생성하기">
 </form>
 

@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/irangclass/add">class 추가하기</a>
+<a href="/irangclass/add">class 추가하기</a><br/>
 <c:forEach var="ic" items="${list }">
-num: ${ic.num }<br/>
-name: ${ic.name }<br/>
+num: ${ic.classnum }
+name: ${ic.classname }<br/>
 </c:forEach>
 </body>
 </html>

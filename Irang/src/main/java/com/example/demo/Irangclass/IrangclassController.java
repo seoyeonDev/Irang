@@ -19,7 +19,7 @@ public class IrangclassController {
 	private IrangclassService service;
 	
 	//class 목록 - list로 전송
-	@RequestMapping("/")
+	@RequestMapping("/list")
 	public String getAllClass(ModelMap map) {
 		ArrayList<IrangclassDto> list = service.getAll();
 		map.addAttribute("list",list);
@@ -39,14 +39,14 @@ public class IrangclassController {
 	@PostMapping("/add")
 	public String add(ModelMap map, IrangclassDto dto) {
 		IrangclassDto dto2 = service.save(dto);
-		return "redirect:/irangclass/";
+		return "redirect:/irangclass/list";
 	}
 	
 	// class 삭제
 	@RequestMapping("/del")
 	public String del(int num) {
 		service.delClass(num);
-		return "redirect:/irangclass/";
+		return "redirect:/irangclass/list";
 	}
 	
 
