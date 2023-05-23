@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.child.Child;
+import com.example.demo.teacher.Teacher;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

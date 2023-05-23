@@ -26,5 +26,11 @@
 			<img src="/teacherlog/read_img?fname=${vo.img3 }">
 		</c:if>
 	</c:if>
+	
+	<form>
+		<h3>댓글 작성하기</h3>
+		댓글 <textarea rows="20" cols="20">댓글 작성하기</textarea>
+		<input type="button" value="댓글 작성" id="cBtn">
+	</form>
 </body>
 </html>

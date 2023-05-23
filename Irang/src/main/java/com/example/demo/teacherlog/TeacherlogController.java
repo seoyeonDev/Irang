@@ -3,7 +3,6 @@ package com.example.demo.teacherlog;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.teacher.Teacher;
 
 @Controller
 @RequestMapping("/teacherlog")
@@ -65,6 +66,7 @@ public class TeacherlogController {
 		dto.setTl_num(num);
 		service.save(dto);// 수정
 		// 어디로 가지? 목록?
+	
 		return "redirect:/teacherlog/list?teacher_id" + dto.getTeacher_id().getTeacherid();
 	}
 
