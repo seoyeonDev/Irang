@@ -25,6 +25,7 @@ public class Teacher {
 	private String name;
 	private String pwd;
 	private String phone;
+	// 부모 엔티티 삭제 전 자식 엔티티를 찾고 해당 값을 null 로 처리
 	@OneToOne //조인의 연관 방법
 	@JoinColumn(nullable=true)
 	private Irangclass classnum;
