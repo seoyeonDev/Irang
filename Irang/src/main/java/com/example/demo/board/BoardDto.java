@@ -1,5 +1,6 @@
 package com.example.demo.board;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -22,13 +23,13 @@ public class BoardDto {
 	int board_num;
 	private Teacher teacherid;
 	private String title;
-	private Date w_date;
+	private LocalDate wdate;
 	private String content;
-	private Date event_date;
+	private LocalDate edate;
 	private String img1;
 	private String img2;
 	private String img3;
-	private MultipartFile [] f = new MultipartFile[3];
+	private MultipartFile [] imgf = new MultipartFile[3];
 
 
 }

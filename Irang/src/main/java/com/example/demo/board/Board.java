@@ -1,5 +1,6 @@
 package com.example.demo.board;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.OnDelete;
@@ -32,7 +33,7 @@ import lombok.ToString;
 public class Board {
 	
 	@Id
-	@SequenceGenerator(name="seq_gen",sequenceName="seq_boardnum")
+	@SequenceGenerator(name="seq_gen",sequenceName="seq_boardnum", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_boardnum")
 	int board_num;
 	
@@ -40,22 +41,22 @@ public class Board {
 	@JoinColumn(name="teacherid", nullable=false)
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	private Teacher teacherid;
-	private String title;
-	private Date w_date;
-	private String content;
-	private Date event_date;
+	private String title; //수정 
+	private LocalDate wdate;
+	private String content; //수정 
+	private LocalDate edate; //수정 
 	
 	@Column(nullable=true)
-	private String img1;
+	private String img1; //수정 
 	@Column(nullable=true)
-	private String img2;
+	private String img2;//수정 
 	@Column(nullable=true)
-	private String img3;
+	private String img3;//수정 
 	
 	@PreUpdate
 	@PrePersist
 	public void wdateperprocess() {
-		w_date = new Date();
+		 wdate = LocalDate.now();
 	}
 
 }
