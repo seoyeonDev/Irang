@@ -34,73 +34,73 @@ public class TeacherlogController {
 		return "index";
 	}
 
-	@PostMapping("/add")
-	public String add(ModelMap map, TeacherlogDto dto) {
-		int num = service.save(dto);
-		File dir = new File(path + num);
-		dir.mkdir();
-		MultipartFile[] f = dto.getF();
-		String[] imgs = new String[3];
-		for (int i = 0; i < f.length; i++) {
-			MultipartFile x = f[i];
-			String fname = x.getOriginalFilename();// 원본파일명
-			if (fname != null && !fname.equals("")) {
-				String newpath = path + num + "/" + fname;
-				File newfile = new File(newpath);
-				System.out.println(newpath);
-				try {
-					x.transferTo(newfile);// 파일 업로드
-					imgs[i] = newpath;
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		dto.setImg1(imgs[0]);
-		dto.setImg2(imgs[1]);
-		dto.setImg3(imgs[2]);
-		dto.setTl_num(num);
-		service.save(dto);// 수정
-		// 어디로 가지? 목록?
-	
-		return "redirect:/teacherlog/list?teacher_id" + dto.getTeacher_id().getTeacherid();
-	}
+//	@PostMapping("/add")
+//	public String add(ModelMap map, TeacherlogDto dto) {
+//		int num = service.save(dto);
+//		File dir = new File(path + num);
+//		dir.mkdir();
+//		MultipartFile[] f = dto.getF();
+//		String[] imgs = new String[3];
+//		for (int i = 0; i < f.length; i++) {
+//			MultipartFile x = f[i];
+//			String fname = x.getOriginalFilename();// 원본파일명
+//			if (fname != null && !fname.equals("")) {
+//				String newpath = path + num + "/" + fname;
+//				File newfile = new File(newpath);
+//				System.out.println(newpath);
+//				try {
+//					x.transferTo(newfile);// 파일 업로드
+//					imgs[i] = newpath;
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		dto.setImg1(imgs[0]);
+//		dto.setImg2(imgs[1]);
+//		dto.setImg3(imgs[2]);
+//		dto.setTl_num(num);
+//		service.save(dto);// 수정
+//		// 어디로 가지? 목록?
+//	
+//		return "redirect:/teacherlog/list?teacher_id" + dto.getTeacher_id().getTeacherid();
+//	}
 
 	// 특정쌤이 쓴 일지
-	@GetMapping("/tList")
-	public String tlist(String teacher_id, ModelMap map) {
-		map.addAttribute("list", service.getByTeacherId(teacher_id));
-		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-list.jsp");
-		return "index";
-	}
+//	@GetMapping("/tList")
+//	public String tlist(String teacher_id, ModelMap map) {
+//		map.addAttribute("list", service.getByTeacherId(teacher_id));
+//		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-list.jsp");
+//		return "index";
+//	}
 
 	// 특정쌤이 본 디테일 페이지 여기서 수정 가능하죠?
-	@GetMapping("/tDetail")
-	public String tDetail(int tl_num, ModelMap map) {
-		map.addAttribute("vo", service.getByTlNum(tl_num));
-		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
-		return "index";
-	}
+//	@GetMapping("/tDetail")
+//	public String tDetail(int tl_num, ModelMap map) {
+//		map.addAttribute("vo", service.getByTlNum(tl_num));
+//		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
+//		return "index";
+//	}
 
 	// 특정보호자 아이디로 본 일지 리스트
-	@GetMapping("/tChildList")
-	public String tChildList(String child_id, ModelMap map) {
-		map.addAttribute("list", service.getByChildId(child_id));
-		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-list.jsp");
-		return "index";
-	}
+//	@GetMapping("/tChildList")
+//	public String tChildList(String child_id, ModelMap map) {
+//		map.addAttribute("list", service.getByChildId(child_id));
+//		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-list.jsp");
+//		return "index";
+//	}
 
 	// 특정보호자가 본 디테일 페이지
-	@GetMapping("/tChildDetail")
-	public String tChildDetail(int tl_num, ModelMap map) {
-		map.addAttribute("vo", service.getByTlNum(tl_num));
-		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
-		return "index";
-	}
+//	@GetMapping("/tChildDetail")
+//	public String tChildDetail(int tl_num, ModelMap map) {
+//		map.addAttribute("vo", service.getByTlNum(tl_num));
+//		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
+//		return "index";
+//	}
 
 	// 디테일 : 사진 불러오기
 	@GetMapping("/read_img")
