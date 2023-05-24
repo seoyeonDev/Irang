@@ -1,5 +1,6 @@
 package com.example.demo.teacherlog;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.OnDelete;
@@ -15,6 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +45,7 @@ public class Teacherlog {
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	private Child child_id;	// 테이블 추가하면 entity명 고쳐 적기 
 	
-	private Date tdate;
+	private LocalDate tdate;
 	private String activity;
 	private String health;
 	@Column(nullable=true)
@@ -51,4 +54,10 @@ public class Teacherlog {
 	private String img2;
 	@Column(nullable=true)
 	private String img3;
+	
+	@PreUpdate
+	@PrePersist
+	public void wdateperprocess() {
+		tdate = LocalDate.now();
+	}
 }

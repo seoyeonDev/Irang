@@ -1,6 +1,6 @@
 package com.example.demo.tcomment;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,7 +13,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,5 +40,13 @@ public class Tcomment{
 	// 작성자... 아이디를 가져올까 닉네임을 가져올까..둘 다 가져올까?
 	private String comWriter;
 	private String content;
-	private Date comDate;
+	private LocalDate comDate;
+	
+	@PreUpdate
+	@PrePersist
+	public void wdateperprocess() {
+		comDate = LocalDate.now();
+	}
+	
+	
 }
