@@ -142,7 +142,7 @@ public class TeacherController {
 	
 	
 	//탈퇴 out
-	@RequestMapping("/del")
+	@RequestMapping("/delete")
 	public String del(String teacherid) {
 		String delPath = path + teacherid;
 		File dir = new File(delPath);
