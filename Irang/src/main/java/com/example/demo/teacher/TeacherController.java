@@ -141,7 +141,7 @@ public class TeacherController {
 	
 	
 	
-	//탈퇴 out
+	//탈퇴 out 
 	@RequestMapping("/delete")
 	public String del(String teacherid) {
 		String delPath = path + teacherid;
