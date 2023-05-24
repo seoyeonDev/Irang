@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body> 
 <form action="/teacher/edit">
 teacherid: ${dto.teacherid }<br/>
 <input type="hidden" value="${dto.teacherid }" name="teacherid">
