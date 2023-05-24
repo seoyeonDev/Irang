@@ -1,9 +1,10 @@
 package com.example.demo.teacher;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.Irangclass.Irangclass;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,6 @@ public class TeacherDto {
 	private String phone;
 	private Irangclass classnum;
 	private String profile;
+	@Nullable
+	private MultipartFile f ;
 }
