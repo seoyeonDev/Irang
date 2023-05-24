@@ -18,7 +18,7 @@ teacherid: ${dto.teacherid }<br/>
 <input type="number" value="${dto.classnum }" name="classnum"><br/>
 <input type="text" value="${dto.profile }" name="profile"><br/>
 <input type="submit" value="수정">
-<a href="/teacher/delprofile?teacherid"><button>탈퇴</button></a>
+<a href="/teacher/delprofile?teacherid=${sessionScope.loginId }"><button>탈퇴</button></a>
 </form>
 </body>
 </html>
