@@ -12,11 +12,15 @@ import com.example.demo.teacher.Teacher;
 public interface BoardDao extends JpaRepository <Board, Integer>{
 	
 	// 이벤트 날짜로 검색
-	ArrayList<Board> findByEdate(Date e_date);
+	ArrayList<Board> findByEdate(Date edate);
 	
 	//작성자로 검색 
-	ArrayList<Board> findByTeacher(Teacher teacherid);
+	ArrayList<Board> findByTeacheridLike(Teacher teacherid);
 
-
+	//제목으로 검색 
+		ArrayList<Board> findBytitleLike(String title);
+		
+		//내용으로 검색 
+		ArrayList<Board> findBycontentLike(String content);
 	
 }
