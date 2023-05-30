@@ -33,17 +33,17 @@ public class Teacherlog {
 	@Id
 	@SequenceGenerator(name="seq_gen", sequenceName="seq_tlog", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_tlog")
-	private int tl_num;
+	private int tlnum;
 	
 	@ManyToOne
 	@JoinColumn(name="teacherid", nullable=false)
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	private Teacher teacher_id;	// 테이블 추가하면 entity명 고쳐 적기 
+	private Teacher teacherid;	// 테이블 추가하면 entity명 고쳐 적기 
 	
 	@ManyToOne
 	@JoinColumn(name="childid", nullable=false)
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	private Child child_id;	// 테이블 추가하면 entity명 고쳐 적기 
+	private Child childid;	// 테이블 추가하면 entity명 고쳐 적기 
 	
 	private LocalDate tdate;
 	private String activity;

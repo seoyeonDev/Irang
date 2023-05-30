@@ -10,10 +10,10 @@
 </head>
 <body>
 	<c:forEach var="li" items="${items }">
-		<a href="/teacherlog/tChildDetail?tl_num=${li.tl_num }">
+		<a href="/teacherlog/tChildDetail?tl_num=${li.tlnum }">
 			<img src="/teacherlog/read_img?fname=${li.img1 }">
-			${li.tl_num }
-			${li.child_id.childid }
+			${li.tlnum }
+			${li.childid.childid }
 			${li.tdate }
 			${li.activity }
 		</a>

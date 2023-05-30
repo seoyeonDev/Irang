@@ -32,20 +32,20 @@ public class Tcomment{
 	@Id
 	@SequenceGenerator(name="seq_gen", sequenceName="seq_tcomment", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_tcomment")
-	private int commentNum;
+	private int commentnum;
 	@ManyToOne
-	@JoinColumn(name="tl_num", nullable=false)
+	@JoinColumn(name="tlnum", nullable=false)
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	private Teacherlog tl_num;
+	private Teacherlog tlnum;
 	// 작성자... 아이디를 가져올까 닉네임을 가져올까..둘 다 가져올까?
-	private String comWriter;
+	private String comwriter;
 	private String content;
-	private LocalDate comDate;
+	private LocalDate comdate;
 	
 	@PreUpdate
 	@PrePersist
 	public void wdateperprocess() {
-		comDate = LocalDate.now();
+		comdate = LocalDate.now();
 	}
 	
 	
