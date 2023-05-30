@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'KimjungchulGothic-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+*{
+	font-family: 'KimjungchulGothic-Bold';
+	color: #363636;
+}
+body {
+	min-height: 100vh;
+	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db),
+		to(#1d466c));
+	background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+}
+
+.input-form {
+	max-width: 680px;
+	margin-top: 80px;
+	padding: 32px;
+	background: #fff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+}
+
+* { padding: 0; margin: 0; }
+
+html, body {
+  height: 100%;
+  background: #ffffff;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#loginBox {
+  width: 300px;
+  text-align: center;
+  background-color: #ffffff;
+}
+.input-form-box {
+  border: 0px solid #ff0000;
+  display: flex;
+  margin-bottom: 5px;
+}
+.input-form-box > span {
+  display: block;
+  text-align: left;
+  padding-top: 5px;
+  min-width: 65px;
+}
+.button-login-box {
+  margin: 10px 0;
+}
+#loginBoxTitle {
+  color:#000000;
+  font-weight: bold;
+  font-size: 32px;
+  text-transform: uppercase;
+  padding: 5px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #270a09, #8ca6ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#inputBox {
+  margin: 10px;
+}
+
+#inputBox button {
+  padding: 3px 5px;
+}
+
+.btn {
+	background-color:#A9CFE2; 
+	color:#363636;
+}

@@ -12,7 +12,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/teacherjoin.css" type="text/css">
+<link rel="stylesheet" href="../css/teacher.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 function idcheck(){
@@ -87,17 +87,17 @@ function idcheck(){
           </div>
 
           <div class="mb-3">
-            <select id="inputState" class="form-control">
+            <select id="inputState" class="form-control"  name="classnum" >
             	<option selected>학급</option>
             	<c:forEach var="cl" items = "${list }">
-            		<option><c:out value="${cl.classname}" ></c:out>
+            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
             	</c:forEach>
             </select>
           </div>
 
          
           <div class="mb-4"></div>
-          <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">가입 완료</button>
+          <button class="btn btn-lg btn-block" type="submit">가입 완료</button>
         </form>
       </div>
     </div>

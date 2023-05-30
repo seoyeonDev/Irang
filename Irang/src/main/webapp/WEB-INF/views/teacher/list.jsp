@@ -8,15 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/teacher/join">가입하기</a>
+<a href="/teacher/join">회원 가입</a>
+<a href="/teacher/login">로그인</a>
 
 <form action="/teacher/login">
 id<input type="text" name="teacherid">
 pwd<input type="password" name="pwd">
 <input type="submit" value="로그인">
 </form>
-
-${sessionScope.loginId }로 로그인됨
+<br/>
+${sessionScope.loginIdTeacher }로 로그인됨<br/>
 
 <c:forEach var="vo" items="${list }">
 teacherid: ${vo.teacherid }<br/>
@@ -27,7 +28,7 @@ classnum: ${vo.classnum }<br/>
 profile: ${vo.profile }<br/>
 
 <c:if test="${ sessionScope.loginId == vo.teacherid}">
-<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
+<a href="/teacher/mypage?teacherid=${sessionScope.loginIdTeacher }">마이페이지</a>
 </c:if>
 <br/>
 </c:forEach>

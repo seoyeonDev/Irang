@@ -11,6 +11,7 @@ import com.example.demo.Irangclass.Irangclass;
 public interface TeacherDao extends JpaRepository<Teacher, String> {
 
 	ArrayList<Teacher> findByNameLike(String name);
+	//CLAss 번호로찾기 
 	ArrayList<Teacher> findByClassnum(Irangclass classnum);
 	
 }

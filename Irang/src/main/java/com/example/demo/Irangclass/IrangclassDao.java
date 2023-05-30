@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IrangclassDao extends JpaRepository<Irangclass, Integer> {
 
+	Irangclass findByClassname(String classname);
 }

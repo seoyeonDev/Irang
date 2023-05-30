@@ -49,5 +49,13 @@ public class IrangclassController {
 		return "redirect:/irangclass/list";
 	}
 	
+//	@RequestMapping("/getByName")
+//	public String getByName(ModelMap map, int classnum) {
+//		IrangclassDto dto = service.getName(classnum);
+//		String classname = dto.getClassname();
+//		map.addAttribute("classname",classname);
+//		
+//		
+//	}
 
 }

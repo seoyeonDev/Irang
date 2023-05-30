@@ -32,4 +32,21 @@ public class IrangclassService {
 		return list2;
 	}
 	
+	//클래스 검색 (이름 출력)
+	public IrangclassDto getName(int classnum) {
+		Irangclass c = dao.findById(classnum).orElse(null);
+		if(c==null) {
+			return null;
+		}
+		return new IrangclassDto(c.getClassnum(),c.getClassname());
+	}
+	
+	//이름으로 검색
+	public IrangclassDto getbyName(String classname) {
+		Irangclass c = dao.findByClassname(classname);
+		if(c==null) {
+			return null;
+		}
+		return new IrangclassDto(c.getClassnum(),c.getClassname());
+	}
 }
