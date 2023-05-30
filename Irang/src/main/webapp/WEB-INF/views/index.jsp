@@ -13,22 +13,10 @@
   width: 20%;
 }
 
-/* #main { */
-/*   width: 70%; */
-/*   background-color: #FFF; */
-/*   position: absolute; */
-/*   top: 50%;  */
-/*    left: 50%;  */
-/*    transform: translate(-50%, -50%);  */
-
+/* #main{     */
+/*     padding-top: 100%;  /* 1:1 ratio */ */
+/*     overflow: hidden; */
 /* } */
-
-
-#main{
-    
-    padding-top: 100%;  /* 1:1 ratio */
-    overflow: hidden;
-}
 
 
 </style>
@@ -37,19 +25,31 @@
 <body>	
 
 <header>
+ <c:if test ="${not empty sessionScope.loginId }">
 <jsp:include page="header.jsp"/>
+ </c:if>
 	</header>
 	
 	
 
 <div id="side-menu">
+ <c:if test ="${not empty sessionScope.loginId }">
     <jsp:include page="sidemenu.jsp" />
+     </c:if>
   </div>
   
 
  <div class = "wrapper">
+ 
   <div id="main">
+  
+  <c:if test ="${empty sessionScope.loginId }">
+   <jsp:include page="intro.jsp"/>
+   </c:if>
+   
+   <c:if test ="${not empty sessionScope.loginId }">
    <jsp:include page="${bodyview }"/>
+   </c:if>
   </div>
   </div>
 

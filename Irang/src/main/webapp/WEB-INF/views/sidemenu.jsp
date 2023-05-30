@@ -87,7 +87,7 @@ span.toggle {
 <div id="mySidenav" class="sidenav">
 <span class = "toggle" onclick="toggleNav()">&#9776;</span>
 <a href="/board/list">게시판</a>
-<a>여기에 각자 링크 넣어보십쇼</a>
+<a href="/teacher/list">티쳐리스트</a>
 	</div>
 	
 	<span class = "toggle" onclick="toggleNav()">&#9776;</span>
