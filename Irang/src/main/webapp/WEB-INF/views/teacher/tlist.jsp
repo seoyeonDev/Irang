@@ -9,13 +9,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/teacher.css" type="text/css">
 
 </head>
 <body>
 <a href="/teacher/join">회원 가입</a>
 <a href="/teacher/login">로그인</a>
-<a href="/teacher/mypage?teacherid=${sessionScope.loginIdTeacher }">마이페이지</a>
-${sessionScope.loginIdTeacher }로 로그인됨<br/>
+<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
+${sessionScope.loginId }로 로그인됨<br/>
 
 	<!-- JavaScript Bundle with Popper -->
 	<script

@@ -12,8 +12,14 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="../css/teacher.css" type="text/css">
-
+<link rel="stylesheet" href="/css/teacher.css" type="text/css">
+<style>
+.btn{
+	background-color:#A9CFE2; 
+	color:#363636
+	margin:10px;
+}
+</style>
 </head>
 
 <body>
@@ -42,10 +48,11 @@
           <div class="mb-4"></div>
           <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">로그인</button>
         </form>
+       <a href="/teacher/join"> <button class="btn btn-lg btn-block" type="submit">회원가입</button></a>
       </div>
     </div>
     <footer class="my-3 text-center text-small">
-      <p class="mb-1">&copy; 2021 YD</p>
+      <p class="mb-1">&copy; Irang</p>
     </footer>
   </div>
 <script>

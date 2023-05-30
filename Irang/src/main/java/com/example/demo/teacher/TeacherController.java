@@ -44,12 +44,9 @@ public class TeacherController {
 	
 	//회원가입
 	@GetMapping("/join")
-	public String joinForm(ModelMap map) {
+	public void joinForm(ModelMap map) {
 		ArrayList<IrangclassDto> list = classservice.getAll();
 		map.addAttribute("list",list);
-		
-		map.addAttribute("bodyview","/WEB-INF/views/teacher/join.jsp");
-		return "index";
 	}
 	
 	@PostMapping("/join")
@@ -95,9 +92,8 @@ public class TeacherController {
 	
 	
 	@GetMapping("/login")
-	public String loginForm(ModelMap map) {
-		map.addAttribute("bodyview","/WEB-INF/views/teacher/login.jsp");
-		return "index";
+	public void loginForm() {
+	
 	}
 	
 	@PostMapping("/login")
@@ -108,7 +104,7 @@ public class TeacherController {
 		TeacherDto dto2 = service.login(teacherid);
 		System.out.println("dto2"+dto2);
 		if(dto2 != null && dto.getPwd().equals(dto2.getPwd())) {
-			session.setAttribute("loginIdTeacher", dto2.getTeacherid());
+			session.setAttribute("loginId", dto2.getTeacherid());
 			return "redirect:/teacher/list";
 		}
 		return "index";

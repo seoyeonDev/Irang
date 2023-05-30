@@ -28,7 +28,7 @@ classnum: ${vo.classnum }<br/>
 profile: ${vo.profile }<br/>
 
 <c:if test="${ sessionScope.loginId == vo.teacherid}">
-<a href="/teacher/mypage?teacherid=${sessionScope.loginIdTeacher }">마이페이지</a>
+<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
 </c:if>
 <br/>
 </c:forEach>
