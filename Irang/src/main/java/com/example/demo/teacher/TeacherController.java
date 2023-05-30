@@ -82,6 +82,7 @@ public class TeacherController {
 	@ResponseBody
 	@RequestMapping("/idcheck")
 	public int idCheck(String teacherid) {
+		teacherid = "t"+teacherid;
 		TeacherDto dto = service.getTeacher(teacherid);
 		int cnt = 0;
 		if (dto != null) {
