@@ -1,7 +1,6 @@
 package com.example.demo.board;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +19,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class BoardDto {
 	
-	int board_num;
+	int bnum;
+	private int mgnum;
 	private Teacher teacherid;
 	private String title;
 	private LocalDate wdate;
@@ -29,6 +29,7 @@ public class BoardDto {
 	private String img1;
 	private String img2;
 	private String img3;
+	
 	private MultipartFile [] imgf = new MultipartFile[3];
 
 

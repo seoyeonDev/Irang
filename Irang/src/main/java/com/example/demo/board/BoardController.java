@@ -4,7 +4,10 @@ package com.example.demo.board;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,11 +57,23 @@ public class BoardController {
 			map.addAttribute("bodyview", "/WEB-INF/views/board/list.jsp");
 			return "index";
 		}
-	
+		
+		// 작성자으로 검색 목록
+		@RequestMapping("/findByTeacher")
+		public String getbyteacher(String teacherid, ModelMap map) {
+			map.addAttribute("list", service.getByTeacher(teacherid));
+			map.addAttribute("bodyview", "/WEB-INF/views/board/list.jsp");
+			return "index";
+		}
+
 	//이벤트 날짜로 검색 목록 
 		@RequestMapping("/findByedate")
-		public String getbyedate(Date edate, ModelMap map) {
-			map.addAttribute("list", service.getByEventDate(edate));
+		public String getbyedate(String edate, ModelMap map) throws ParseException {
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			 LocalDate date;
+			 String msg = "";
+			 date = LocalDate.parse(edate, formatter);
+			  map.addAttribute("list", service.getByEventDate(date));
 			map.addAttribute("bodyview", "/WEB-INF/views/board/list.jsp");
 			return "index";
 		}
@@ -72,86 +87,45 @@ public class BoardController {
 	}
 	
 	//글 등록 완료시 
-//	@PostMapping("/add")
-//	public String add(ModelMap map, BoardDto dto, HttpSession session ) {
-//		String loginId = (String) session.getAttribute("loginId"); 
-//		int num = service.save(dto); //dto를 저장 시키고 반환 받은 글 번호를 이용한다. 
-//		File dir = new File(path+num); //파일 폴더 생성
-//		dir.mkdir(); // 디렉토리 생성~ 
-//		MultipartFile[] f = dto.getImgf(); 
-//		// 이름이 f 인 멀티파트파일배열 생성해서 그 안에 dto에 만들어 둔 Imgf getter 호출
-//		//dto.getImgf(); 에 있는 service.save(dto)에 저장 된 
-//		String [] imgs = new String[3]; //이미지 경로를 담을 방 3칸짜리 String 배열 생성 
-//		for (int i = 0; i<f.length; i++) {
-//			MultipartFile x = f[i]; 
-//			String fname = x.getOriginalFilename();
-//			if (fname !=null && fname.equals("")) {
-//				String newpath = path+num+"/"+fname;
-//				File newfile = new File(newpath);
-//				
-//				try {
-//					x.transferTo(newfile);
-//					imgs[i] = newpath;
-//				}catch (IllegalStateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//			dto.setImg1(imgs[0]);
-//			dto.setImg2(imgs[1]);
-//			dto.setImg3(imgs[2]);
-//			dto.setBoard_num(num);
-//			service.save(dto);
-//			
-//			return "redirect:/board/list";
-//	}
-	
-	//글등록 
-	private void saveFiles(BoardDto dto, int num) {
-	    MultipartFile[] files = dto.getImgf();
-	    String[] imgs = new String[3];
-	    
-	    for (int i = 0; i < files.length; i++) {
-	        MultipartFile file = files[i];
-	        String filename = file.getOriginalFilename();
-	        
-	        if (filename != null && !filename.isEmpty()) {
-	            String newPath = path + num + "/" + filename;
-	            File newFile = new File(newPath);
-	            
-	            try {
-	                file.transferTo(newFile);
-	                imgs[i] = newPath;
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
-	    
-	    dto.setImg1(imgs[0]);
-	    dto.setImg2(imgs[1]);
-	    dto.setImg3(imgs[2]);
-	}
-
 	@PostMapping("/add")
-	public String add(ModelMap map, BoardDto dto, HttpSession session) {
-	    String loginId = (String) session.getAttribute("loginId");
-	    int num = service.save(dto);
-	    File dir = new File(path + num);
-	    dir.mkdir();
-	    
-	    saveFiles(dto, num);
-	    dto.setBoard_num(num);
-	    service.save(dto);
-	    
-	    return "redirect:/board/list";
+	public String add(ModelMap map, BoardDto dto, HttpSession session ) {
+		
+		String loginId = (String) session.getAttribute("loginId"); 
+		
+		int num = service.save(dto); //dto를 저장 시키고 반환 받은 글 번호를 이용한다. 
+		File dir = new File(path+num); //파일 폴더 생성
+		dir.mkdir(); // 디렉토리 생성~ 
+		MultipartFile[] f = dto.getImgf(); 
+		// 이름이 f 인 멀티파트파일배열 생성해서 그 안에 dto에 만들어 둔 Imgf getter 호출
+		//dto.getImgf(); 에 있는 service.save(dto)에 저장 된 
+		String [] imgs = new String[3]; //이미지 경로를 담을 방 3칸짜리 String 배열 생성 
+		for (int i = 0; i<f.length; i++) {
+			MultipartFile x = f[i]; 
+			String fname = x.getOriginalFilename();
+			if (fname !=null && !fname.equals("")) {
+				String newpath = path + num + "/" + fname;
+				File newfile = new File(newpath);				
+				try {
+					x.transferTo(newfile);
+					imgs[i] = newpath;
+				}catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+			dto.setImg1(imgs[0]);
+			dto.setImg2(imgs[1]);
+			dto.setImg3(imgs[2]);
+			dto.setBnum(num);
+			service.save(dto);
+			
+			return "redirect:/board/list";
 	}
-
-	
+		
 	
 //이미지 읽어드리기 
 @GetMapping("/read_img")
@@ -163,8 +137,7 @@ public  ResponseEntity<byte[]> read_img(String fname){
 		try {
 			header.add("Content-Type", Files.probeContentType(f.toPath()));//응답 데이터의 종류를 설정
 			//응답 객체 생성해서 넣는다. 
-			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(f),
-					header, HttpStatus.OK); 
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(f),header, HttpStatus.OK); 
 			//현재 상태까지 담은는 중
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -176,86 +149,123 @@ public  ResponseEntity<byte[]> read_img(String fname){
 
 //디테일 폼 보여주기 
 @GetMapping("/detail")
-public String detailForm(int Board_num, ModelMap map) {
-	map.addAttribute("dto",service.get(Board_num));
+public String detailForm(int bnum, ModelMap map) {
+	map.addAttribute("dto",service.get(bnum));
 	map.addAttribute("bodyview", "/WEB-INF/views/board/detail.jsp");
 	 return "index";
 }
 
 //수정 폼 보여주기 
 @RequestMapping("/editform")
-public String editForm(int Board_num, ModelMap map) {
-	map.addAttribute("dto",service.get(Board_num));
+public String editForm(int bnum, ModelMap map) {
+	
+	map.addAttribute("dto",service.get(bnum));
 	map.addAttribute("bodyview", "/WEB-INF/views/board/edit.jsp");
 	 return "index";
 }
 
-//수정 폼에서 수정 
+//이미지 수정 
+@PostMapping("/editimg")
+public String editimg(ModelMap map, int bnum, MultipartFile f1, int imgnum) {
+	
+	BoardDto dto = service.get(bnum);
+	
+	String fname = f1.getOriginalFilename();
+	String newpath = "";
+	
+	if(fname != null && !fname.equals("")) {
+		newpath = path + bnum + "/" + fname;
+		File newfile = new File(newpath);
+		try {
+			f1.transferTo(newfile);// 파일 업로드
+			String delf = "";// 삭제할 파일 경로
+			switch (imgnum) {
+			case 1:
+				delf = dto.getImg1();
+				dto.setImg1(newpath);
+				break;
+			case 2:
+				delf = dto.getImg2();
+				dto.setImg2(newpath);
+				break;
+			case 3:
+				delf = dto.getImg3();
+				dto.setImg3(newpath);
+				break;
+			}
+			if (delf != null) {
+				File delFile = new File(delf);
+				delFile.delete();
+			}
+			service.save(dto);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return "redirect:/board/editform?bnum=" + bnum;
+}
+
+//내용 수정 
 @PostMapping("/edit")
-public String editBoard(ModelMap map, BoardDto dto, MultipartFile f1, MultipartFile f2, MultipartFile f3) {
-BoardDto Odto = service.get(dto.getBoard_num()); 
+public String edit (ModelMap map, BoardDto dto) {
+	
+	BoardDto dto1 = service.get(dto.getBnum());
+	
+	
+	dto1.setTitle(dto.getTitle());
+	dto1.setContent(dto.getContent());
+	dto1.setMgnum(dto.getMgnum());
+	dto1.setEdate(dto.getEdate());
+	int num = service.save(dto1);
+	dto = service.get(num);
+	map.addAttribute("dto", dto);
+	map.addAttribute("bodyview","/WEB-INF/views/board/detail.jsp");
+	return "index";
+} 
 
-Odto.setTitle(dto.getTitle());
-Odto.setContent(dto.getContent());
-Odto.setEdate(dto.getEdate());
-
-handleImageUpload(Odto, f1, 1);
-handleImageUpload(Odto, f2, 2);
-handleImageUpload(Odto, f3, 3);
-
-return "redirect:/board/list";
-}
-
-private void handleImageUpload(BoardDto dto,MultipartFile file, int imgnum ) {
-if(file !=null && !file.isEmpty()) {
-	String fileName = file.getOriginalFilename();
-	String filePath = path + dto.getBoard_num() +  "/" + fileName;
-	File newFile = new File(filePath);
-    try {
-        file.transferTo(newFile);
-        String existingImagePath = getImagePath(dto, imgnum);
-        if (existingImagePath != null) {
-            File existingFile = new File(existingImagePath);
-            existingFile.delete();
-        }
-        setImagePath(dto, imgnum, filePath);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-}
-
-private String getImagePath(BoardDto dto, int imgnum) {
-    switch (imgnum) {
-        case 1:
-            return dto.getImg1();
-        case 2:
-            return dto.getImg2();
-        case 3:
-            return dto.getImg3();
-        default:
-            return null;
-    }
-}
-
-private void setImagePath(BoardDto dto, int imgnum, String path) {
-    switch (imgnum) {
-        case 1:
-            dto.setImg1(path);
-            break;
-        case 2:
-            dto.setImg2(path);
-            break;
-        case 3:
-            dto.setImg3(path);
-            break;
-    }
-}
-
+//글 삭제 -> 이미지 같이 자동 삭제
 @RequestMapping("/del")
-public String delboard (int Board_num) {
-	service.del(Board_num);
+public String delboard (int bnum) {
+	service.del(bnum); //글 삭제 
+	String delPath = path + bnum; //용량 차지하니까 파일까지 삭제해주는게 좋겟지? 
+	File dir = new File(delPath); //그래서 해당 경로의 파일을 찾아내서 
+	File [] files = dir.listFiles();
+	for (File f : files) {
+		f.delete();
+	}  //파일들을 모두 삭제하고 
+	dir.delete();	  //만들어 준 file 도 삭제해버려~~ 
 	 return "redirect:/board/list";
+}
+
+// 이미지만 삭제 
+@RequestMapping("/delimg")
+public String delimg(int bnum, int imgnum) {
+	BoardDto dto = service.get(bnum);
+	String delf = "";
+	switch (imgnum) {
+	case 1:
+		delf = dto.getImg1();
+		dto.setImg1(null);
+		break;
+	case 2:
+		delf = dto.getImg2();
+		dto.setImg2(null);
+		break;
+	case 3:
+		delf = dto.getImg3();
+		dto.setImg3(null);
+		break;
+	}
+	if (delf != null) {
+		File delFile = new File(delf);
+		delFile.delete();
+	}
+	service.save(dto);
+	return "redirect:/board/edit?bnum=" + bnum;
 }
 	
 }
