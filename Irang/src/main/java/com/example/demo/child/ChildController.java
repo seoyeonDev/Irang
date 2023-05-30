@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Irangclass.IrangclassDto;
+import com.example.demo.Irangclass.IrangclassService;
+import com.example.demo.teacher.TeacherDto;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -30,14 +34,17 @@ public class ChildController {
 	@Autowired
 	private ChildService service;
 	
+	@Autowired
+	private IrangclassService classservice;
+	
 	@Value("${spring.servlet.multipart.location}")
 	private String path;
 	
 	//아이회원가입 폼 요청
 	@GetMapping("/join")
-	public String joinForm(ModelMap map) {
-		map.addAttribute("bodyview", "/WEB-INF/views/child/join.jsp");
-		return "index";
+	public void joinForm(ModelMap map) {
+		ArrayList<IrangclassDto> list = classservice.getAll();
+		map.addAttribute("list",list);
 	}
 	
 	//아이회원가입
@@ -66,25 +73,21 @@ public class ChildController {
 		//return "redirect:/child/getbyclass?class="+dto2.getClassnum();
 	}
 	
-	//id중복체크
-	@ResponseBody
-	@PostMapping("/idcheck")
-	public Map idcheck(String id) {
-		ChildDto dto = service.getById(id);
-		boolean flag = false;
-		if (dto == null) {
-			flag = true;
+	//id check
+		@ResponseBody
+		@RequestMapping("/idcheck")
+		public int idCheck(String childid) {
+			ChildDto dto = service.getById(childid);
+			int cnt = 0;
+			if (dto != null) {
+				cnt = 1;
+			}
+			return cnt;
 		}
-		Map map = new HashMap();
-		map.put("flag", flag);
-		return map;
-	}
 	
 	//로그인폼 요청
 	@GetMapping("/login")
-	public String loginForm(ModelMap map) {
-		map.addAttribute("bodyview", "/WEB-INF/views/child/login.jsp");
-		return "index";
+	public void loginForm() {
 	}
 	
 	//로그인
@@ -92,7 +95,7 @@ public class ChildController {
 	public String login(ChildDto dto, HttpSession session) {
 		ChildDto c = service.getById(dto.getChildid());
 		if(c!=null && c.getPwd().equals(dto.getPwd())) {
-			session.setAttribute("loginIdChild", c.getChildid());
+			session.setAttribute("loginId", c.getChildid());
 		}
 		return "index";
 	}
@@ -205,7 +208,7 @@ public class ChildController {
 	//아이계정탈퇴
 	@GetMapping("/out")
 	public String out(HttpSession session) {
-		String id = (String) session.getAttribute("loginIdChild");
+		String id = (String) session.getAttribute("loginId");
 		ChildDto dto = service.getById(id);
 		File delf = new File(path+dto.getImg());
 		delf.delete();

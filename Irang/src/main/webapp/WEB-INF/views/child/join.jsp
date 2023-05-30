@@ -1,96 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-    	let abc = false;
-        $('#idcheck').click(function(){
-            $.ajax({
-                url:'/child/idcheck',
-                type: 'post',
-                data:{'id':$('#childid').val()},
-                dataType:'json',
-                success:function(result){
-                    let txt = '<h4 style="color:';
-                    if(result.flag){
-                    	abc = result.flag;
-                        txt += 'blue">사용 가능한 아이디</h4>';
-                    }
-                    else{
-                        txt += 'red">사용 불가능한 아이디</h4>';
-                    }
-                    $('#res').html(txt);
-                },
-                error:function(req, status){
-                    alert(status);
-                }
-            });
-        })
-        $('#submitbtn').click(function(){
-        	if(abc){
-        		form.submit();
-        	}else{
-        		alert('id 중복체크를 통과해야함');
-        	}
-        })
-    })
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 화면 샘플 - Bootstrap</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="../css/teacher2.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function idcheck(){
+	let childid = $('#childid').val();
+	$.ajax({
+		url:'/child/idcheck',
+		data:{childid:childid},
+		success:function(cnt){
+			if( cnt ==0){
+				$('.valid-feedback').css("display","inline-block");
+				$('.invalid-feedback').css("display","none");
+			}else{
+				$('.invalid-feedback').css("display","inline-block");
+				$('.valid-feedback').css("display","none");
+
+			}
+		},
+        error:function(){
+            alert("에러입니다");
+        }
+	})
+}
+
 </script>
 </head>
+
 <body>
-<div class="container">
-    <h3>회원가입(※선생님은 t_가 붙고 아이는 c_가 붙습니다)</h3>
-    <form action="/child/join" method="post" enctype="multipart/form-data" name="form">
-        <div class="form-group">
-            <label for="id">ID:</label>
-            <div class="input-group">
-                <input type="text" class="form-control" value="c_" id="childid" name="childid">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="idcheck">ID 중복체크</button>
-                </div>
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">회원가입</h4>
+        <form action="/child/join" method="post" class="validation-form" enctype="multipart/form-data" novalidate>
+        <div class="mb-3">
+            <label for="profile">프로필사진</label>
+            <input type="file" class="form-control" name="f" id="pwd" placeholder="">
+          </div>
+          <div class="row">
+           <div class="col-md-6 mb-3">
+              <label for="childid">아이디</label>
+              <input oninput="idcheck()" type="text" class="form-control" name="childid" id="childid" placeholder="" value="" required>
+              <div class="valid-feedback">
+              	사용 가능한 아이디입니다.
+              </div>
+              <div class="invalid-feedback">
+                아이디를 다시 입력해주세요.
+              </div>
             </div>
-            <span id="res"></span>
-        </div>
-        <div class="form-group">
-            <label for="pwd">비밀번호:</label>
-            <input type="password" class="form-control" id="pwd" name="pwd">
-        </div>
-        <div class="form-group">
-            <label for="name">아이의이름:</label>
-            <input type="text" class="form-control" id="name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="pname">부모님성함:</label>
-            <input type="text" class="form-control" id="pname" name="pname">
-        </div>
-         <div class="form-group">
-            <label for="pname">생년월일:</label>
-            <input type="text" class="form-control" id="birthday" name="birthday">
-        </div>
-         <div class="form-group">
-            <label for="pname">부모님전화번호:</label>
-            <input type="text" class="form-control" id="phone" name="phone">
-        </div>
-         <div class="form-group">
-            <label for="pname">알러지정보:</label>
-            <input type="text" class="form-control" id="allergy" name="allergy">
-        </div>
-         <div class="form-group">
-            <label for="pname">아이의 반:</label>
-            <input type="number" class="form-control" id="classnum" name="classnum">
-        </div>
-        <div class="form-group">
-          <label for="child_img">아이증명사진</label>
-          <input type="file" class="form-control" id="child_img" name="f" required>
-        </div>
-        <input type="submit" id="submitbtn" class="btn btn-primary" value="가입">
-    </form>
-</div>
+            <div class="col-md-6 mb-3">
+              <label for="name">이름</label>
+              <input type="text" class="form-control" name="name" id="name" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                이름을 입력해주세요.
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="name">부모님이름</label>
+              <input type="text" class="form-control" name="pname" id="pname" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                부모님이름을 입력해주세요.
+              </div>
+            </div>
+           
+          </div>
+
+          <div class="mb-3">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" name="pwd" id="pwd" placeholder="" required>
+            <div class="invalid-feedback">
+              비밀번호를 입력해주세요.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone">전화번호</label>
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="" required>
+            <div class="invalid-feedback">
+              전화번호를 입력해주세요.
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="phone">알러지정보</label>
+            <input type="tel" class="form-control" name="allergy" id="allergy" placeholder="" required>
+            <div class="invalid-feedback">
+              주의해야할 아이의 알러지를 입력해주세요.
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="phone">생년월일</label>
+            <input type="tel" class="form-control" name="birthday" id="birthday" placeholder="" required>
+            <div class="invalid-feedback">
+              아이의 출생년월일을 입력해주세요(YYYY-MM-DD).
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <select id="inputState" class="form-control"  name="classnum" >
+            	<option selected>학급</option>
+            	<c:forEach var="cl" items = "${list }">
+            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
+            	</c:forEach>
+            </select>
+          </div>
+
+         
+          <div class="mb-4"></div>
+          <button class="btn btn-lg btn-block" type="submit">가입 완료</button>
+        </form>
+      </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+      <p class="mb-1">&copy; 2021 YD</p>
+    </footer>
+  </div>
+  <script>
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+    
+  </script>
 </body>
+
 </html>
