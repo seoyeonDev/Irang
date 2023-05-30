@@ -1,6 +1,6 @@
 package com.example.demo.teacherlog;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,10 +17,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeacherlogDto {
-	private int tl_num;
-	private Teacher teacher_id; // 테이블 추가하면 entity명 고쳐 적기
-	private Child child_id; // 테이블 추가하면 entity명 고쳐 적기
-	private Date tdate;
+	private int tlnum;
+	private Teacher teacherid; // 테이블 추가하면 entity명 고쳐 적기
+	private Child childid; // 테이블 추가하면 entity명 고쳐 적기
+	private LocalDate tdate;
 	private String activity;
 	private String health;
 	private String img1;

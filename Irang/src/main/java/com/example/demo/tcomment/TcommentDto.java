@@ -1,6 +1,6 @@
 package com.example.demo.tcomment;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.example.demo.teacherlog.Teacherlog;
 
@@ -16,9 +16,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TcommentDto {
-	private int commentNum;
-	private Teacherlog tl_num;
-	private String comWriter;
+	private int commentnum;
+	private Teacherlog tlnum;
+	private String comwriter;
 	private String content;
-	private Date comDate;
+	private LocalDate comdate;
 }

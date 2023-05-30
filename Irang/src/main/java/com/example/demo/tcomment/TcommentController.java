@@ -1,12 +1,59 @@
 package com.example.demo.tcomment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/comment")
 public class TcommentController {
 	@Autowired
 	private TcommentService service;
+
+	// @GetMapping("")
+
+	// 댓글 작성 ajax
+	@ResponseBody
+	@PostMapping("/add")
+	public Map add(TcommentDto dto) {
+		System.out.println("dtd: " + dto);
+		Map map = new HashMap();
+		// service.
+		int num = service.save(dto);
+		TcommentDto dto2 = service.getByNum(num);
+		map.put("dto", dto2);
+		return map;
+	}
+
+	@ResponseBody
+	@GetMapping("/del")
+	public Map del(int commentnum) {
+		Map map = new HashMap();
+		service.delete(commentnum);
+		
+		boolean flag = true;
+		
+		map.put("flag", flag);
+		return map;
+	}
 	
-	//@GetMapping("")
+	@ResponseBody
+	@PostMapping("/edit")
+	public Map edit(TcommentDto dto) {
+		Map map = new HashMap();
+		TcommentDto dto2 = service.getByNum(dto.getCommentnum());
+		dto2.setContent(dto.getContent());
+		service.save(dto2);
+		System.out.println("dto :"+dto);
+		System.out.println("dto2 :"+dto2);
+		map.put("dto", dto2);
+		
+		return map;
+	}
 }
