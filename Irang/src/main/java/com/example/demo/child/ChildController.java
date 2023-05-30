@@ -43,6 +43,8 @@ public class ChildController {
 	//아이회원가입
 	@PostMapping("/join")
 	public String join(ChildDto dto) {
+		service.save(dto);
+		if(dto.getF() != null) {
 		MultipartFile f = dto.getF();
 		String fname = f.getOriginalFilename();
 		File newfile = new File(path+fname);
@@ -57,6 +59,9 @@ public class ChildController {
 			e.printStackTrace();
 		}
 		ChildDto dto2 = service.save(dto);
+		System.out.println(dto2);
+		}
+		
 		return "redirect:/child/listall";
 		//return "redirect:/child/getbyclass?class="+dto2.getClassnum();
 	}
@@ -94,7 +99,7 @@ public class ChildController {
 	
 	@GetMapping("/read_img")
 	public ResponseEntity<byte[]> read_img(String fname){
-		File f = new File(path+fname);//c:data/ + 가평1.jpg
+		File f = new File(path+fname);//C:/img/shop/ + 1.jpg
 		HttpHeaders header = new HttpHeaders(); //HttpHeaders 객체 생성
 		ResponseEntity<byte[]> result = null; //응답 객체 선언
 		try {
@@ -119,11 +124,82 @@ public class ChildController {
 		return "index";
 	}
 	
+	//반별로 아이들 리스트
+	@GetMapping("listbyclass")
+	public String listbyclass(ModelMap map, int classnum) {
+		ArrayList<ChildDto> list = service.getByClass(classnum);
+		map.put("classnum", classnum);
+		map.put("list", list);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/listbyclass.jsp");
+		return "index";
+	}
+	
+	//아이이름으로 검색리스트
+	@PostMapping("listbyname")
+	public String listbyname(ModelMap map, String name) {
+		ArrayList<ChildDto> list = service.getByName(name);
+		map.put("name", name);
+		map.put("list", list);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/listbyname.jsp");
+		return "index";
+	}
+	
+	//아이정보페이지(childinfo)
+	@GetMapping("/childinfo")
+	public String childinfo(ModelMap map, String childid) {
+		ChildDto dto = service.getById(childid);
+		map.put("dto", dto);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/childinfo.jsp");
+		return "index";
+	}
+	
+	//아이정보수정(사진제외한 정보수정)
+	@PostMapping("edit")
+	public String editInfo(ModelMap map, ChildDto dto, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginIdChild");
+		ChildDto dto3 = service.getById(loginId);
+		dto.setImg(dto3.getImg());
+		ChildDto dto2 = service.save(dto);
+		map.put("dto", dto2);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/childinfo.jsp");
+		return "redirect:/";
+	}
+	
+	//아이사진수정
+	@PostMapping("/editimg")
+	public String editimg(String childid, MultipartFile f1, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginIdChild");
+		ChildDto dto = service.getById(childid);
+		String fname = f1.getOriginalFilename();
+		if (fname != null && !fname.equals("")) {
+			File newfile = new File(path+fname);// 복사할 새 파일 생성. c:/img/child/원본파일명
+			System.out.println(path+fname);
+			try {
+				f1.transferTo(newfile);// 파일 업로드
+				String delf = "";
+				delf = dto.getImg();
+				dto.setImg(fname);
+				if (delf != null) {
+					File delFile = new File(delf);
+					delFile.delete();
+				}
+				service.save(dto);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/child/childinfo?childid=" + loginId;
+	}
+	
 	//로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 	}
 	
 	//아이계정탈퇴
