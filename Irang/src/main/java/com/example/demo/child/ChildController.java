@@ -50,6 +50,8 @@ public class ChildController {
 	//아이회원가입
 	@PostMapping("/join")
 	public String join(ChildDto dto) {
+		String cid = dto.getChildid();
+		dto.setChildid("c"+cid);
 		service.save(dto);
 		if(dto.getF() != null) {
 		MultipartFile f = dto.getF();
