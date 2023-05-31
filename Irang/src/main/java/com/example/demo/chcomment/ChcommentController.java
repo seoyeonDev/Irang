@@ -15,11 +15,12 @@ public class ChcommentController {
 	@Autowired
 	private ChcommentService service;
 	
+	///chlogcom/add?chlognum=1&writer=child&content=죄송합니다+ㅠㅠㅠ
 	// 댓글 입력 
+	@GetMapping("/add")
 	public String add(ChcommentDto dto) {
 		service.save(dto);
-		int chlognum = Integer.parseInt(new StringBuilder().append(dto.getChlognum()).toString());
-		return "redirect:/childlog/detail?chlognum=" + chlognum;
+		return "redirect:/childlog/detail?chlognum=" + dto.getChlognum().getChlognum();
 	}
 	
 	// 댓글 수정 (ajax)

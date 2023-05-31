@@ -8,47 +8,44 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-	
-});
 
-//파일 업로드 미리보기
-function thumbnail(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			document.getElementById('preview').src = e.target.result;
-		};
-		reader.readAsDataURL(input.files[0]);
-	} else {
-		document.getElementById('preview').src = e.target.result;
-		// 이미지 업로드 하다가 취소 눌렀을 때 직전에 업로드한 이미지 유지하도록 수정
-	}
+window.onload = function() {
+	  document.getElementById("imagepath").addEventListener("change", function(event) {
+			var file = event.target.files[0];
+	  		var reader = new FileReader();
+	  
+			reader.onload = function(e) {
+	    	document.getElementById("upload-preview").src = e.target.result;
+			document.getElementById("imagepath").src = e.target.result;
+	  };
+
+	  reader.readAsDataURL(file);
+	});
 }
 function imgReset() {
-	document.getElementById('preview').src = "../img/nopic.jpg";
-	document.getElementById('img').value = null;
+	document.getElementById('upload-preview').src = "../image/nopic.jpg";
+	document.getElementById('imagepath').value = null;
 //	input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
 //	따라서 초기화하고자 할 경우 아래 코드
 //		img.upload.select();
 //		document.selection.clear();
-}
+	 }
 </script>
 </head>
 <body>
 <h3>아이 일지 수정</h3>
 
-<form action="/childlog/edit" method="post" enctype="multipart/form-data" name="f">
+<form action="/childlog/edit" method="post" enctype="multipart/form-data">
 
 <c:if test="${not empty dto.img}">
-	<img src="/childlog/read_img?fname=${img }" id="preview" style="width:200px;height:200px"> <br/>
+	<img src="/childlog/read_img?fname=${dto.img }" id="upload-preview" style="width:200px;height:200px"> <br/>
 	
 </c:if>
 <c:if test="${empty dto.img}">
-	<img src="../img/nopic.jpg" id="preview" style="width:200px;height:200px"> <br/>
+	<img src="../image/nopic.jpg" id="upload-preview" style="width:200px;height:200px"> <br/>
 </c:if>
-<input type="file" id="img" name="imagepath" style="display:none;" accept="image/*" onchange="thumbnail(this);">
-<input type="button" value="삭제" id="del" onclick="imgReset();">
+<input type="file" name="f" id="imagepath" accept="image/*">
+<input type="button" value="이미지삭제" id="del" onclick="imgReset();"> <br/>
 
 날짜: ${dto.wdate} <br/>
 내용: <textarea cols="20" rows="5" name="content">${dto.content }</textarea><br/>
