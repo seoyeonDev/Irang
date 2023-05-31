@@ -1,74 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!------ Include the above in your HEAD tag ---------->
-
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<title>Signup</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style type="text/css">
-.container{
-	padding:16px;
-}
-input[type=text],input[type=password]{
-	width:100%;
-	padding:12px 20px;
-	margin:8px 0;
-	display:inline-block;
-	box-sizing:border-box;
-	
-}
-button{
-	background-color:#4caF50;
-	color:white;
-	padding:14px 20px;
-	margin:8px 0;
-	border:none;
-	cursor:pointer;
-	width:100%;
-	
-	
-}
-.btncan{
-	padding:14px 20px;
-	background-color:red;
-}
-.btncan,.btnsign{
-	float:left;
-	width:50%;
-}
-.clearfix::after{
-	content:"";
-	clear:both;
-	display:table;
-}
-@media screen and (max-width:300px){
-	.btncan,.btnsign{
-		width:100%;
-	}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 화면 샘플 - Bootstrap</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/teacher.css" type="text/css">
+<style>
+.btn{
+	background-color:#A9CFE2; 
+	color:#363636
+	margin:10px;
 }
 </style>
-<link rel="stylesheet" href="css/style1.css">
 </head>
+
 <body>
-<h2> login From</h2>
-<form action="/child/login" method="post" style="border:3px solid #ccc">
-<div class="container">
-<label><b>ID</b></label>
-<input type="text" placeholder="Id" name="childid" >
-<label><b>Password</b></label>
-<input type="text" placeholder="Password" name="pwd">
-<p> Forgot your password click link <a href="#">Terms & Privacy</a></p>
-<p> By create an account you agree to our <a href="#">Terms & Privacy</a></p>
-</div>
-<div class="clearfix">
-<button type="cancel" class="btncan">Cancel</button>
-<button type="Signup" class="btnsign">Login</button>
-</div>
-</form>
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">아이계정 로그인</h4>
+        <form action="/child/login" method="post" class="validation-form" novalidate>
+
+          <div class="mb-3">
+              <label for="teacherid">아이디</label>
+              <input oninput="idcheck()" type="text" class="form-control" name="childid" id=""childid"" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                아이디를 입력해주세요.
+              </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" name="pwd" id="pwd" placeholder="" required>
+            <div class="invalid-feedback">
+              비밀번호를 입력해주세요.
+            </div>
+          </div>
+
+          <div class="mb-4"></div>
+          <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">로그인</button>
+        </form>
+       <a href="/child/join"> <button class="btn btn-lg btn-block" type="submit">회원가입</button></a>
+      </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+      <p class="mb-1">&copy; Irang</p>
+    </footer>
+  </div>
+<script>
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+    
+  </script>
 </body>
+
 </html>
