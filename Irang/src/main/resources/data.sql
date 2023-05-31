@@ -1,0 +1,1 @@
+Insert into irangclass values(0, '무소속');

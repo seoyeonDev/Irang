@@ -95,3 +95,12 @@ html, body {
 	max-width: 100%;
 	height: auto !important; 
 }
+
+/* tlist */
+.body{
+	margin-left:30px;
+	margin-right:30px;
+}
+.card{
+	margin:10px;
+}

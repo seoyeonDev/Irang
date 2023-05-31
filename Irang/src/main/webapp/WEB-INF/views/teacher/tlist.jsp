@@ -10,21 +10,15 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/teacher.css" type="text/css">
-<style>
-.body{
-	margin-left:30px;
-	margin-right:30px;
-}
-.card{
-	margin:10px;
-}
-</style>
+<script>
+$(document).ready(function(){
+	$('.changeclass').click(function(){
+		
+	})
+})
+</script>
 </head>
 <body>
-<a href="/teacher/join">회원 가입</a>
-<a href="/teacher/login">로그인</a>
-<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
-${sessionScope.loginId }로 로그인됨<br/>
 
 	<!-- JavaScript Bundle with Popper -->
 	<script
@@ -46,12 +40,11 @@ ${sessionScope.loginId }로 로그인됨<br/>
 			<div class="card-body">
 				<h5 class="card-title">${li.name }</h5>
 				<p class="card-text">
-				 <select id="inputState" class="form-control" name="classnum">
-            	<option selected>학급</option>
-            	<c:forEach var="cl" items = "${classlist }">
-            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
-            	</c:forEach>
-            	</select>
+						<select id="inputState" class="form-control changeclass" name="classnum">
+		            	<c:forEach var="cl" items = "${classlist }">
+		            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
+		            	</c:forEach>
+		            	</select>
 					${li.classnum.classname}<br/>					
 					
 				</p>
