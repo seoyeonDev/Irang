@@ -1,0 +1,1 @@
+Insert into irangclass values(seq_irangclass.nextval, '무소속');

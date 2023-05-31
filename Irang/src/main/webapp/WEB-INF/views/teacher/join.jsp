@@ -87,13 +87,15 @@ function idcheck(){
           </div>
 
           <div class="mb-3">
-            <select id="inputState" class="form-control"  name="classnum" >
+            <select id="inputState" class="form-control"  name="classnum" required>
 <!--             	<option selected>학급</option> -->
             	<c:forEach var="cl" items = "${list }">
-            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }" />
-            		
+            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"  />
             	</c:forEach>
             </select>
+            	<div class="invalid-feedback">
+              학급을 선택해주세요.
+           	 </div>
           </div>
 
          
