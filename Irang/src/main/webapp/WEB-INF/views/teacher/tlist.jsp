@@ -10,7 +10,15 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/teacher.css" type="text/css">
-
+<style>
+.body{
+	margin-left:30px;
+	margin-right:30px;
+}
+.card{
+	margin:10px;
+}
+</style>
 </head>
 <body>
 <a href="/teacher/join">회원 가입</a>
@@ -30,26 +38,20 @@ ${sessionScope.loginId }로 로그인됨<br/>
 	<input type="submit" value="검색">
 	</form>
 	
-<!-- <!-- 	학급으로 검색--> 
-<!-- 		<div class="mb-3"> -->
-<!-- 		    <select id="inputState" class="form-control"> -->
-<!-- 		        <option selected>학급</option> -->
-<%-- 		        <c:forEach var="cl" items="${classlist}"> --%>
-<%-- 		            <option value="/teacher/getbyclass?classnum=${cl.classnum}"> --%>
-<%-- 		                <c:out value="${cl.classname}" /> --%>
-<!-- 		            </option> -->
-<%-- 		        </c:forEach> --%>
-<!-- 		    </select> -->
-<!-- 		</div>	 -->
-
 	
-	<div class="row" style="margin:10px;">
+	<div class="row body" style="margin:10px;">
 	<c:forEach var="li" items="${list }">
 		<div class="card" style="width: 18rem;">
 			<img src="/teacher/read_img?fname=${li.profile }" class="card-img-top" alt="...">
 			<div class="card-body">
 				<h5 class="card-title">${li.name }</h5>
 				<p class="card-text">
+				 <select id="inputState" class="form-control" name="classnum">
+            	<option selected>학급</option>
+            	<c:forEach var="cl" items = "${classlist }">
+            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
+            	</c:forEach>
+            	</select>
 					${li.classnum.classname}<br/>					
 					
 				</p>

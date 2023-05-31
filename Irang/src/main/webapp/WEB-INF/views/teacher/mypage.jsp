@@ -25,27 +25,7 @@
 		
 	})
 </script>
-<style>
-@font-face {
-    font-family: 'KimjungchulGothic-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-*{
-	font-family:  'KimjungchulGothic-Bold';
-}
-.btn {
-	background-color:#A9CFE2; 
-	color:#363636; 
-}
 
-.profile{
-	text-align : center;
-	max-width: 100%;
-	height: auto !important; 
-}
-</style>
 </head>
 
 <body>
@@ -119,11 +99,11 @@
          
           <div class="mb-4"></div>
 
-          <button class="btn btn-lg btn-block" type="submit"  style=" margin-bottom:10px;">내 정보 수정하기 </button>
+          <button class="btn btn-lg btn-block" type="submit"  ">내 정보 수정하기 </button>
         </form>
         <div class="row">
         <div class="col-md-6 mb-3">
-          <a href="/teacher/logout"><button class="btn btn-lg btn-block"  style="margin-bottom:10px;">로그아웃</button></a>
+          <a href="/teacher/logout"><button class="btn btn-lg btn-block"  ">로그아웃</button></a>
           </div>
           <div class="col-md-6 mb-3">
           <a href="/teacher/delete?teacherid=${dto.teacherid }"><button class="btn btn-lg btn-block"  >탈퇴 </button></a>
@@ -132,7 +112,7 @@
       </div>
     </div>
     <footer class="my-3 text-center text-small">
-      <p class="mb-1">&copy; 2021 YD</p>
+      <p class="mb-1">&copy; Irang</p>
     </footer>
   </div>
   <script>

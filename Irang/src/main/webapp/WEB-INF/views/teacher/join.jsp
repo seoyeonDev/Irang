@@ -105,7 +105,7 @@ function idcheck(){
       </div>
     </div>
     <footer class="my-3 text-center text-small">
-      <p class="mb-1">&copy; 2021 YD</p>
+      <p class="mb-1">&copy; Irang</p>
     </footer>
   </div>
   <script>
