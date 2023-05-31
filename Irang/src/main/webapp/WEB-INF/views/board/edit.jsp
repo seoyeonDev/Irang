@@ -43,13 +43,7 @@ $(document).ready(function() {
         $('#imgnum').attr("value", num); 
         //'#imgnum'의 속성을 bnum 으로 설정       
     });
-    
-    //이미지 수정 버튼 누르면 ajax로 이미지 교체 go 
-//  	$('#imgf').click(function(){
-//  		$('#imgf').show();
-// 	});
-    
-    
+      
 	
     //삭제버튼 누르면 
 	$('.d').click(function(){
@@ -129,7 +123,7 @@ $(document).ready(function() {
 		<div class="img">
 				<c:choose>
 				<c:when test="${empty dto.img1 && empty dto.img2 && empty dto.img3}">
-						<form action="board/add" method="post" enctype="multipart/form-data">			
+						<form action="/board/addimg" method="post" enctype="multipart/form-data">			
 					<dl>
 						<dd><br/>
 						<br/>
@@ -150,11 +144,12 @@ $(document).ready(function() {
 						<br/>						
 					</dl>
 					<input type ="hidden" name = "bnum" value="${dto.bnum }">
+					<input type ="hidden" name = "title" value="${dto.title }">
 					<input type ="hidden" name = "content" value="${dto.content }">
 					<input type ="hidden" name = "edate" value="${dto.edate }">
 					<input type ="hidden" name = "mgnum" value="${dto.mgnum }">
 					<input type ="hidden" name = "wdate" value="${dto.wdate }">
-					<input type ="hidden" name = "teacherid" value="${dto.teacherid }">
+					<input type ="hidden" name = "teacherid" value="${sessionScope.loginId }">
 					<div class="bt_wrap">
 						<input type="submit" value="등록" class="button button2 i">
 					</div>
@@ -209,7 +204,7 @@ $(document).ready(function() {
 					<div class="form-container">
 						<input type="hidden" name="bnum" value="${dto.bnum }"> <input
 							type="hidden" name="imgnum" id="imgnum"> <input
-							type="file" name="f1"><br /><br /><br /> <input
+							type="file" name="f1"><br/><br/><br/> <input
 							type="submit" class="button button2" value="등록"> <input
 							type="button" class="button button2" value="취소" id="cancel">
 					</div>

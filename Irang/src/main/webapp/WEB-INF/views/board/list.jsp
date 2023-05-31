@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+      <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+    
     
 <!DOCTYPE html>
 <html>
@@ -66,8 +68,9 @@ function a(){
     </span>
     <input type="submit" class="button button2" value="검색">
   </form>
-  
+  <c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
   <a href="/board/add" class="button button2" style="margin-left: auto;">글쓰기</a>
+  </c:if>
 </div>
 <br/>
 <table class = "table table-hober" >

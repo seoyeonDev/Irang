@@ -18,33 +18,42 @@
 	
 <div id="mySidenav" class="sidenav">
 <span class = "toggle" onclick="toggleNav()">&#9776;</span>
+
 <a href="/board/list">게시판</a>
+<a href="#" id="tlList">선생님 일지</a>
 <a href="/teacher/list">티쳐리스트</a>
+
+<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
 <a href="/child/listall"> 원아 전체목록 </a> 
+<a href="/teacher/logout">로그아웃</a>
+<a id="addTlA" href="/teacherlog/add?teacherid=${sessionScope.loginId}">선생님 일지 작성</a>
+</c:if>
+
 <c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
 <a href="/childlog/list?childid=${sessionScope.loginId}">sessionScope.loginId의 일지</a>
 <a href="/childlog/add">일지작성</a>
+<a href="/child/logout">로그아웃</a>
 </c:if>
-
-<a href="#" id="tlList">선생님 일지</a>
 
 <script> 
 
 $(document).ready(function(){
-         let loginId = '${sessionScope.loginId}';
-         console.log(loginId.charAt(0));
-         let url = '';
+    let loginId = '${sessionScope.loginId}';
+    console.log(loginId.charAt(0));
+    let url = '';
 
-         if(loginId.charAt(0)=='c'){
-            url = '/teacherlog/childList?childid=';
-         } else if(loginId.charAt(0)=='t'){
-            url = '/teacherlog/list?teacherid=';
-         }
-         
-         $(document).on("click", "#tlList", function(){
-            location.href = url + loginId;
-         });
-      });
+    if(loginId.charAt(0)=='c'){
+       url = '/teacherlog/childList?childid=';
+       $("#addTlA").hide();
+    } else if(loginId.charAt(0)=='t'){
+       url = '/teacherlog/list?teacherid=';
+       $("#addTlA").show();
+    }
+    
+    $(document).on("click", "#tlList", function(){
+       location.href = url + loginId;
+    });
+ });
 </script>
 </div>
 	<span class = "toggle" onclick="toggleNav()">&#9776;</span>

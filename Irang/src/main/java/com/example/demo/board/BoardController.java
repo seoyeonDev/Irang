@@ -271,15 +271,49 @@ public String delimg(int bnum, int imgnum) {
 	return "redirect:/board/editform?bnum="+bnum;
 }
 
-//@RequestMapping("/addimg")
-//public String onlyimg(int bnum, BoardDto dto) {
-//	BoardDto dto1 = service.get(bnum);
-//	
-//	return "redirect:/board/editform?bnum=" + bnum;
-// 
-//}
-
+@RequestMapping("/addimg")
+public String add(ModelMap map, HttpSession session, int bnum, BoardDto dto ) {
 	
+	String loginId = (String) session.getAttribute("loginId"); 
+	service.save(dto);
+	//dto = service.get(bnum);  //dto를 저장 시키고 반환 받은 글 번호를 이용한다. 
+	int num = dto.getBnum();
+	
+	File dir = new File(path+num); //파일 폴더 생성
+	dir.mkdir(); // 디렉토리 생성~ 
+	MultipartFile[] f = dto.getImgf(); 
+	// 이름이 f 인 멀티파트파일배열 생성해서 그 안에 dto에 만들어 둔 Imgf getter 호출
+	//dto.getImgf(); 에 있는 service.save(dto)에 저장 된 
+	String [] imgs = new String[3]; //이미지 경로를 담을 방 3칸짜리 String 배열 생성 
+	
+	for (int i = 0; i<f.length; i++) {
+		MultipartFile x = f[i]; 
+		String fname = x.getOriginalFilename();
+		if (fname !=null && !fname.equals("")) {
+			String newpath = path + num + "/" + fname;
+			File newfile = new File(newpath);				
+			try {
+				x.transferTo(newfile);
+				imgs[i] = newpath;
+			}catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+		dto.setImg1(imgs[0]);
+		dto.setImg2(imgs[1]);
+		dto.setImg3(imgs[2]);
+		dto.setBnum(num);
+		service.save(dto);
+		
+		return "redirect:/board/editform?bnum=" + bnum;
+}
+	
+
 }
 
 
