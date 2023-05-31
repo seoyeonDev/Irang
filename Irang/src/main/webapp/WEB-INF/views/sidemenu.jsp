@@ -88,6 +88,27 @@ span.toggle {
 <span class = "toggle" onclick="toggleNav()">&#9776;</span>
 <a href="/board/list">게시판</a>
 <a href="/teacher/list">티쳐리스트</a>
+<a href="/child/listall"> 원아 전체목록 </a> 
+<a href="/childlog/list?childid=${sessionScope.loginId}">내 일지</a>
+<a href="/childlog/add">일지작성</a>
+<div id="tlList">선생님 일지</div>
+<script> 
+$(document).ready(function(){
+         let loginId = '${sessionScope.loginId}';
+         console.log(loginId.charAt(0));
+         let url = '';
+
+         if(loginId.charAt(0)=='c'){
+            url = '/teacherlog/childList?childid=';
+         } else if(loginId.charAt(0)=='t'){
+            url = '/teacherlog/list?teacherid=';
+         }
+         
+         $(document).on("click", "#tlList", function(){
+            location.href = url + loginId;
+         });
+      });
+</script>
 	</div>
 	
 	<span class = "toggle" onclick="toggleNav()">&#9776;</span>

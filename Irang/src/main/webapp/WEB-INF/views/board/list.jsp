@@ -83,13 +83,14 @@ td {
 	border-bottom: 1px solid rgba(0, 0, 0, .1);
 	background: #fff;
 }
-
 a {
 	color: #363636;
+	text-decoration-line: none;
 }
 a:hover {
   color : #A9CFE2;
   text-decoration: underline;
+  text-decoration-line: none;
 }
 a:link {
   text-decoration: none;
@@ -137,13 +138,14 @@ a:active {
 	}
 }
 
+
 #ti {
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2
 		35%);
 }
 
 .button {
-	padding: 7px;
+	padding: 6px 10px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -179,27 +181,6 @@ input[type="text"] {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
-
-.button3 {
-	padding: 7px 14px;
-	color: white;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	cursor: pointer;
-	border-radius: 5px;
-	transition-duration: 0.4s;
-	background-color: #A9CFE2;
-	border: none;
-}
-
-.button3:hover {
-	background-color: white;
-	color: #363636;
-	border: 2px solid #A9CFE2;
-}
-
 </style>
 </head>
 <body>
@@ -223,8 +204,9 @@ input[type="text"] {
     <span id="searchSpan">
       <input type="text">
     </span>
-    <input type="submit" value="검색" class="button3">
+    <input type="submit" class="button button2" value="검색">
   </form>
+  
   <a href="/board/add" class="button button2" style="margin-left: auto;">글쓰기</a>
 </div>
 <br/>

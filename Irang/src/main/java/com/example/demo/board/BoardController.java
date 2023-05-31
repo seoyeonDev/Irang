@@ -260,13 +260,25 @@ public String delimg(int bnum, int imgnum) {
 		dto.setImg3(null);
 		break;
 	}
-	if (delf != null) {
-		File delFile = new File(delf);
-		delFile.delete();
-	}
+	 if (delf != null) {
+	        File delFile = new File(delf);
+	        if (delFile.exists()) {
+	            delFile.delete();
+	        }
+	    }
+
 	service.save(dto);
-	return "redirect:/board/edit?bnum=" + bnum;
+	return "redirect:/board/editform?bnum="+bnum;
 }
+
+//@RequestMapping("/addimg")
+//public String onlyimg(int bnum, BoardDto dto) {
+//	BoardDto dto1 = service.get(bnum);
+//	
+//	return "redirect:/board/editform?bnum=" + bnum;
+// 
+//}
+
 	
 }
 
