@@ -7,6 +7,8 @@
 <head>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/css/boardlist.css">
+
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -40,148 +42,6 @@ function a(){
 
 </script>
 
-  <style>
-@font-face {
-	font-family: 'KimjungchulGothic-Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
-		format('woff2');
-	font-weight: 700;
-	font-style: normal;
-}
-
-body {
-	font-family: "KimjungchulGothic-Bold";
-}
-
-table {
-	border: 1px #a39485 solid;
-	font-size: .9em;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-	width: 100%;
-	border-collapse: collapse;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-th {
-	text-align: left;
-}
-
-thead {
-	font-weight: bold;
-	color: #fff;
-	background: #A9CFE2;
-}
-
-td, th {
-	padding: 1em .5em;
-	vertical-align: middle;
-}
-
-td {
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
-	background: #fff;
-}
-a {
-	color: #363636;
-	text-decoration-line: none;
-}
-a:hover {
-  color : #A9CFE2;
-  text-decoration: underline;
-  text-decoration-line: none;
-}
-a:link {
-  text-decoration: none;
-}
-a:visited {
-  text-decoration: none;
-}
-a:active {
-  color : green;
-  text-decoration: none;
-}
-
-@media all and (max-width: 768px) {
-	table, thead, tbody, th, td, tr {
-		display: block;
-	}
-	th {
-		text-align: right;
-	}
-	table {
-		position: relative;
-		padding-bottom: 0;
-		border: none;
-		box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-	}
-	thead {
-		float: left;
-		white-space: nowrap;
-	}
-	tbody {
-		overflow-x: auto;
-		overflow-y: hidden;
-		position: relative;
-		white-space: nowrap;
-	}
-	tr {
-		display: inline-block;
-		vertical-align: top;
-	}
-	th {
-		border-bottom: 1px solid #A9CFE2;
-	}
-	td {
-		border-bottom: 1px solid #A9CFE2;
-	}
-}
-
-
-#ti {
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2
-		35%);
-}
-
-.button {
-	padding: 6px 10px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	transition-duration: 0.4s;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-.button2 {
-	background-color: white;
-	color: #363636;
-	border: 2px solid #A9CFE2;
-}
-
-.button2:hover {
-	background-color: #A9CFE2;
-	color: white;
-}
-
-/* Select 요소 스타일 */
-select#search {
-	height: 35px;
-	font-size: 14px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-
-/* Input 요소 스타일 */
-input[type="text"] {
-	height: 35px;
-	font-size: 14px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-</style>
 </head>
 <body>
 <h3 style = "text-align :center;"><span id ="ti">아이랑 게시판</span></h3>
