@@ -6,7 +6,8 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
- 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -19,21 +20,77 @@
 #tlistbody{
 	font-family: 'KimjungchulGothic-Bold';
 }
+.content{
+	display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tlA{
+	text-decoration:none;
+	color : black;
+}
+.tlA hover{
+	color:#A9CFE2;
+}
 
+#title{
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+}
+#searchDiv{
+	float: left;
+ 	padding-left:10px;
+ 	padding-right:10px;
+}
+.sInput{
+	float: left;
+ 	margin-left:10px;
+ 	margin-right:10px;
+}
+.sBtn{
+	float: left;
+	display:inline-block;
+	margin-left:10px;
+ 	margin-right:10px;
+}
+#search, #searchBtn {
+	padding: 7px 14px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition-duration: 0.4s;
+	background-color: #A9CFE2;
+	border: none;
+}
 
+#search:hover, #searchBtn:hover {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2;
+}
 
-
+#sDiv{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>
 </head>
 <body id="tlistbody">
 
 <!-- 보호자.ver list -->
-<h3>보호자 입장에서 보이는 일지 리스트</h3>
+<h3 style="text-align:center"><span id="title">선생님 일지 목록</span></h3>
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 'c'}">
+<h3>보호자 입장에서 보이는 일지 리스트 (지울예정)</h3>
 	<div id="searchDate">
-		<input type="date" id="tdate">
-		<input type="button" value="검색하기" id="search">
+		<input type="date" id="tdate" class="form-control">
+		<input type="button" value="검색하기" id="search" class="btn btn-outline-dark">
 	</div>
 	
 	<div id="tlist">
@@ -54,39 +111,50 @@
 </c:if>
 
 <!-- 선생님.ver list -->
-<h3>특정 선생님이 쓴 일지 리스트</h3>
+
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 't'}">
+<h3 style="text-align:center">티춰~ 일지 목록 (지울예정)</h3>
+<!-- 	<div style="text-align:center"> -->
+		<div id="sDiv">
+			<div id="searchDiv">
+			<select name="searchBar" id="searchBar">
+				<option selected>--검색--</option>
+				<option value="2">이름으로 검색</option>
+				<option value="1">특정 날짜로 검색</option>
+				<option value="3">월별로 검색</option>
+			</select>
+			</div>
 
-	<select name="searchBar" id="searchBar">
-		<option selected>--검색--</option>
-		<option value="1">날짜로 검색</option>
-		<option value="2">이름으로 검색</option>
-	</select>
+			<div id="searchDate" style="display:none" >
+				<input class="sInput" type="date" id="tdate">
+				<input class="sBtn" type="button" value="검색하기" id="search">
+			</div>
 
-	<div id="searchDate" style="display:none">
-		<input type="date" id="tdate">
-		<input type="button" value="검색하기" id="search">
-	</div>
+			<div id="searchName" style="display:none" >
+				<input class="sInput" type="text" id="name">
+				<input class="sBtn" type="button" value="검색하기" id="searchBtn">
+			</div>
+		
+			<div id="searchMonth" style="display:none" >
+				<input class="sInput" type="month" id="tmonth">
+				<input class="sBtn" type="button" value="검색하기" id="searchMonthBtn">
+			</div>
+		</div>
+<!-- 	</div> -->
 
-	<div id="searchName" style="display:none" >
-		<input type="text" id="name">
-		<input type="button" value="검색하기" id="searchName">
-	</div>
-
-	<div id="tlist">
+	<div id="tlist" style="text-align:center">
+		<table class="table table-hover">
+			<tr><th>번호</th><th>아이 이름</th><th>날짜</th><th>활동</th><th>건강</th></tr>
 		<c:forEach var="li" items="${list }">
-			${li.tlnum }
-			${li.teacherid.name }
-			${li.childid.name }
-			${li.childid.pname }
-			${li.tdate }
-			${li.activity }
-			${li.health }
-			<c:if test="${not empty li.img1 }">
-				<a href="/teacherlog/detail?tlnum=${li.tlnum }"><img src="/teacherlog/read_img?fname=${li.img1 }&tlnum=${li.tlnum }" style="width:100px"></a>
-			</c:if>
-			<br/>
+			<tr>
+				<td><a class="tlA" href="/teacherlog/detail?tlnum=${li.tlnum }">${li.tlnum }</a></td>
+				<td><a class="tlA" href="/teacherlog/detail?tlnum=${li.tlnum }">${li.childid.name }</a></td>
+				<td><a class="tlA" href="/teacherlog/detail?tlnum=${li.tlnum }">${li.tdate }</a></td>
+				<td><a class="tlA" href="/teacherlog/detail?tlnum=${li.tlnum }"><span class="content">${li.activity }</span></a></td>
+				<td><a class="tlA" href="/teacherlog/detail?tlnum=${li.tlnum }"><span class="content">${li.health }</span></a></td>
+			</tr>
 		</c:forEach>
+		</table>
 	</div>
 </c:if>
 
@@ -100,9 +168,15 @@ $(document).ready(function(){
 		if(check==1){ // 날짜로 검색
 			$("#searchDate").show();
 			$("#searchName").hide();
+			$("#searchMonth").hide();
 		} else if (check==2){ // 아이 이름으로 검색
 			$("#searchDate").hide();
 			$("#searchName").show();
+			$("#searchMonth").hide();
+		} else if (check==3){ // 월별로 검색
+			$("#searchDate").hide();
+			$("#searchName").hide();
+			$("#searchMonth").show();
 		}		
 	});
 
@@ -113,10 +187,12 @@ $(document).ready(function(){
 		console.log(loginId.charAt(0));
 		let id = '';
 		let url = '';
+		let flag = true; // teacher면 true, child면 false
 
 		if(loginId.charAt(0)=='c'){
 			id = 'childid';
 			url = '/teacherlog/childDay';
+			flag = false;
 		} else if(loginId.charAt(0)=='t'){
 			id = 'teacherid';
 			url = '/teacherlog/day';
@@ -136,7 +212,30 @@ $(document).ready(function(){
 			type : 'get',
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
+				let list = result.list;
+				if(flag){
+					if(result.list.length>0){ // 목록 띄워주기
+						let txt = '<table class="table table-hover">';
+						txt += '<tr><th>번호</th><th>아이 이름</th><th>날짜</th><th>활동</th><th>건강</th></tr>';
+						for(li of list){
+							txt += '<tr>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tlnum + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.childid.name + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tdate + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.activity + '</span></a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.health + '</span></a></td>';
+							txt += '</tr>';
+						}					
+						txt += '</table>';
+						console.log(txt);
+						$("#tlist").html(txt);
+					} else{
+						// 검색한 결과가 없습니다.
+						$("#tlist").text("검색 결과가 없습니다.");
+					}
+				}else{
+					// 보호자 로그인으로 검색했을 때 보여줄 결과
+				}
 			},
 			error : function(req, status){
 				console.log(status);
@@ -145,7 +244,7 @@ $(document).ready(function(){
 	});
 	
 	// 아이이름으로 검색 -> 쌤밖에 사용 안 함
-	$(document).on("click","#searchName",function(){
+	$(document).on("click","#searchBtn",function(){
 		let name = $("#name").val();
 		
 		$.ajax({
@@ -154,14 +253,41 @@ $(document).ready(function(){
 			type : 'get',
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
+				console.log(result.list.length);
+				let list = result.list;
+				if(result.list.length>0){ // 목록 띄워주기
+					let txt = '<table class="table table-hover">';
+					txt += '<tr><th>번호</th><th>아이 이름</th><th>날짜</th><th>활동</th><th>건강</th></tr>';
+					for(li of list){
+						txt += '<tr>';
+						txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tlnum + '</a></td>';
+						txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.childid.name + '</a></td>';
+						txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tdate + '</a></td>';
+						txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.activity + '</span></a></td>';
+						txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.health + '</span></a></td>';
+						txt += '</tr>';
+					}					
+					txt += '</table>';
+					console.log(txt);
+					$("#tlist").html(txt);
+				} else{
+					// 검색한 결과가 없습니다.
+					$("#tlist").text("검색 결과가 없습니다.");
+				}
 			},
 			error : function(req, status){
 				console.log(status);
 			}
 		});
 	});
+	
+	$(document).on("click", "#searchMonthBtn", function(){
+		let tmonth = $("#tmonth").val();
+		console.log(tmonth);
+		console.log("월별로 검색 클릭");
+	});
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
