@@ -65,7 +65,7 @@ public class ChildlogController {
 		}
 		dto.setImg(fname);
 		service.save(dto);
-		return "redirect:/childlog/list?childid=" + dto.getChildid();
+		return "redirect:/childlog/list?childid=" + dto.getChildid().getChildid();
 	}
 	
 	// 리스트 보여주기 --> childid & 날짜로 검색 
@@ -136,20 +136,20 @@ public class ChildlogController {
 	
 	// 수정 (이미지, 내용)
 	@PostMapping("/edit")
-	public String edit(ModelMap map, ChildlogDto dto, MultipartFile f1) {
+	public String edit(ModelMap map, ChildlogDto dto) {
+		MultipartFile f = dto.getF();
 		ChildlogDto dto1 = service.getChlog(dto.getChlognum());
 		dto1.setContent(dto.getContent());
-		
-		String fname = f1.getOriginalFilename();
+		String fname = f.getOriginalFilename();
 		String newpath = "";
 		if (fname != null && !fname.equals("")) {
 			newpath = path + fname;
 			File newfile = new File(newpath);// 복사할 새 파일 생성. 
 			try {
-				f1.transferTo(newfile);// 파일 업로드
+				f.transferTo(newfile);// 파일 업로드
 				String delf = ""; // 삭제할 파일 경로
 				delf = dto1.getImg(); // 기존파일을 삭제경로에 담기 
-				dto1.setImg(newpath); // 새 파일 경로로 변수값 변경 
+				dto1.setImg(fname); // 새 파일 경로로 변수값 변경 
 				if (delf != null) {
 					File delFile = new File(delf); // 그 경로에 있는 파일 객체 가져오기 
 					delFile.delete();
@@ -167,24 +167,11 @@ public class ChildlogController {
 		return "redirect:/childlog/detail?chlognum=" + chlognum;
 	}
 	
-	
-	// 삭제 (이미지)
-//	@GetMapping("/delimg")
-//	public String delimg(int num) {
-//		ChildlogDto dto = service.getChlog(num);
-//		String delf = "";
-//			delf = dto.getImg();
-//			dto.setImg(null);
-//		if (delf != null) {
-//			File delFile = new File(delf);
-//			delFile.delete();
-//		}
-//		service.save(dto);
-//		return "redirect:/childlog/detail?num=" + num;
-//	}
+
 	
 	// 삭제
-	@GetMapping("/del")
+	@GetMapping("/delete")
+	///childlog/delete?chlognum=2&childid=child
 	public String del(int chlognum, String childid) {
 		ChildlogDto dto = service.getChlog(chlognum);
 		String delPath = path + dto.getImg();
@@ -197,18 +184,11 @@ public class ChildlogController {
 	// 선생님이 확인 후 체크하기 -- 체크(1)하면 true(checked)
 	@ResponseBody
 	@GetMapping("/tcheck")
-	public Map tcheck(int chlognum) {
+	public void tcheck(int chlognum) {
 		ChildlogDto dto = service.getChlog(chlognum);
 		boolean flag = false;
 		dto.setTcheck(1);
 		service.save(dto);
-		dto = service.getChlog(chlognum);
-		if (dto.getTcheck() == 1) {
-			flag = true;
-		}
-		Map map = new HashMap(); // Map 하나 당 {}
-		map.put("flag", flag); // {"flag", true(or false)}
-		return map;
 	}
 	
 
