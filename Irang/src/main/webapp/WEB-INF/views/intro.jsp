@@ -8,7 +8,7 @@
 <style> 
 
 .container {
-margin-top :200px;
+margin-top :15%;
   display: flex;
   justify-content: center;
 }

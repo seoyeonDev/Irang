@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/boardedit.css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
 <script> 
@@ -109,54 +108,56 @@ $(document).ready(function() {
 						<textarea name="content">${dto.content }</textarea>
 					</div>
 					<input type="hidden" name="bnum" value="${dto.bnum }">
+				</div>
+				<div class="bt_wrap">
+					<input type="submit" value="수정" class="button button2" id="editc">
+					<a href="/board/list" class="button button2">취소</a>
+				</div>
+			</div>
 
-					<div class="bt_wrap">
-						<input type="submit" value="수정" class="button button2" id="editc">
-						<a href="/board/list" class="button button2">취소</a>
-					</div>
-			</form>
+		</form>
 
-	<!-- 		이미지 보여주기  -->
-	
-		<br/>
-		<br/>
+		<!-- 		이미지 보여주기  -->
+
+		<br /> <br />
 		<div class="img">
-				<c:choose>
+			<c:choose>
 				<c:when test="${empty dto.img1 && empty dto.img2 && empty dto.img3}">
-						<form action="/board/addimg" method="post" enctype="multipart/form-data">			
-					<dl>
-						<dd><br/>
-						<br/>
-							<div id="imgbtn">이미지 등록을 원하시면 눌러주세요</div>
-						</dd>
-						
-						<dd>
-							<input type="file" name="imgf[0]" class="i" value="${dto.img1 }">
-						</dd>
-						<br/>
-						<dd>
-							<input type="file" name="imgf[1]" class="i" value="${dto.img2 }">
-						</dd>
-						<br/>
-						<dd>
-							<input type="file" name="imgf[2]" class="i" value="${dto.img3 }">
-						</dd>
-						<br/>						
-					</dl>
-					<input type ="hidden" name = "bnum" value="${dto.bnum }">
-					<input type ="hidden" name = "title" value="${dto.title }">
-					<input type ="hidden" name = "content" value="${dto.content }">
-					<input type ="hidden" name = "edate" value="${dto.edate }">
-					<input type ="hidden" name = "mgnum" value="${dto.mgnum }">
-					<input type ="hidden" name = "wdate" value="${dto.wdate }">
-					<input type ="hidden" name = "teacherid" value="${sessionScope.loginId }">
-					<div class="bt_wrap">
-						<input type="submit" value="등록" class="button button2 i">
-					</div>
-						</form>
-				</c:when>	
-				
-				
+					<form action="/board/addimg" method="post"
+						enctype="multipart/form-data">
+						<dl>
+							<dd>
+								<br /> <br />
+								<div id="imgbtn">이미지 등록을 원하시면 눌러주세요</div>
+							</dd>
+
+							<dd>
+								<input type="file" name="imgf[0]" class="i" value="${dto.img1 }">
+							</dd>
+							<br />
+							<dd>
+								<input type="file" name="imgf[1]" class="i" value="${dto.img2 }">
+							</dd>
+							<br />
+							<dd>
+								<input type="file" name="imgf[2]" class="i" value="${dto.img3 }">
+							</dd>
+							<br />
+						</dl>
+						<input type="hidden" name="bnum" value="${dto.bnum }"> <input
+							type="hidden" name="title" value="${dto.title }"> <input
+							type="hidden" name="content" value="${dto.content }"> <input
+							type="hidden" name="edate" value="${dto.edate }"> <input
+							type="hidden" name="mgnum" value="${dto.mgnum }"> <input
+							type="hidden" name="wdate" value="${dto.wdate }"> <input
+							type="hidden" name="teacherid" value="${sessionScope.loginId }">
+						<div class="bt_wrap">
+							<input type="submit" value="등록" class="button button2 i">
+						</div>
+					</form>
+				</c:when>
+
+
 				<c:otherwise>
 
 
@@ -190,7 +191,7 @@ $(document).ready(function() {
 						</div>
 					</c:if>
 				</c:otherwise>
-		</c:choose>	
+			</c:choose>
 		</div>
 
 
@@ -204,9 +205,10 @@ $(document).ready(function() {
 					<div class="form-container">
 						<input type="hidden" name="bnum" value="${dto.bnum }"> <input
 							type="hidden" name="imgnum" id="imgnum"> <input
-							type="file" name="f1"><br/><br/><br/> <input
-							type="submit" class="button button2" value="등록"> <input
-							type="button" class="button button2" value="취소" id="cancel">
+							type="file" name="f1"><br />
+						<br />
+						<br /> <input type="submit" class="button button2" value="등록">
+						<input type="button" class="button button2" value="취소" id="cancel">
 					</div>
 				</form>
 			</div>
