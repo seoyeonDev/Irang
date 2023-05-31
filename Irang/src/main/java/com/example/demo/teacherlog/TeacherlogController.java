@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Irangclass.Irangclass;
 import com.example.demo.child.Child;
 import com.example.demo.child.ChildDto;
 import com.example.demo.child.ChildService;
 import com.example.demo.tcomment.TcommentDto;
 import com.example.demo.tcomment.TcommentService;
 import com.example.demo.teacher.Teacher;
+import com.example.demo.teacher.TeacherDto;
+import com.example.demo.teacher.TeacherService;
 
 @Controller
 @RequestMapping("/teacherlog")
@@ -40,6 +43,9 @@ public class TeacherlogController {
 
 	@Autowired
 	private ChildService childService;
+	
+	@Autowired
+	private TeacherService teacherService;
 
 	@Value("${spring.servlet.multipart.location}")
 	private String path;
@@ -226,4 +232,21 @@ public class TeacherlogController {
 		return child;
 	}
 
+	// 해당 선생님한테 맞는 아이 이름 가져오기
+	@GetMapping("/childlist")
+	@ResponseBody
+	public Map getChildName(String teacherid) {
+		Map map = new HashMap();
+		TeacherDto dto = teacherService.getTeacher(teacherid);
+		int classNum = dto.getClassnum().getClassnum();
+		// 선생님 해당 반 정보를 가져오기 
+		ArrayList<ChildDto> list = childService.getByClass(classNum);
+		// 아이 정보를 담아서 보내기 select 버튼에 보여줄꺼에용
+		System.out.println("teacherid :"+teacherid);
+		System.out.println("dto :"+dto);
+		System.out.println("classNum :"+classNum);
+		System.out.println("list :"+list);
+		map.put("list", list);
+		return map;
+	}
 }
