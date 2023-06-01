@@ -36,12 +36,19 @@ public class BoardController {
 	
 	//글 목록 
 	@RequestMapping("/list")
-	public String list (ModelMap map) {
+	public String list2 (ModelMap map) {
 		map.addAttribute("list", service.getAll());
 		map.addAttribute("bodyview", "/WEB-INF/views/board/list.jsp");
 		return "index";
 	}
 	
+//	@RequestMapping("/listmg")
+//	public String list (ModelMap map) {
+//		map.addAttribute("list", service.mgnumlist());
+//		map.addAttribute("bodyview", "/WEB-INF/views/board/list.jsp");
+//		return "index";
+//	}
+//	
 	//내용으로 검색 목록 
 	@RequestMapping("/findByContent")
 	public String getbycontent(String content, ModelMap map) {

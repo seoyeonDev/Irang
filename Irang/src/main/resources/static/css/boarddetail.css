@@ -3,11 +3,20 @@ img {
 	width: 150px;
 	height: 150px;
 }
-<style>
+
 * {
 	margin: 0;
 	padding: 0;
 	color: #363636;
+}
+
+input[type="file"]::file-selector-button {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  cursor: pointer;
+  border : 1px soild #363636;
+  border-radius:10px;
 }
 
 .board_wrap {
@@ -54,10 +63,6 @@ img {
 .board_write .info {
 	border-top: 1px dashed #ddd;
 	border-bottom: 2px solid #A9CFE2;
-}
-
-.board_write .title dl {
-	
 }
 
 .board_write .info dl {

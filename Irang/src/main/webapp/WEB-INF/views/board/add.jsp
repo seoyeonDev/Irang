@@ -50,7 +50,7 @@
 							<dt>이벤트날짜</dt>
 							<dd>
 								<input type="date" name="edate">
-															</dd>
+							</dd>
 						</dl>
 						<dl>
 							<dt>중요</dt>
@@ -64,31 +64,32 @@
 					</div>
 					<div class="img">
 						<dl>
-						
+
 							<br />
 							<dd>
 								<div id="imgbtn">이미지 등록을 원하시면 눌러주세요</div>
 							</dd>
 							<dd>
-								<input type="file" name="imgf[0]" class="i">
+							 <input class="i" type="file" name="imgf[0]">
 							</dd>
 							<br />
 
 							<dd>
-								<input type="file" name="imgf[1]" class="i">
+								
+								 <input class="i" type="file" name="imgf[1]">
 							</dd>
 							<br />
 
 							<dd>
-								<input type="file" name="imgf[2]" class="i">
+								 <input class="i" type="file" name="imgf[2]">
 							</dd>
 							<br />
 						</dl>
 					</div>
 				</div>
 				<div class="bt_wrap">
-			<input type="submit" value="등록" class="button button2">
-				<a href="/board/list" class="button button2">취소</a>
+					<input type="submit" value="등록" class="button button2"> <a
+						href="/board/list" class="button button2">취소</a>
 				</div>
 			</div>
 		</form>

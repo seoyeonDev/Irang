@@ -29,7 +29,7 @@ color:#A9CFE2;
 
 
   <div id="logo">
-   <h1>IRANG</h1>
+
   </div>
 
 

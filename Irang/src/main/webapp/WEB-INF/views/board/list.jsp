@@ -90,31 +90,23 @@
 			</tr>
 		</thead>
 
-		<tbody>
-			<c:choose>
-				<c:when test="${dto.mgnum ==1}">
-					<c:forEach var="dto" items="${list }">
-						<tr>
-							<td>${dto.bnum }</td>
-							<td><a href="/board/detail?bnum=${dto.bnum }">${dto.title}</a></td>
-							<td>${dto.wdate }</td>
-							<td>${dto.teacherid.teacherid }</td>
-							<td>${dto.edate }</td>
-						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="dto" items="${list }">
-						<tr>
-							<td>${dto.bnum }</td>
-							<td><a href="/board/detail?bnum=${dto.bnum }">${dto.title}</a></td>
-							<td>${dto.wdate }</td>
-							<td>${dto.teacherid.teacherid }</td>
-							<td>${dto.edate }</td>
-						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+		<c:forEach var="dto" items="${list }">
+			<tbody
+				style="<c:if test="${dto.mgnum ==1}"> background-color:#FCEDAA;</c:if>">
+				<tr>
+					<c:if test="${dto.mgnum ==1}">
+						<td>공지</td>
+					</c:if>
+					<c:if test="${dto.mgnum ==0}">
+						<td>${dto.bnum }</td>
+					</c:if>
+					<td><a href="/board/detail?bnum=${dto.bnum }">${dto.title}</a></td>
+					<td>${dto.wdate }</td>
+					<td>${dto.teacherid.teacherid }</td>
+					<td>${dto.edate }</td>
+				</tr>
+		</c:forEach>
+
 		</tbody>
 	</table>
 	<div class="text-center">
