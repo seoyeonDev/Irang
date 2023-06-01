@@ -52,7 +52,7 @@ function idcheck(){
           <div class="row">
            <div class="col-md-6 mb-3">
               <label for="childid">아이디</label>
-              <input oninput="idcheck()" type="text" class="form-control" name="childid" id="childid" placeholder="" value="" required>
+              <input oninput="idcheck()" type="text" class="form-control" name="childid" id="childid" placeholder="" value="${dto2.childid }" required>
               <div class="valid-feedback">
               	사용 가능한 아이디입니다.
               </div>
@@ -62,7 +62,7 @@ function idcheck(){
             </div>
             <div class="col-md-6 mb-3">
               <label for="name">이름</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="" value="" required>
+              <input type="text" class="form-control" name="name" id="name" placeholder="" value="${dto2.name }" required>
               <div class="invalid-feedback">
                 이름을 입력해주세요.
               </div>
@@ -70,7 +70,7 @@ function idcheck(){
             
             <div class="col-md-6 mb-3">
               <label for="name">부모님이름</label>
-              <input type="text" class="form-control" name="pname" id="pname" placeholder="" value="" required>
+              <input type="text" class="form-control" name="pname" id="pname" placeholder="" value="">
               <div class="invalid-feedback">
                 부모님이름을 입력해주세요.
               </div>
@@ -80,7 +80,7 @@ function idcheck(){
 
           <div class="mb-3">
             <label for="password">비밀번호</label>
-            <input type="password" class="form-control" name="pwd" id="pwd" placeholder="" required>
+            <input type="password" class="form-control" name="pwd" id="pwd" value="${dto2.pwd }" required>
             <div class="invalid-feedback">
               비밀번호를 입력해주세요.
             </div>
@@ -88,7 +88,7 @@ function idcheck(){
 
           <div class="mb-3">
             <label for="phone">전화번호</label>
-            <input type="tel" class="form-control" name="phone" id="phone" placeholder="" required>
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="">
             <div class="invalid-feedback">
               전화번호를 입력해주세요.
             </div>
@@ -96,27 +96,25 @@ function idcheck(){
           
           <div class="mb-3">
             <label for="phone">알러지정보</label>
-            <input type="tel" class="form-control" name="allergy" id="allergy" placeholder="" required>
+            <input type="text" class="form-control" name="allergy" id="allergy" placeholder="">
             <div class="invalid-feedback">
               주의해야할 아이의 알러지를 입력해주세요.
             </div>
           </div>
           
           <div class="mb-3">
-            <label for="phone">생년월일</label>
-            <input type="tel" class="form-control" name="birthday" id="birthday" placeholder="" required>
+            <label for="phone">생년월일(YYYY-MM-DD)</label>
+            <input type="text" class="form-control" name="birthday" id="birthday" placeholder="">
             <div class="invalid-feedback">
               아이의 출생년월일을 입력해주세요(YYYY-MM-DD).
             </div>
           </div>
 
           <div class="mb-3">
-            <select id="inputState" class="form-control"  name="classnum" >
-            	<option selected>학급</option>
-            	<c:forEach var="cl" items = "${list }">
-            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
-            	</c:forEach>
-            </select>
+            <label for="phone">배정된 학급: ${dto2.classnum.classname }</label>
+            <input type="text" class="form-control" name="classnum" id="classnum" value="${dto2.classnum.classnum }" placeholder="">
+            <div class="invalid-feedback">
+            </div>
           </div>
 
          
