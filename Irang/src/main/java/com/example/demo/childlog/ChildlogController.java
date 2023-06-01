@@ -3,9 +3,8 @@ package com.example.demo.childlog;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +38,9 @@ public class ChildlogController {
 //	@Autowired
 //	private ChildService servchild;
 	
+//	@Autowired
+//	private TeacherService servtea;
+	
 	
 	@Value("${spring.servlet.multipart.location}") 
 	private String path;
@@ -46,7 +48,6 @@ public class ChildlogController {
 	// 글작성폼
 	@GetMapping("/add")
 	public String addForm(ModelMap map) {
-		//map.addAttribute("teacher", map)
 		map.addAttribute("bodyview", "/WEB-INF/views/childlog/add.jsp");
 		return "index";
 	}
@@ -80,7 +81,17 @@ public class ChildlogController {
 	
 	// (리스트) 월별 보기 
 	
-	// (리스트) 날짜 보기
+	// (리스트) 기간 보기
+	@GetMapping("/datesearch")
+	public String uncheckedlist(ModelMap map, String childid, LocalDate start, LocalDate end) {
+		ArrayList<ChildlogDto> dto = service.getByChildid(childid);
+		ArrayList<ChildlogDto> list = service.getByIdAndDate(dto.get(0).getChildid(), start, end);
+		map.addAttribute("childid", childid);
+		map.addAttribute("list", list);
+		map.addAttribute("bodyview", "/WEB-INF/views/childlog/list.jsp");
+		return "index";
+	}
+	
 	
 	// (리스트) 미확인 보기 
 	@GetMapping("/unchecked")
@@ -98,10 +109,9 @@ public class ChildlogController {
 	@GetMapping("/detail")
 	public String detail(int chlognum, ModelMap map) {
 		ChildlogDto dto = service.getChlog(chlognum);
-		ChcommentDto comdto = servcom.get(chlognum);
-//		String childid = new StringBuilder().append(dto.getChildid()).toString();
-//		ChildDto chdto = servchild.getById(childid);
-//		map.addAttribute("child", chdto);
+		ArrayList<ChcommentDto> comdto = servcom.getAll(chlognum);
+		String classname = dto.getChildid().getClassnum().getClassname();
+		map.addAttribute("classname", classname);
 		map.addAttribute("com", comdto);
 		map.addAttribute("dto", dto);
 		map.addAttribute("bodyview", "/WEB-INF/views/childlog/detail.jsp");

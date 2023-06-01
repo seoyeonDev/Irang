@@ -14,7 +14,7 @@ public class ChcommentService {
 	
 	// 추가, 수정 
 	public void save(ChcommentDto dto) {
-		dao.save(new Chcomment(dto.getNum(), dto.getChlognum(), dto.getWriter(), dto.getContent(), dto.getWdate()));
+		dao.save(new Chcomment(dto.getNum(), dto.getChlognum(), dto.getId(), dto.getName(), dto.getContent(), dto.getWdate()));
 	}
 	
 	// 삭제 
@@ -28,7 +28,7 @@ public class ChcommentService {
 		if(entity == null) {
 			return null;
 		}
-		return new ChcommentDto(entity.getNum(), entity.getChlognum(), entity.getWriter(), entity.getContent(), entity.getWdate());
+		return new ChcommentDto(entity.getNum(), entity.getChlognum(), entity.getId(), entity.getName(), entity.getContent(), entity.getWdate());
 	}
 	
 	// 일지 글번호로 검색 --> 일지 디테일에 한번에 띄울 거 
@@ -37,7 +37,7 @@ public class ChcommentService {
 		ArrayList<Chcomment> list = (ArrayList<Chcomment>) dao.findByChlognum(vo);
 		ArrayList<ChcommentDto> dtolist = new ArrayList<ChcommentDto>();
 		for (Chcomment entity:list) {
-			dtolist.add(new ChcommentDto(entity.getNum(), entity.getChlognum(), entity.getWriter(), entity.getContent(), entity.getWdate()));
+			dtolist.add(new ChcommentDto(entity.getNum(), entity.getChlognum(), entity.getId(), entity.getName(), entity.getContent(), entity.getWdate()));
 		}
 		return dtolist;
 	}

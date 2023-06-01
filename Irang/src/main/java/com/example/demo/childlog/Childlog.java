@@ -1,12 +1,12 @@
 package com.example.demo.childlog;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.demo.child.Child;
-import com.example.demo.teacher.Teacher;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,15 +45,15 @@ public class Childlog {
 //	@OnDelete(action=OnDeleteAction.CASCADE)
 //	private Teacher teacherid;
 	
-	private Date wdate;
+	private LocalDate wdate;
 	private String content;
 	private String img;
 	private int tcheck; // 선생님이 읽었는지 확인~ (0 미확인 / 1 확인)
 	
 	@PreUpdate
-	@PrePersist //insert문 실행 전에 먼저 처리 
-	public void sysdate() {
-		wdate = new Date();
+	@PrePersist
+	public void wdateperprocess() {
+		wdate = LocalDate.now(); // sysdate
 	}
 
 }
