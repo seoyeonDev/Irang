@@ -55,11 +55,6 @@
 		</div>
 	</div>
 	
-	
-	<hr/>
-	<h3>임시 메뉴</h3>
-	<div id="tlList">선생님 일지</div>
-	
 	<script>
 		$(document).ready(function(){
 			let loginId = '${sessionScope.loginId}';
