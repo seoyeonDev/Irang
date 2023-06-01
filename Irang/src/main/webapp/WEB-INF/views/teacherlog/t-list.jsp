@@ -19,6 +19,7 @@
 }
 #tlistbody{
 	font-family: 'KimjungchulGothic-Bold';
+	width:90%;
 }
 .content{
 	display: inline-block;
@@ -27,6 +28,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.actSpan{
+	display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .tlA{
 	text-decoration:none;
 	color : black;
@@ -76,8 +84,11 @@
 
 #sDiv{
 	display: flex;
-  justify-content: center;
-  align-items: center;
+  	justify-content: center;
+  	align-items: center;
+}
+#tList{
+	margin-bottom:40px;
 }
 
 </style>
@@ -85,36 +96,53 @@
 <body id="tlistbody">
 
 <!-- 보호자.ver list -->
-<h3 style="text-align:center"><span id="title">선생님 일지 목록</span></h3>
+<h3 style="text-align:center; margin-bottom:40px"><span id="title">선생님 일지 목록</span></h3>
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 'c'}">
-<h3>보호자 입장에서 보이는 일지 리스트 (지울예정)</h3>
-	<div id="searchDate">
-		<input type="date" id="tdate" class="form-control">
-		<input type="button" value="검색하기" id="search" class="btn btn-outline-dark">
+	<div id="sDiv">
+		<div id="searchDiv">
+			<select name="searchBar" id="searchBar">
+				<option selected>--검색--</option>
+				<option value="1">특정 날짜로 검색</option>
+				<option value="3">월별로 검색</option>
+			</select>
+		</div>	
+		<div id="searchDate" style="display:none" >
+			<input class="sInput" type="date" id="tdate">
+			<input class="sBtn" type="button" value="검색하기" id="search">
+		</div>
+		<div id="searchMonth" style="display:none" >
+			<input class="sInput" type="month" id="tmonth">
+			<input class="sBtn" type="button" value="검색하기" id="searchMonthBtn">
+		</div>
 	</div>
 	
 	<div id="tlist">
-		<c:forEach var="li" items="${list }">
-			<c:if test="${not empty li.img1 }">
-				<a href="/teacherlog/detail?tlnum=${li.tlnum }"><img src="/teacherlog/read_img?fname=${li.img1 }&tlnum=${li.tlnum }" style="width:100px"></a>
-			</c:if>
-			${li.tlnum }
-			${li.teacherid.name }
-			${li.childid.name }
-			${li.childid.pname }
-			${li.tdate }
-			${li.activity }
-			${li.health }
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<c:forEach var="li" items="${list }">
+				<div class="col">
+    				<div class="card h-100">
+				
+						<c:if test="${not empty li.img1 }">
+							<a href="/teacherlog/detail?tlnum=${li.tlnum }"><img  class="card-img-top" src="/teacherlog/read_img?fname=${li.img1 }&tlnum=${li.tlnum }"></a>
+						</c:if>
+						<div class="card-body">
+       					 <h5 class="card-title">${li.tdate }</h5>
+       					 <p class="card-text">
+       						 ${li.teacherid.name }<br/>
+       					 	<span class="actSpan">${li.activity }</span>
+       					 </p>
+						</div>
+					</div>
+				</div>
 			<br/>
 		</c:forEach>
+		</div>
 	</div>
 </c:if>
 
 <!-- 선생님.ver list -->
 
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 't'}">
-<h3 style="text-align:center">티춰~ 일지 목록 (지울예정)</h3>
-<!-- 	<div style="text-align:center"> -->
 		<div id="sDiv">
 			<div id="searchDiv">
 			<select name="searchBar" id="searchBar">
@@ -140,7 +168,6 @@
 				<input class="sBtn" type="button" value="검색하기" id="searchMonthBtn">
 			</div>
 		</div>
-<!-- 	</div> -->
 
 	<div id="tlist" style="text-align:center">
 		<table class="table table-hover">
@@ -227,7 +254,6 @@ $(document).ready(function(){
 							txt += '</tr>';
 						}					
 						txt += '</table>';
-						console.log(txt);
 						$("#tlist").html(txt);
 					} else{
 						// 검색한 결과가 없습니다.
@@ -235,6 +261,26 @@ $(document).ready(function(){
 					}
 				}else{
 					// 보호자 로그인으로 검색했을 때 보여줄 결과
+					if(result.list.length>0){
+						let txt = '<div class="row row-cols-1 row-cols-md-3 g-4">';
+						for(li of list){
+							txt += '<div class="col">';
+							txt += '<div class="card h-100">';
+							if(li.img1 != null){ // 사진 보여주기
+								txt += '<a href="/teacherlog/detail?tlnum=' + li.tlnum '"><img  class="card-img-top" src="/teacherlog/read_img?fname=' + li.img1 + '&tlnum=' + li.tlnum + '"></a>';
+							} else {	// 기본 이미지 보여주기 
+								
+							}
+							txt += '<div class="card-body">';
+							txt += ' <h5 class="card-title">' + li.tdate + '</h5>';
+							txt += ' <p class="card-text">';
+							txt += li.teacherid.name '<br/><span class="actSpan">' + li.activity + '</span></p></div></div></div></div>';
+						}
+						$("#tlist").text(txt);
+					} else{
+						$("#tlist").text("검색 결과가 없습니다.");
+					}
+						
 				}
 			},
 			error : function(req, status){
@@ -268,7 +314,6 @@ $(document).ready(function(){
 						txt += '</tr>';
 					}					
 					txt += '</table>';
-					console.log(txt);
 					$("#tlist").html(txt);
 				} else{
 					// 검색한 결과가 없습니다.
