@@ -17,7 +17,8 @@
 <body>
 	
 <div id="mySidenav" class="sidenav">
-<span class = "toggle" onclick="toggleNav()">&#9776;</span>
+
+<span class = "toggle" onclick="toggleNav()">&#9776;<img src="../image/logo2.png"></span>
 
 <a href="/board/list">게시판</a>
 <a href="#" id="tlList">선생님 일지</a>
@@ -25,12 +26,12 @@
 
 <c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
 <a href="/child/listall"> 원아 전체목록 </a> 
-<a href="/teacher/logout">로그아웃</a>
 <a id="addTlA" href="/teacherlog/add?teacherid=${sessionScope.loginId}">선생님 일지 작성</a>
+<a href="/teacher/logout">로그아웃</a>
 </c:if>
 
 <c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
-<a href="/childlog/list?childid=${sessionScope.loginId}">sessionScope.loginId의 일지</a>
+<a href="/childlog/list?childid=${sessionScope.loginId}">${sessionScope.loginId}의 일지</a>
 <a href="/childlog/add">일지작성</a>
 <a href="/child/logout">로그아웃</a>
 </c:if>
@@ -56,7 +57,7 @@ $(document).ready(function(){
  });
 </script>
 </div>
-	<span class = "toggle" onclick="toggleNav()">&#9776;</span>
+<!-- 	<span class = "toggle" onclick="toggleNav()">&#9776;</span> -->
 	
 	
 	<script>

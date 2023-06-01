@@ -11,7 +11,10 @@
 body {
 	font-family: "KimjungchulGothic-Bold";
 }
-
+img{
+	width:150px; 
+	height:150px;
+}
 .sidenav {
 	height: 100%;
 	width: 0;
@@ -22,13 +25,26 @@ body {
 	background-color: #FCEDAA;
 	overflow-x: hidden;
 	/*   transition: 0.5s; */
-	padding-top: 60px;
+ 	padding-top: 160px;
 }
+
+/*    .logo-toggle-container { */
+/*         display: flex; */
+/*         align-items: center; */
+/*     } */
+    
+/*     .logo-toggle-container img { */
+/*         margin-right: 10px; 필요한 만큼의 여백을 조정합니다 */
+/*     } */
+    
+/*     .logo-toggle-container .toggle { */
+/*         cursor: pointer; */
+/*     } */
 
 .sidenav a {
 	padding: 8px 8px 8px 32px;
 	text-decoration: none;
-	font-size: 25px;
+	font-size: 15px;
 	color: #363636;
 	display: block;
 	/*   transition: 0.3s; */

@@ -10,12 +10,24 @@
 }
 
 * {
-	margin: 0;
-	padding: 0;
+/* 	margin: 0; */
+/* 	padding: 0; */
 	color: #363636;
 		font-family: "KimjungchulGothic-Bold";
 	
 }
+
+
+input[type="file"]::file-selector-button {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  cursor: pointer;
+    border : 1px soild #363636;
+  border-radius:10px;
+}
+
+
 
 .board_wrap {
 	width: 100% px;

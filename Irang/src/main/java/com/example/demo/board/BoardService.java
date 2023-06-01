@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.teacher.Teacher;
@@ -29,7 +30,7 @@ public void del(int Bnum) {
 
 //글 목록 
 public ArrayList<BoardDto> getAll(){
-	ArrayList<Board> list = (ArrayList<Board>) dao.findAll();
+	ArrayList<Board> list = (ArrayList<Board>) dao.findAll(Sort.by(Sort.Direction.DESC, "mgnum","bnum"));
 	ArrayList<BoardDto> list2 = new ArrayList<BoardDto>();
 	for (Board vo : list ) {
 		list2.add(new BoardDto (vo.getBnum(),vo.getMgnum(),vo.getTeacherid(),vo.getTitle(),vo.getWdate(),
@@ -37,6 +38,11 @@ public ArrayList<BoardDto> getAll(){
 	}
 	return  list2;
 }
+
+// < Sort 다르게 두개 하는 법 >
+//Sort sort = Sort.by(Sort.Direction.ASC, "mgnum").and(Sort.by(Sort.Direction.DESC, "bnum"));
+//ArrayList<Board> list = (ArrayList<Board>) dao.findAll(sort);
+
 
 //작성자로 검색 
 public ArrayList<BoardDto> getByTeacher(String teacherid){
