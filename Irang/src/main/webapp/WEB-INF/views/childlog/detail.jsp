@@ -18,7 +18,7 @@ function check(num) {
 	
     xhttp.onload = function(){  
     	document.getElementById("check_"+num).innerHTML = '확인함';
-		document.getElementById("check_"+num).style.display="none";
+		document.getElementById("tcheck").style.display="none";
 	}
 	
 	let param = "?chlognum=" + num; 
@@ -38,8 +38,9 @@ function logdel(num, childid) {
 		
 
 // 댓글 수정버튼  
-function editFrom(num, content){
+function editFrom(num){
 	let cont = document.getElementById("comcont_" + num);
+	let content = cont.innerHTML;
 	cont.innerHTML = "<textarea id='new_"+ num + "' rows='5' cols='30'>" + content + "</textarea>";
 	
 	let btn = document.getElementById("combtn_" + num);
@@ -50,9 +51,7 @@ function editFrom(num, content){
 }
 
 // 댓글 수정폼 -- 취소 버튼 
-function editCancel(num, content) {
-	document.getElementById("comcont_" + num).innerHTML = content;
-	
+function editCancel(num) {
 	let btn = document.getElementById("combtn_" + num);
 	btn.style.display="";
 	
@@ -66,8 +65,8 @@ function comEdit(num) {
 	
     xhttp.onload = function(){  
     	let obj = JSON.parse(xhttp.responseText);
-		//document.getElementById("comcont_"+num).innerHTML = obj.content;
-		editCancel(num, obj.content);
+		document.getElementById("comcont_"+num).innerHTML = obj.content;
+		editCancel(num);
 	}
 	
 	let param = "?num=" + num; 
@@ -83,17 +82,10 @@ function comdel(num) {
 		const xhttp = new XMLHttpRequest(); 
 		
 	    xhttp.onload = function(){  
-	    	let obj = JSON.parse(xhttp.responseText);
-			if (obj.flag == true) {
-				let div = document.getElementById("div_"+num);
-				div.remove();
+			let div = document.getElementById("div_"+num);
+			div.remove();
+			document.getElementById("nocom").innerHTML = "작성된 댓글이 없습니다.";
 						
-// 				let body = document.getElementsByTagName("body")[0];
-// 				let div = document.getElementById("div_"+num);
-// 				body.removeChild(div);
-			} else {
-				alert('error!');
-			}
 		}
 		
 		let param = "?num=" + num; 
@@ -113,7 +105,7 @@ function comdel(num) {
 <c:if test="${dto.tcheck eq 0}"> <!-- 미확인 -->
 	<span id="check_${dto.chlognum}">미확인</span>
 	<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
-		<input type="button" name="tcheck" value="확인" onclick="check(${dto.chlognum})">
+		<input type="button" name="tcheck" id="tcheck" value="확인" onclick="check(${dto.chlognum})">
 	</c:if>
 </c:if>
 <br/>
@@ -137,20 +129,21 @@ function comdel(num) {
 	작성된 댓글이 없습니다.
 </c:if>
 <c:if test="${not empty com }">
+	<span id="nocom"></span>
 	<c:forEach var="vo" items="${com}">
 	<div id="div_${vo.num }">
 		${vo.wdate } <br/>
-		${vo.writer} <br/>
+		${vo.name} <br/>
 		<p id="comcont_${vo.num}">${vo.content }</p>
-		<c:if test="${sessionScope.loginId eq vo.writer}">
+		<c:if test="${sessionScope.loginId eq vo.id}">
 			<div id="combtn_${vo.num }">
-				<input type="button" value="수정" onclick="editFrom(${vo.num }, '${vo.content }')">
+				<input type="button" value="수정" onclick="editFrom(${vo.num })">
 				<input type="button" value="삭제" onclick="comdel(${vo.num })">
 			</div>
 			<div id="edit_${vo.num}" style="display: none">
 				<form>
 					<input type="button" value="수정완료" onclick="comEdit(${vo.num})">
-					<input type="button" value="취소" onclick="editCancel(${vo.num}, '${vo.content }')">
+					<input type="button" value="취소" onclick="editCancel(${vo.num})">
 				</form>
 			</div>
 		</c:if>
@@ -161,9 +154,17 @@ function comdel(num) {
 <!-- 댓글 작성폼 -->
 <form action="/chlogcom/add" method="GET">
 	<input type="hidden" value="${dto.chlognum}" name="chlognum">
-	<input type="hidden" value="${sessionScope.loginId}" name="writer">
+	<input type="hidden" value="${sessionScope.loginId}" name="id">
+	<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+		<input type="hidden" value="${classname}반 선생님" name="name">
+	</c:if>
+	<c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
+		<input type="hidden" value="${dto.childid.name}" name="name">
+	</c:if>
 	<textarea name="content" rows="5" cols="30"></textarea>
 	<input type="submit" value="작성">
 </form>
+
+
 </body>
 </html>

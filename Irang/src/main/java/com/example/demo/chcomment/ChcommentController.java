@@ -15,7 +15,6 @@ public class ChcommentController {
 	@Autowired
 	private ChcommentService service;
 	
-	///chlogcom/add?chlognum=1&writer=child&content=죄송합니다+ㅠㅠㅠ
 	// 댓글 입력 
 	@GetMapping("/add")
 	public String add(ChcommentDto dto) {
@@ -38,19 +37,9 @@ public class ChcommentController {
 	// 댓글 삭제 (ajax)
 	@ResponseBody
 	@GetMapping("/delete")
-	public Map delete(int num) {
+	public void delete(int num) {
 		ChcommentDto dto = service.get(num);
 		service.delete(num);
-		ChcommentDto dto2 = null;
-		boolean flag = false;
-		try {
-			dto2 = service.get(num);
-		} catch(Exception e) {
-			flag = true; // 진짜로 삭제됨~ 
-		}
-		Map map = new HashMap();
-		map.put("flag", flag);
-		return map;
 	}
 	
 
