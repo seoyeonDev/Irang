@@ -89,8 +89,8 @@
 
           <div class="mb-3">
             <select id="inputState" class="form-control" name="classnum">
-            	<option selected>학급</option>
             	<c:forEach var="cl" items = "${list }">
+<%--             	<c:if --%>
             		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
             	</c:forEach>
             </select>

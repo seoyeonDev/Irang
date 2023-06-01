@@ -13,13 +13,17 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/teacher.css" type="text/css">
-<style>
-.btn{
-	background-color:#A9CFE2; 
-	color:#363636;
-	margin:10px;
-}
-</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+$(document).ready(function(){
+	let message = "${msg}";
+	if (message !=""){
+		alert(message);
+	}else{
+		
+	}
+})
+</script>
 </head>
 
 <body>

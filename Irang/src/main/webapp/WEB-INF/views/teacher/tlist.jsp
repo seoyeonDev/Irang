@@ -26,6 +26,12 @@ $(document).ready(function(){
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
 		
+		
+		<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
+		<c:if test="${not empty sessionScope.loginId}">
+		<br/><h1> ${sessionScope.loginId } 로그인중입니다.</h1>
+		</c:if>
+		
 <!-- 	이름으로 검색 -->
 	<form action="/teacher/getbyname" >
 	선생님 이름 <input type="text" name="name">
@@ -40,13 +46,18 @@ $(document).ready(function(){
 			<div class="card-body">
 				<h5 class="card-title">${li.name }</h5>
 				<p class="card-text">
-						<select id="inputState" class="form-control changeclass" name="classnum">
-		            	<c:forEach var="cl" items = "${classlist }">
-		            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
-		            	</c:forEach>
-		            	</select>
-					${li.classnum.classname}<br/>					
-					
+					<form action="/teacher/editlist">
+							<input type="hidden" name="name" value="${li.name }">
+							<input type="hidden" name="phone"  value="${li.phone }">
+							<input type="hidden" name="pwd"  value="${li.pwd }">
+							<input type="hidden" name="teacherid"  value="${li.teacherid }">
+							<select id="inputState" class="form-control changeclass" name="classnum">
+				            	<c:forEach var="cl" items = "${classlist }">
+				            		<option value="<c:out value="${cl.classnum}"/>" <c:if test="${cl.classnum == li.classnum.classnum}"> selected </c:if>><c:out value="${cl.classname }"  />
+				            	</c:forEach>
+			            	</select>
+						<button class="btn" style="">변경</button>
+					</form>			
 				</p>
 			</div>
 		</div>
