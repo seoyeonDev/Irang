@@ -83,7 +83,8 @@ img {
 
       <label for="classnum">아이의 반:</label>
       <input type="number" value="${dto.classnum.classnum}" id="classnum" name="classnum">
-	<button type="submit">아이정보수정</button><input type="button" value="아이계정 삭제" id="delbtn">
+	<button type="submit">아이정보수정</button>
+	<a href="/child/out?id=${dto.childid }"><input type="button" value="아이계정 삭제" id="delbtn"></a>
     </form>
       <p>아이계정 사진:</p>
       <img src="/child/read_img?fname=${dto.img}" name="f" style="width:200px; height:200px">

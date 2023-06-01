@@ -5,17 +5,18 @@
 <html>
 <head>
   <title>카드 레이아웃</title>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/childlistcard.css">
 </head>
 <body>
 <h3>아이전체 목록</h3>
-<a href="/child/join">추가</a>
-<a href="/child/listbyclass?classnum=1"><input type="button" value="1반" id="class_1"></a>
-<a href="/child/listbyclass?classnum=2"><input type="button" value="2반" id="class_2"></a><br/>
+<a href="/child/join">아이부모가추가</a>
+<a href="/child/childadd">선생님이추가</a>
+<a href="/child/listmyclass">내반애들</a>
+<c:forEach var="cl" items = "${clist }">
+	<a href="/child/listbyclass?classnum=${cl.classnum }"><input type="button" value="${cl.classname }"></a>
+</c:forEach>
 
 <form action="/child/listbyname" method="post">
 <input type="text" id="name" name="name">
@@ -49,22 +50,12 @@
                                   <ul class="list-inline">
                                       <li class="list-inline-item">
                                           <a class="social-icon text-xs-center" href="/child/childinfo?childid=${list.childid}">
-                                              <i class="fa fa-facebook"></i>
+                                              <i class="fa fa-user-circle">상세정보</i>
                                           </a>
                                       </li>
                                       <li class="list-inline-item">
-                                          <a class="social-icon text-xs-center" href="https://www.fiverr.com/share/qb8D02">
-                                              <i class="fa fa-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li class="list-inline-item">
-                                          <a class="social-icon text-xs-center" target="_blank" href="https://www.fiverr.com/share/qb8D02">
-                                              <i class="fa fa-skype"></i>
-                                          </a>
-                                      </li>
-                                      <li class="list-inline-item">
-                                          <a class="social-icon text-xs-center" target="_blank" href="https://www.fiverr.com/share/qb8D02">
-                                              <i class="fa fa-google"></i>
+                                          <a class="social-icon text-xs-center" href="/childlog/list?childid=${list.childid}">
+                                              <i class="fa fa-list-alt">일지</i>
                                           </a>
                                       </li>
                                   </ul>

@@ -12,29 +12,57 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/teacher.css" type="text/css">
-<style>
-.btn{
-	background-color:#A9CFE2; 
-	color:#363636
-	margin:10px;
+<link rel="stylesheet" href="/css/teacher.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function idcheck(){
+	let childid = $('#childid').val();
+	$.ajax({
+		url:'/child/idcheck',
+		data:{childid:childid},
+		success:function(cnt){
+			if( cnt ==0){
+				$('.valid-feedback').css("display","inline-block");
+				$('.invalid-feedback').css("display","none");
+			}else{
+				$('.invalid-feedback').css("display","inline-block");
+				$('.valid-feedback').css("display","none");
+
+			}
+		},
+        error:function(){
+            alert("에러입니다");
+        }
+	})
 }
-</style>
+
+</script>
 </head>
 
 <body>
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-        <h4 class="mb-3">아이계정 로그인</h4>
-        <form action="/child/login" method="post" class="validation-form" novalidate>
-
-          <div class="mb-3">
-              <label for="teacherid">아이디</label>
+        <h4 class="mb-3">회원가입</h4>
+        <form action="/child/childadd" method="post" class="validation-form" enctype="multipart/form-data" novalidate>
+          <div class="row">
+           <div class="col-md-6 mb-3">
+              <label for="childid">아이디</label>
               <input oninput="idcheck()" type="text" class="form-control" name="childid" id="childid" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                아이디를 입력해주세요.
+              <div class="valid-feedback">
+              	사용 가능한 아이디입니다.
               </div>
+              <div class="invalid-feedback">
+                아이디를 다시 입력해주세요.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="name">이름</label>
+              <input type="text" class="form-control" name="name" id="name" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                이름을 입력해주세요.
+              </div>
+            </div>
           </div>
 
           <div class="mb-3">
@@ -44,18 +72,27 @@
               비밀번호를 입력해주세요.
             </div>
           </div>
-		  <p style="color: red">${msg }</p>
+
+          <div class="mb-3">
+            <select id="inputState" class="form-control"  name="classnum" >
+            	<option selected>학급</option>
+            	<c:forEach var="cl" items = "${list }">
+            		<option value="<c:out value="${cl.classnum}"/>"><c:out value="${cl.classname }"/>
+            	</c:forEach>
+            </select>
+          </div>
+
+         
           <div class="mb-4"></div>
-          <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">로그인</button>
+          <button class="btn btn-lg btn-block" type="submit">가입 완료</button>
         </form>
-       <a href="/child/join"> <button class="btn btn-lg btn-block" type="submit">회원가입</button></a>
       </div>
     </div>
     <footer class="my-3 text-center text-small">
-      <p class="mb-1">&copy; Irang</p>
+      <p class="mb-1">&copy; 2021 YD</p>
     </footer>
   </div>
-<script>
+  <script>
     window.addEventListener('load', () => {
       const forms = document.getElementsByClassName('validation-form');
 
@@ -73,5 +110,4 @@
     
   </script>
 </body>
-
 </html>
