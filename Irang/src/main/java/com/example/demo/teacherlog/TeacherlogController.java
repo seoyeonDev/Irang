@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.Irangclass.Irangclass;
 import com.example.demo.child.Child;
 import com.example.demo.child.ChildDto;
 import com.example.demo.child.ChildService;
@@ -43,7 +42,7 @@ public class TeacherlogController {
 
 	@Autowired
 	private ChildService childService;
-	
+
 	@Autowired
 	private TeacherService teacherService;
 
@@ -104,11 +103,22 @@ public class TeacherlogController {
 	}
 
 	// 특정쌤이 본 디테일 페이지 여기서 수정 가능하죠?
+	// 댓글 리스트도 들고가욤~
 	@GetMapping("/detail")
 	public String tDetail(Teacherlog tlnum, ModelMap map) {
-		map.addAttribute("vo", service.getByTlnum(tlnum.getTlnum()));
+		TeacherlogDto vo = service.getByTlnum(tlnum.getTlnum());
+		map.addAttribute("vo", vo);
+		// num의 글정보를 가져와서 웹에 뿌리기
+
 		ArrayList<TcommentDto> list = cService.getByTlnum(tlnum);
 		map.addAttribute("list", list);
+		// 그 글에 대한 모든 댓글을 가져오기
+
+		String className = vo.getTeacherid().getClassnum().getClassname();
+		map.addAttribute("className", className);
+		System.out.println("className :" + className);
+		// 그 반 이름을 가져오기
+
 		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
 		return "index";
 	}
@@ -178,6 +188,58 @@ public class TeacherlogController {
 		return "redirect:/teacherlog/list?teacherid=" + teacherid;
 	}
 
+	// 디테일 : 사진 삭제
+	@GetMapping("/imgdel")
+	@ResponseBody
+	public boolean imgdel(int tlnum, int imgnum, String imgpath) {
+		boolean flag = false;
+		String delPath = path + tlnum;
+		File dir = new File(delPath);
+		System.out.println("dir:"+dir);
+		File[] files = dir.listFiles();
+		
+		int num=0;
+		while(num < files.length) {
+			if(files[num].getAbsolutePath().equals(imgpath)) {
+				files[num].delete();
+				flag = true;
+				break;
+			}
+			num++;
+		}
+		
+		service.deleteImg(tlnum, imgnum);
+		return flag;
+	}
+
+	// 디테일 : 사진 추가
+	@PostMapping("/imgadd")
+	@ResponseBody
+	public boolean imgadd(int tlnum, int imgnum, MultipartFile imgfile) {
+		boolean flag = true;
+		MultipartFile x = imgfile;
+		System.out.println("imgpath :"+imgfile);
+		System.out.println("imgpath.getOriginalFilename() :"+imgfile.getOriginalFilename());
+		
+		String fname = x.getOriginalFilename();
+		if(fname != null && !fname.equals("")) {
+			File newfile = new File(path + tlnum + "/" + fname);
+			try {
+				x.transferTo(newfile);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// 서비스 추가해야해 
+		service.addImg(tlnum, imgnum, fname);
+		
+		return flag;
+	}
+
 	// 특정 쌤이 쓴 리스트 : 날짜로 검색
 	@GetMapping("/day")
 	@ResponseBody
@@ -206,14 +268,14 @@ public class TeacherlogController {
 		ArrayList<TeacherlogDto> list = new ArrayList<TeacherlogDto>();
 
 		ArrayList<ChildDto> clist = childService.getByName(name);
-		System.out.println("clist :"+clist);
+		System.out.println("clist :" + clist);
 		for (ChildDto vo : clist) {
 			Child child = convertToChild(vo);
 			ArrayList<TeacherlogDto> list2 = service.getByChildId(child);
 			for (TeacherlogDto dto : list2) {
-				System.out.println("dto.getTeacherid() :"+dto.getTeacherid());
-				System.out.println("teacherid :"+teacherid);
-				if(dto.getTeacherid().getTeacherid().equals(teacherid)) {
+				System.out.println("dto.getTeacherid() :" + dto.getTeacherid());
+				System.out.println("teacherid :" + teacherid);
+				if (dto.getTeacherid().getTeacherid().equals(teacherid)) {
 					list.add(dto);
 				}
 			}
@@ -239,13 +301,13 @@ public class TeacherlogController {
 		Map map = new HashMap();
 		TeacherDto dto = teacherService.getTeacher(teacherid);
 		int classNum = dto.getClassnum().getClassnum();
-		// 선생님 해당 반 정보를 가져오기 
+		// 선생님 해당 반 정보를 가져오기
 		ArrayList<ChildDto> list = childService.getByClass(classNum);
 		// 아이 정보를 담아서 보내기 select 버튼에 보여줄꺼에용
-		System.out.println("teacherid :"+teacherid);
-		System.out.println("dto :"+dto);
-		System.out.println("classNum :"+classNum);
-		System.out.println("list :"+list);
+		System.out.println("teacherid :" + teacherid);
+		System.out.println("dto :" + dto);
+		System.out.println("classNum :" + classNum);
+		System.out.println("list :" + list);
 		map.put("list", list);
 		return map;
 	}

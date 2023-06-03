@@ -19,17 +19,29 @@
 	 font-family: 'KimjungchulGothic-Bold';
 }
 .detailimg{
-	width:200px;
+	width:250px;
 }
 .me{
 	background-color:#fcedaa;
+	float:right;
+	margin-right:30px;
 }
 .other{
 	background-color:#a9cfe2;
+	float:left;
+	margin-left:30px;
+}
+
+.me, .other{
+	padding : 10px 10px;
+	border-radius : 10px;
+	width : 200px;
 }
 </style>
 </head>
 <body id="tdetail">
+
+<div style="text-align:center">
 
 <!-- 선생님.ver detail -->
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 't'}">
@@ -39,18 +51,24 @@
 			<c:if test="${not empty vo.img1 }">
 				<img class="detailimg" id="detailimg1" src="/teacherlog/read_img?fname=${vo.img1 }&tlnum=${vo.tlnum }">
 			</c:if>
+			<c:if test="${empty vo.img1 }">
+				<img class="detailimg" id="detailimg1" src="../image/nopic.jpg" >
+			</c:if>
 		</div>
-		<input type="button" value="수정" class="add" id="add1">
-		<input type="button" value="삭제" class="delImg" id="del1">
+		<input type="file" value="추가" class="addImg" id="add1" style="display:none">
+		<input type="button" value="삭제" class="delImg" id="del1" style="display:none">
 	</div>
 	<div id="img2">
 		<div id="image2">
 			<c:if test="${not empty vo.img2 }">
 				<img class="detailimg" id="detailimg2" src="/teacherlog/read_img?fname=${vo.img2 }&tlnum=${vo.tlnum }">
 			</c:if>
+			<c:if test="${empty vo.img2 }">
+				<img class="detailimg" id="detailimg2" src="../image/nopic.jpg" >
+			</c:if>
 		</div>
-		<input type="button" value="수정" class="add" id="add2">
-		<input type="button" value="삭제" class="delImg" id="del2">
+		<input type="file" value="추가" class="addImg" id="add2" style="display:none">
+		<input type="button" value="삭제" class="delImg" id="del2" style="display:none">
 		
 	</div>
 	<div id="img3">
@@ -58,9 +76,12 @@
 			<c:if test="${not empty vo.img3 }">
 				<img class="detailimg" id="detailimg3" src="/teacherlog/read_img?fname=${vo.img3 }&tlnum=${vo.tlnum }">
 			</c:if>
+			<c:if test="${empty vo.img3 }">
+				<img class="detailimg" id="detailimg3" src="../image/nopic.jpg" >
+			</c:if>
 		</div>
-		<input type="button" value="수정" class="add" id="add3">
-		<input type="button" value="삭제" class="delImg" id="del3">
+		<input type="file" value="추가" class="addImg" id="add3" style="display:none">
+		<input type="button" value="삭제" class="delImg" id="del3" style="display:none">
 		
 	</div>
 	
@@ -111,13 +132,18 @@
 	댓글 <textarea rows="10" cols="30" id="content">댓글 작성하기</textarea>
 	<input type="button" value="댓글 작성" id="cBtn">
 	
+</div>
+
+	<hr style="color:#a9cfe2"/>
 	<h3>댓글 리스트</h3>
 	<div id="clist">
 		<c:forEach var="li" items="${list }">
 			<c:if test="${sessionScope.loginId == li.comwriter }">
+			<div style="width:100%">
 				<div id="${li.commentnum }" class="me">
 					<c:if test="${fn:substring(li.comwriter, 0, 1) eq 't'}">
 						<div class="comWriter">${vo.teacherid.name }</div>
+						${className}반 선생님
 					</c:if>
 					<c:if test="${fn:substring(li.comwriter, 0, 1) eq 'c'}">
 						<div class="comWriter">${vo.childid.name }</div>
@@ -135,10 +161,12 @@
 					
 					
 				</div>
+			</div>
 			</c:if>
 			
 			
 			<c:if test="${sessionScope.loginId != li.comwriter }">
+			<div>
 				<div id="${li.commentnum }" class="other">
 					<c:if test="${fn:substring(li.comwriter, 0, 1) eq 't'}">
 						<div class="comWriter">${vo.teacherid.name }</div>
@@ -149,6 +177,7 @@
 					<div class="comDate">${li.comdate }</div>
 					<div class="content">${li.content }</div>
 				</div>
+			</div>
 			</c:if>
 			
 			
@@ -165,6 +194,25 @@
 	<script>
 		$(document).ready(function(){
 			let num = ${vo.tlnum};
+			
+			let nopic = '../image/nopic.jpg';
+			
+			// 이미지 유무에 따라 버튼 value 변경
+			if($("#detailimg1").attr("src") == nopic){
+				$("#add1").show();
+			} else {
+				$("#del1").show();
+			}
+			if($("#detailimg2").attr("src") == nopic){
+				$("#add2").show();
+			} else {
+				$("#del2").show();
+			}
+			if($("#detailimg3").attr("src") == nopic){
+				$("#add3").show();
+			} else {
+				$("#del3").show();
+			}
 			
 			// 댓글 작성
 			$(document).on("click", "#cBtn", function(){
@@ -211,39 +259,66 @@
 				location.href="/teacherlog/del?tlnum="+num+ "&teacherid=${sessionScope.loginId}"
 			});
 			
-			// 이미지 수정하기
-			$(document).on("click",".addImg", function(){
-				let imgNum = $(this).attr("id").substr;
-				// 작성해야함
+			// 이미지 추가하기
+			$(document).on("change",".addImg", function(){
+				let imgNum = $(this).attr("id").substr(3);
 				
-// 				<!-- 	이미지 추가 / 수정을 누르면 보여줄 폼 -->
-// 				<div id="imgf" style="display:none">
-// 						<input type="file" name="file">
-// 						<input type="button" value="이미지 수정 button">
-// 						<input type="button" value="취소" id="cancel">
-// 				</div>
+				var file = $(this).prop("files")[0];
+ 				var fileName = file.name;
+ 				console.log(fileName);
+ 				// 파일명 가져오기
+ 				
+ 				var formData = new FormData(); // FormData 객체 생성
+ 				formData.append("tlnum", num); 
+ 				formData.append("imgnum", imgNum); 
+ 				formData.append("imgfile", file);
+ 				
+ 				$.ajax({
+ 					url : '/teacherlog/imgadd',
+					data : formData,
+					type : 'post',
+					dataType : 'json',
+					processData: false, // 데이터 처리 방지
+				    contentType: false, // 컨텐츠 타입 설정
+					success:function(result){
+						console.log(result);
+						$("#detailimg" + imgNum).attr("src", "/teacherlog/read_img?fname=" + fileName + "$&tlnum=${vo.tlnum }");
+						console.log("/teacherlog/read_img?fname=" + fileName + "$&tlnum=${vo.tlnum }");
+						$("#add" + imgNum).hide();
+						$("#del" + imgNum).show();
+					},
+					error : function(req, status){
+						console.log(status);
+					}
+ 				});
+ 				
+ 				
+ 				$("#detailimg"+imgNum).attr("src", fileName);
+
+  				// 파일명 출력 또는 다른 작업 수행
+  				console.log(fileName);
+				
 			});
 			
 			// 이미지 삭제하기
 			$(document).on("click",".delImg", function(){
 				let imgNum = $(this).attr("id").substr(3);
-				$("#detailimg" + imgNum).hide();
-// 				$.ajax({
-// 					url : '/teacherlog/imgdel',
-// 					data : {'tlnum' : num,  },
-// 					type : 'post',
-// 					dataType : 'json',
-// 					success:function(result){
-// 						console.log(result);
-// 					},
-// 					error : function(req, status){
-// 						console.log(status);
-// 					}
-// 				});
-				
-				
-			
-				//ajax 작성해야함
+				console.log(imgNum);
+				$.ajax({
+					url : '/teacherlog/imgdel',
+					data : {'tlnum' : num, 'imgnum' : imgNum, 'imgpath' : $("#detailimg"+imgNum).attr("src") },
+					type : 'get',
+					dataType : 'json',
+					success:function(result){
+						console.log(result);
+						$("#detailimg" + imgNum).attr("src", nopic);
+						$("#add" + imgNum).show();
+						$("#del" + imgNum).hide();
+					},
+					error : function(req, status){
+						console.log(status);
+					}
+				});
 			});
 			
 			// 댓글 수정하기
