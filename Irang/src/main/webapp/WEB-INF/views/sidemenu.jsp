@@ -12,7 +12,18 @@
 <link rel="stylesheet" href="/css/sidemenu.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <title>index</title>
+<style>
 
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+}
+.dropdown:hover .dropdown-content {
+display: block;
+}
+
+</style>
 </head>
 <body>
 	
@@ -22,19 +33,42 @@
 
 <a href="/board/list">게시판</a>
 <a href="#" id="tlList">선생님 일지</a>
-<a href="/teacher/list">티쳐리스트</a>
+<a href="/teacher/list"> 선생님 리스트</a>
+
+
+
 
 <c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+<a href="/child/childadd">아이회원등록</a>
+<a href="/irangclass/list">클래스 리스트</a>
 <a href="/child/listall"> 원아 전체목록 </a> 
-<a id="addTlA" href="/teacherlog/add?teacherid=${sessionScope.loginId}">선생님 일지 작성</a>
+<a id="addTlA" href="/teacherlog/add?teacherid=${sessionScope.loginId}">일지 작성</a>
+
+<div class="dropdown">
+<a href="/teacher/mypage" class="dropbtn">마이페이지</a>
+<ul class="dropdown-content">
+<a href="/child/listmyclass2">우리반 관리</a>
 <a href="/teacher/logout">로그아웃</a>
+<a href="/teacher/delete">탈퇴</a>
+</ul>
+</div>
 </c:if>
+
+
 
 <c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
 <a href="/childlog/list?childid=${sessionScope.loginId}">${sessionScope.loginId}의 일지</a>
 <a href="/childlog/add">일지작성</a>
+<div class="dropdown">
+<a href="#" class="dropbtn">마이페이지</a>
+<ul class="dropdown-content">
+<a href="/child/join"> 아이정보입력</a>
+<a href="/child/listmyclass"> ${sessionScope.loginId}반 정보</a>
 <a href="/child/logout">로그아웃</a>
+</ul>
+</div>
 </c:if>
+
 
 <script> 
 
