@@ -127,11 +127,11 @@ public class ChildController {
 		ChildDto c = service.getById(childid);
 		if(c!=null && c.getPwd().equals(dto.getPwd())) {
 			session.setAttribute("loginId", c.getChildid());
+			return "redirect:/childlog/list?childid="+childid;
 		}else {
 			map.addAttribute("msg", "정보가 올바르지 않습니다. 다시 로그인해주세요");
 			return "/child/login";
 		}
-		return "index";
 	}
 	
 	@GetMapping("/read_img")
