@@ -76,6 +76,34 @@ public class TeacherlogService {
 	public void delete(int tlnum) {
 		dao.deleteById(tlnum);
 	}
+	
+	// 사진 삭제 
+	public void deleteImg(int tlnum, int imgnum) {
+		Teacherlog vo = dao.findById(tlnum).orElse(null);
+		System.out.println("imgnum :"+imgnum);
+		if(imgnum == 1) {
+			vo.setImg1(null);
+		} else if(imgnum == 2) {
+			vo.setImg2(null);
+		} else if(imgnum == 3) {
+			vo.setImg3(null);
+		}
+		dao.save(vo);
+	}
+	
+	// 사진 추가 
+	public void addImg(int tlnum, int imgnum, String imgpath) {
+		Teacherlog vo = dao.findById(tlnum).orElse(null);
+		
+		if(imgnum == 1) {
+			vo.setImg1(imgpath);
+		} else if(imgnum == 2) {
+			vo.setImg2(imgpath);
+		} else if(imgnum == 3) {
+			vo.setImg3(imgpath);
+		}
+		dao.save(vo);
+	}
 
 	// 날짜로 찾기
 	public ArrayList<TeacherlogDto> getByDay(LocalDate tdate) {

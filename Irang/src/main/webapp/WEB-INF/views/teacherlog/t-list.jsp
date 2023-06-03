@@ -189,7 +189,7 @@
 $(document).ready(function(){
 	$(document).on("change","#searchBar",function(){
 		// 뭘로 검색할꺼야?
-		let check = $("select[name=searchBar]").val();
+		let check = parseInt($("select[name=searchBar]").val());
 		console.log(check);
 		
 		if(check==1){ // 날짜로 검색
