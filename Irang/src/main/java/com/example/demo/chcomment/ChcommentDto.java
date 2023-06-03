@@ -1,6 +1,6 @@
 package com.example.demo.chcomment;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.example.demo.childlog.Childlog;
 
@@ -18,8 +18,9 @@ import lombok.ToString;
 public class ChcommentDto {
 	private int num;
 	private Childlog chlognum; // 원글 번호 
-	private String writer;
+	private String id; 
+	private String name;
 	private String content;
-	private Date wdate;
+	private LocalDate wdate;
 
 }

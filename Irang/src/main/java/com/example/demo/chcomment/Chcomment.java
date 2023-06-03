@@ -1,5 +1,6 @@
 package com.example.demo.chcomment;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.OnDelete;
@@ -39,14 +40,15 @@ public class Chcomment {
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	private Childlog chlognum; // 원글 번호 
 	
-	private String writer;
+	private String id; 
+	private String name;
 	private String content;
-	private Date wdate;
+	private LocalDate wdate;
 	
 	@PreUpdate
-	@PrePersist //insert문 실행 전에 먼저 처리 
-	public void sysdate() {
-		wdate = new Date();
+	@PrePersist
+	public void wdateperprocess() {
+		wdate = LocalDate.now();
 	}
 
 }

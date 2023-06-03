@@ -1,11 +1,10 @@
 package com.example.demo.childlog;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.child.Child;
-import com.example.demo.teacher.Teacher;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class ChildlogDto {
 	private int chlognum;
 	private Child childid;
 //	private Teacher teacherid;
-	private Date wdate;
+	private LocalDate wdate;
 	private String content;
 	private String img;
 	private int tcheck;

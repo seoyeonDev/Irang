@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Irangclass.Irangclass;
 import com.example.demo.Irangclass.IrangclassDto;
 import com.example.demo.Irangclass.IrangclassService;
 import com.example.demo.teacher.TeacherDto;
+import com.example.demo.teacher.TeacherService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -37,21 +39,26 @@ public class ChildController {
 	@Autowired
 	private IrangclassService classservice;
 	
+	@Autowired
+	private TeacherService tservice;
+	
 	@Value("${spring.servlet.multipart.location}")
 	private String path;
 	
 	//아이회원가입 폼 요청
 	@GetMapping("/join")
-	public void joinForm(ModelMap map) {
+	public void joinForm(ModelMap map, HttpSession session) {
 		ArrayList<IrangclassDto> list = classservice.getAll();
+		String loginId = (String) session.getAttribute("loginId");
+		ChildDto dto2 = service.getById(loginId);
+		map.put("dto2", dto2);
 		map.addAttribute("list",list);
 	}
 	
-	//아이회원가입
+	//아이부모님이 정보추가기입
 	@PostMapping("/join")
-	public String join(ChildDto dto) {
-		String cid = dto.getChildid();
-		dto.setChildid("c"+cid);
+	public String join(ChildDto dto, ModelMap map) {
+		
 		service.save(dto);
 		if(dto.getF() != null) {
 		MultipartFile f = dto.getF();
@@ -67,10 +74,28 @@ public class ChildController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ChildDto dto2 = service.save(dto);
-		System.out.println(dto2);
+		ChildDto dto3 = service.save(dto);
+		System.out.println(dto3);
 		}
 		
+		return "redirect:/child/listall";
+		//return "redirect:/child/getbyclass?class="+dto2.getClassnum();
+	}
+	
+	//선생님 쪽에서 아이회원가입 폼요청
+	@GetMapping("/childadd")
+	public void addChildForm(ModelMap map) {
+		ArrayList<IrangclassDto> list = classservice.getAll();
+		map.addAttribute("list",list);		
+	}
+	
+	//선생님쪽에서 아이회원가입 데이터 입력(ID, PWD, 이름, 반)
+	@PostMapping("/childadd")
+	public String addChild(ChildDto dto) {
+		String cid = dto.getChildid();
+		dto.setChildid("c"+cid);
+		service.save(dto);
+			
 		return "redirect:/child/listall";
 		//return "redirect:/child/getbyclass?class="+dto2.getClassnum();
 	}
@@ -79,6 +104,7 @@ public class ChildController {
 		@ResponseBody
 		@RequestMapping("/idcheck")
 		public int idCheck(String childid) {
+			childid = "c"+childid;
 			ChildDto dto = service.getById(childid);
 			int cnt = 0;
 			if (dto != null) {
@@ -90,14 +116,20 @@ public class ChildController {
 	//로그인폼 요청
 	@GetMapping("/login")
 	public void loginForm() {
+		
 	}
 	
 	//로그인
 	@PostMapping("/login")
-	public String login(ChildDto dto, HttpSession session) {
-		ChildDto c = service.getById(dto.getChildid());
+	public String login(ChildDto dto, HttpSession session, ModelMap map) {
+		String childid = dto.getChildid();
+		childid = "c"+childid;
+		ChildDto c = service.getById(childid);
 		if(c!=null && c.getPwd().equals(dto.getPwd())) {
 			session.setAttribute("loginId", c.getChildid());
+		}else {
+			map.addAttribute("msg", "정보가 올바르지 않습니다. 다시 로그인해주세요");
+			return "/child/login";
 		}
 		return "index";
 	}
@@ -124,25 +156,60 @@ public class ChildController {
 	@GetMapping("/listall")
 	public String list(ModelMap map) {
 		ArrayList<ChildDto> list = service.getAll();
+		ArrayList<IrangclassDto> clist = classservice.getAll();
+		map.put("clist",clist);
 		map.put("list", list);
 		map.addAttribute("bodyview", "/WEB-INF/views/child/listall.jsp");
 		return "index";
 	}
 	
 	//반별로 아이들 리스트
-	@GetMapping("listbyclass")
+	@GetMapping("/listbyclass")
 	public String listbyclass(ModelMap map, int classnum) {
 		ArrayList<ChildDto> list = service.getByClass(classnum);
+		ArrayList<IrangclassDto> clist = classservice.getAll();
+		IrangclassDto cto = classservice.getName(classnum);
+		map.put("cto", cto);
+		map.put("clist",clist);
 		map.put("classnum", classnum);
 		map.put("list", list);
 		map.addAttribute("bodyview", "/WEB-INF/views/child/listbyclass.jsp");
 		return "index";
 	}
 	
+	//자기반 아이 리스트(아이 로그인시)
+	@GetMapping("/listmyclass")
+	public String listmyclass(ModelMap map, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		ChildDto dto = service.getById(loginId);
+		Irangclass ct = dto.getClassnum();
+		IrangclassDto cto = classservice.getName(ct.getClassnum());
+		Irangclass dto2 = dto.getClassnum();
+		ArrayList<ChildDto> list = service.getByClass(dto2.getClassnum());
+		map.put("cto", cto);
+		map.put("list", list);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/myclass.jsp");
+		return "index";
+	}
+	
+	//자기반 아이관리 리스트(선생님 로그인시)
+		@GetMapping("/listmyclass2")
+		public String listmyclass2(ModelMap map, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			TeacherDto dto = tservice.getTeacher(loginId);
+			Irangclass dto2 = dto.getClassnum();
+			ArrayList<ChildDto> list = service.getByClass(dto2.getClassnum());
+			map.put("list", list);
+			map.addAttribute("bodyview", "/WEB-INF/views/child/myclass.jsp");
+			return "index";
+		}
+	
 	//아이이름으로 검색리스트
-	@PostMapping("listbyname")
+	@PostMapping("/listbyname")
 	public String listbyname(ModelMap map, String name) {
 		ArrayList<ChildDto> list = service.getByName(name);
+		ArrayList<IrangclassDto> clist = classservice.getAll();
+		map.put("clist",clist);
 		map.put("name", name);
 		map.put("list", list);
 		map.addAttribute("bodyview", "/WEB-INF/views/child/listbyname.jsp");
@@ -159,21 +226,21 @@ public class ChildController {
 	}
 	
 	//아이정보수정(사진제외한 정보수정)
-	@PostMapping("edit")
+	@PostMapping("/edit")
 	public String editInfo(ModelMap map, ChildDto dto, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginIdChild");
+		String loginId = (String) session.getAttribute("loginId");
 		ChildDto dto3 = service.getById(loginId);
 		dto.setImg(dto3.getImg());
 		ChildDto dto2 = service.save(dto);
 		map.put("dto", dto2);
 		map.addAttribute("bodyview", "/WEB-INF/views/child/childinfo.jsp");
-		return "redirect:/";
+		return "index";
 	}
 	
 	//아이사진수정
 	@PostMapping("/editimg")
 	public String editimg(String childid, MultipartFile f1, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginIdChild");
+		String loginId = (String) session.getAttribute("loginId");
 		ChildDto dto = service.getById(childid);
 		String fname = f1.getOriginalFilename();
 		if (fname != null && !fname.equals("")) {
@@ -209,13 +276,17 @@ public class ChildController {
 	
 	//아이계정탈퇴
 	@GetMapping("/out")
-	public String out(HttpSession session) {
-		String id = (String) session.getAttribute("loginId");
+	public String out(ModelMap map, String id) {
+		ArrayList<ChildDto> list = service.getAll();
+		ArrayList<IrangclassDto> clist = classservice.getAll();
+		
 		ChildDto dto = service.getById(id);
 		File delf = new File(path+dto.getImg());
 		delf.delete();
 		service.out(id);
-		session.invalidate();
+		map.put("clist",clist);
+		map.put("list", list);
+		map.addAttribute("bodyview", "/WEB-INF/views/child/listall.jsp");
 		return "redirect:/";
 	}
 }

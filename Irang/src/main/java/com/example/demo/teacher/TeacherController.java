@@ -98,17 +98,17 @@ public class TeacherController {
 	}
 	
 	@PostMapping("/login")
-	public String getAll(TeacherDto dto, HttpSession session) {
+	public String getAll(TeacherDto dto, HttpSession session, ModelMap map) {
 		String teacherid = dto.getTeacherid();
 		teacherid = "t"+teacherid;
-		System.out.println("teacherid"+teacherid);
 		TeacherDto dto2 = service.login(teacherid);
-		System.out.println("dto2"+dto2);
 		if(dto2 != null && dto.getPwd().equals(dto2.getPwd())) {
 			session.setAttribute("loginId", dto2.getTeacherid());
 			return "redirect:/teacher/list";
+		}else { //로그인 실패
+			map.addAttribute("msg","로그인 실패. 아이디/비밀번호가 일치하지 않습니다.");
+			return "/teacher/login";
 		}
-		return "index";
 	}
 	
 	@RequestMapping("/logout")
@@ -156,6 +156,20 @@ public class TeacherController {
 		map.addAttribute("dto",dto);
 		map.addAttribute("bodyview","/WEB-INF/views/teacher/mypage.jsp");
 		return "index";
+		
+	}
+	
+	@RequestMapping("/editlist")
+	public String editList(ModelMap map, TeacherDto dto) {
+		TeacherDto dto2 = service.getTeacher(dto.getTeacherid());
+		dto2.setClassnum(dto.getClassnum());
+		dto2.setName(dto.getName());
+		dto2.setPhone(dto.getPhone());
+		dto2.setPwd(dto.getPwd());
+		String teacherid = service.save(dto2);
+		dto = service.getTeacher(teacherid);
+		map.addAttribute("dto",dto);
+		return "redirect:/teacher/list";
 		
 	}
 	//이미지 출력
