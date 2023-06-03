@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +15,14 @@
 </head>
 <body>
 <h3>이름에 ${name }(이)가 들어간 아이 검색결과</h3>
+<c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
 <a href="/child/join">아이부모가추가</a>
+<a href="/child/listmyclass">같은 반 아이들</a>
+</c:if>
+<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+<a href="/child/listmyclass2">내 반 관리</a>
 <a href="/child/childadd">선생님이추가</a>
-<a href="/child/listmyclass">내반애들</a>
+</c:if>
 <c:forEach var="cl" items = "${clist }">
 	<a href="/child/listbyclass?classnum=${cl.classnum }"><input type="button" value="${cl.classname }"></a>
 </c:forEach>
@@ -30,6 +36,10 @@
   <div class="container">
       <h5 class="section-title h1">이름검색결과 리스트</h5>
       <div class="row">
+      <c:if test="${empty list }">
+      	<h3 class="section-title h1" style="text-align: center;">${name }으로 검색된 아이가 없습니다..<br/>다시 입력해주세요</h3>
+      </c:if>
+      <c:if test="${not empty list }">
       <c:forEach var="list" items="${list }">
           <!-- Team member -->
           <div class="col-xs-12 col-sm-6 col-md-4">
@@ -70,6 +80,7 @@
           </div>
           <!-- ./Team member -->
           </c:forEach>
+          </c:if>
       </div>
   </div>
 </section>

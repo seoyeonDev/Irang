@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +15,15 @@
 </head>
 <body>
 <h3>${cto.classname }반 아이들전체 목록</h3>
+<c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
 <a href="/child/join">아이부모가추가</a>
+<a href="/child/listmyclass">나랑 같은 반 아이들</a>
+</c:if>
+<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+<a href="/child/listmyclass2">내 반 애들</a>
 <a href="/child/childadd">선생님이추가</a>
-<a href="/child/listmyclass">내반애들</a>
+</c:if>
+
 <a href="/child/listall">반전체</a>
 <c:forEach var="cl" items = "${clist }">
 	<a href="/child/listbyclass?classnum=${cl.classnum }"><input type="button" value="${cl.classname }"></a>
