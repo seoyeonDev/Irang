@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'KimjungchulGothic-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+*{
+	font-family: 'KimjungchulGothic-Bold';
+	color: #363636;
+	width:500px;
+}
+
+table {
+	border: 1px #a39485 solid;
+	font-size: .9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 50px;
+}
+
+.title {
+	background-color: #A9CFE2;
+}
+
+
+td {
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+}
+
+.btn {
+	background-color:#A9CFE2; 
+	color:#363636;
+	margin-bottom: 10px;
+}

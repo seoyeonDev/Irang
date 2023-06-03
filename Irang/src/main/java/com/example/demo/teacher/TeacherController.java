@@ -104,7 +104,7 @@ public class TeacherController {
 		TeacherDto dto2 = service.login(teacherid);
 		if(dto2 != null && dto.getPwd().equals(dto2.getPwd())) {
 			session.setAttribute("loginId", dto2.getTeacherid());
-			return "redirect:/teacher/list";
+			return "redirect:/child/listmyclass2";
 		}else { //로그인 실패
 			map.addAttribute("msg","로그인 실패. 아이디/비밀번호가 일치하지 않습니다.");
 			return "/teacher/login";
@@ -154,8 +154,7 @@ public class TeacherController {
 		String teacherid = service.save(dto2);
 		dto = service.getTeacher(teacherid);
 		map.addAttribute("dto",dto);
-		map.addAttribute("bodyview","/WEB-INF/views/teacher/mypage.jsp");
-		return "index";
+		return "redirect:/teacher/list";
 		
 	}
 	
