@@ -8,17 +8,22 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입 화면 샘플 - Bootstrap</title>
+  <title>로그인</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/teacher.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 <script>
 $(document).ready(function(){
 	let message = "${msg}";
 	if (message !=""){
 		alert(message);
+		Swal.fire({
+			  title: 'message',
+			  icon: 'error'
+			})
 	}else{
 		
 	}
@@ -50,7 +55,7 @@ $(document).ready(function(){
           </div>
 
           <div class="mb-4"></div>
-          <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">로그인</button>
+          <button class="btn btn-lg btn-block" type="submit" >로그인</button>
         </form>
        <a href="/teacher/join"> <button class="btn btn-lg btn-block" type="submit">회원가입</button></a>
       </div>

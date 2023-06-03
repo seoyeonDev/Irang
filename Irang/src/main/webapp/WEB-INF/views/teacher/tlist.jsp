@@ -4,19 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>선생님 전체목록</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/teacher.css" type="text/css">
-<script>
-$(document).ready(function(){
-	$('.changeclass').click(function(){
-		
-	})
-})
-</script>
 </head>
 <body>
 
@@ -27,17 +20,20 @@ $(document).ready(function(){
 		crossorigin="anonymous"></script>
 		
 		
-		<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a>
-		<c:if test="${not empty sessionScope.loginId}">
-		<br/><h1> ${sessionScope.loginId } 로그인중입니다.</h1>
-		</c:if>
+<%-- 		<a href="/teacher/mypage?teacherid=${sessionScope.loginId }">마이페이지</a> --%>
+<%-- 		<c:if test="${not empty sessionScope.loginId}"> --%>
+<%-- 		<br/><h1> ${sessionScope.loginId } 로그인중입니다.</h1> --%>
+<%-- 		</c:if> --%>
+		<span class="title">선생님 목록</span>
 		
 <!-- 	이름으로 검색 -->
+<span id="getbynamesearch">
 	<form action="/teacher/getbyname" >
-	선생님 이름 <input type="text" name="name">
-	<input type="submit" value="검색">
+	<span id="titlename">선생님 이름 </span> 
+	<input type="text" name="name" class="getbynamesearchtext">
+	<input class="btn" type="submit" value="검색">
 	</form>
-	
+</span>
 	
 	<div class="row body" style="margin:10px;">
 	<c:forEach var="li" items="${list }">
@@ -46,17 +42,17 @@ $(document).ready(function(){
 			<div class="card-body">
 				<h5 class="card-title">${li.name }</h5>
 				<p class="card-text">
-					<form action="/teacher/editlist">
+					<form action="/teacher/editlist" class="selboxlist">
 							<input type="hidden" name="name" value="${li.name }">
 							<input type="hidden" name="phone"  value="${li.phone }">
 							<input type="hidden" name="pwd"  value="${li.pwd }">
 							<input type="hidden" name="teacherid"  value="${li.teacherid }">
 							<select id="inputState" class="form-control changeclass" name="classnum">
-				            	<c:forEach var="cl" items = "${classlist }">
-				            		<option value="<c:out value="${cl.classnum}"/>" <c:if test="${cl.classnum == li.classnum.classnum}"> selected </c:if>><c:out value="${cl.classname }"  />
+				            	<c:forEach var="cl" items = "${classlist }"  >
+				            		<option class="inline-elements" value="<c:out value="${cl.classnum}"/>" <c:if test="${cl.classnum == li.classnum.classnum}"> selected </c:if>><c:out value="${cl.classname }"  />
 				            	</c:forEach>
 			            	</select>
-						<button class="btn" style="">변경</button>
+						<button class="btn inline-elements" style="">변경</button>
 					</form>			
 				</p>
 			</div>

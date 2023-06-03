@@ -32,7 +32,7 @@ public class IrangclassController {
 	// class 추가
 	@GetMapping("/add")
 	public String addForm(ModelMap map) {
-		map.addAttribute("bodyview","/WEB-INF/views/irangclass/add.jsp");
+		map.addAttribute("bodyview","/WEB-INF/views/irangclass/list.jsp");
 		return "index";
 	}
 	
