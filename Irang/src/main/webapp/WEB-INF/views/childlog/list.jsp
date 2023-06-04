@@ -64,7 +64,7 @@ function datesearch(childid) {
 <!-- 날짜 검색 -->
 <div class="search">
 	<input type="date" id="start" onchange="start()"> ~ <input type="date" id="end" onchange="end()">
-	<input type="button" value="검색" onclick="datesearch('${childid}')">
+	<input type="button" class="searchbtn" value="검색" onclick="datesearch('${childid}')">
 </div>
 
 
