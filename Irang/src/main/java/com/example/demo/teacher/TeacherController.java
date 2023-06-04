@@ -106,7 +106,7 @@ public class TeacherController {
 			session.setAttribute("loginId", dto2.getTeacherid());
 			return "redirect:/child/listmyclass2";
 		}else { //로그인 실패
-			map.addAttribute("msg","로그인 실패. 아이디/비밀번호가 일치하지 않습니다.");
+			map.addAttribute("msg","정보가 올바르지 않습니다. 다시 로그인해주세요.");
 			return "/teacher/login";
 		}
 	}
@@ -264,6 +264,10 @@ public class TeacherController {
 	public String getbyname(String name, ModelMap map) {
 		ArrayList<TeacherDto> list = service.getByTName(name);
 		map.addAttribute("list",list);
+		
+		ArrayList<IrangclassDto> classlist = classservice.getAll();
+		map.addAttribute("classlist",classlist);
+		
 		map.addAttribute("bodyview", "/WEB-INF/views/teacher/tlist.jsp");
 		return "index";
 	}

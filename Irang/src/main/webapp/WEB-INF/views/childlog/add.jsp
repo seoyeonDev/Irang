@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/childlogadd.css">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 <script>
 window.onload = function() {
 	  document.getElementById("imagepath").addEventListener("change", function(event) {
@@ -22,23 +26,31 @@ window.onload = function() {
 function imgReset() {
 	document.getElementById('upload-preview').src = "../image/nopic.jpg";
 	document.getElementById('imagepath').value = null;
-//	input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
-//	따라서 초기화하고자 할 경우 아래 코드
-//		img.upload.select();
-//		document.selection.clear();
 	 }
 </script>
 </head>
 <body>
-<h3>오늘의 특이사항 (아이 일지)</h3>
-<form action="/childlog/add" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="childid" value="${sessionScope.loginId }">
-	<img src="../image/nopic.jpg" id="upload-preview" style="width:200px;height:200px"><br/>
-	<input type="file" id="imagepath" name="f"><br/>
-	<input type="button" value="이미지삭제" id="del" onclick="imgReset();"> <br/>
-	content: <textarea cols="20" rows="5" name="content"></textarea><br/>
-	<input type="submit" value="작성">
-</form>
+<div class = "chlog_title">
+<h3 style="text-align:center"><span id="title">아이 일지 작성</span></h3>
+</div>
 
+<div class = "info" style="text-align:center">
+	<div style="width:70%; display:inline-block">
+		<form action="/childlog/add" method="post" enctype="multipart/form-data"  class="chlForm">
+			<input type="hidden" name="childid" value="${sessionScope.loginId }">
+			<div>
+				<img src="../image/nopic.jpg" id="upload-preview" style="width:200px;height:200px"><br/><br/>
+				<input type="file" id="imagepath" name="f">
+				<input type="button" value="이미지삭제" id="del" onclick="imgReset();"> <br/>
+			</div>
+			<div class="cont"><textarea placeholder="내용을 입력해주세요" name="content"></textarea></div> 
+			<div class="bt_wrap">
+				<input class="button button2" type="submit" value="일지 작성">
+				<input class="button button2"  type="button" value="작성 취소" onclick="location.href='/childlog/list?childid=${sessionScope.loginId }'">
+			</div>
+		</form>
+	</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

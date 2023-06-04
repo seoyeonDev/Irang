@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Irangclass {
 
 	@Id
-	@SequenceGenerator(name="seq_irangclass", sequenceName="seq_irangclass", allocationSize=1)
+	@SequenceGenerator(name="seq_irangclass", sequenceName="seq_irangclass", initialValue=2, allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_irangclass")
 	private int classnum;
 	private String classname;

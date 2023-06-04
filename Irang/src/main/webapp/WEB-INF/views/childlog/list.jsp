@@ -25,7 +25,7 @@ function check(num) {
 	
     xhttp.onload = function(){  
 		document.getElementById("check_"+num).innerHTML = '확인';
-		document.getElementById("tcheck").style.display="none";
+		document.getElementById("tcheck_"+num).style.display="none";
 	}
 	
 	let param = "?chlognum=" + num; 
@@ -91,7 +91,7 @@ function datesearch(childid) {
 	<c:if test="${dto.tcheck eq 0}"> <!-- 미확인 -->
 		<span id="check_${dto.chlognum}">미확인</span>
 		<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
-			<input type="button" name="tcheck" id="tcheck" value="확인" onclick="check(${dto.chlognum})">
+			<input type="button" name="tcheck" id="tcheck_${dto.chlognum}" value="확인" onclick="check(${dto.chlognum})">
 		</c:if>
 	</c:if>
 	<br/>

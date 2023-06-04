@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,18 +43,23 @@
 			<div class="card-body">
 				<h5 class="card-title">${li.name }</h5>
 				<p class="card-text">
-					<form action="/teacher/editlist" class="selboxlist">
-							<input type="hidden" name="name" value="${li.name }">
-							<input type="hidden" name="phone"  value="${li.phone }">
-							<input type="hidden" name="pwd"  value="${li.pwd }">
-							<input type="hidden" name="teacherid"  value="${li.teacherid }">
-							<select id="inputState" class="form-control changeclass" name="classnum">
-				            	<c:forEach var="cl" items = "${classlist }"  >
-				            		<option class="inline-elements" value="<c:out value="${cl.classnum}"/>" <c:if test="${cl.classnum == li.classnum.classnum}"> selected </c:if>><c:out value="${cl.classname }"  />
-				            	</c:forEach>
-			            	</select>
-						<button class="btn inline-elements" style="">변경</button>
-					</form>			
+						<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+							<form action="/teacher/editlist" class="selboxlist">
+									<input type="hidden" name="name" value="${li.name }">
+									<input type="hidden" name="phone"  value="${li.phone }">
+									<input type="hidden" name="pwd"  value="${li.pwd }">
+									<input type="hidden" name="teacherid"  value="${li.teacherid }">
+									<select id="inputState" class="form-control changeclass" name="classnum">
+						            	<c:forEach var="cl" items = "${classlist }"  >
+						            		<option class="inline-elements" value="<c:out value="${cl.classnum}"/>" <c:if test="${cl.classnum == li.classnum.classnum}"> selected </c:if>><c:out value="${cl.classname }"  />
+						            	</c:forEach>
+					            	</select>
+								<button class="btn inline-elements" style="">변경</button>
+							</form>			
+				      </c:if>
+				      <c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
+				    	${li.classnum.classname}
+				   		</c:if>
 				</p>
 			</div>
 		</div>

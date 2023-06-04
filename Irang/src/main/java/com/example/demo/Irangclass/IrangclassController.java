@@ -32,7 +32,7 @@ public class IrangclassController {
 	// class 추가
 	@GetMapping("/add")
 	public String addForm(ModelMap map) {
-		map.addAttribute("bodyview","/WEB-INF/views/irangclass/list.jsp");
+		map.addAttribute("bodyview","/WEB-INF/views/irangclass/add.jsp");
 		return "index";
 	}
 	
@@ -43,7 +43,7 @@ public class IrangclassController {
 	}
 	
 	// class 삭제
-	@RequestMapping("/del")
+	@RequestMapping("/delete")
 	public String del(int num) {
 		service.delClass(num);
 		return "redirect:/irangclass/list";

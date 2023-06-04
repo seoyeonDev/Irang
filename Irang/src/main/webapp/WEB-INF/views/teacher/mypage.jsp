@@ -39,7 +39,7 @@
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-        <h4 class="mb-3">회원가입</h4>
+        <span class="title">회원가입</span>
         <div class="d-flex justify-content-center">
 			<form action="/teacher/editprofile" method="post" enctype="multipart/form-data">
 					<input type="file" name="f">
@@ -52,18 +52,19 @@
         <div class="mb-3 profile">
             <label for="profile">프로필사진</label>
             <c:if test="${not empty dto.profile }">
-            	<img src="/teacher/read_img?fname=${dto.profile }">
+            	<img src="/teacher/read_img?fname=${dto.profile }" required>
             </c:if>
             <c:if test="${empty dto.profile}">
-				없음
+				프로필 사진을 등록해주세요.
 			</c:if>
 			
         </div>
           <div class="row">
            <div class="col-md-6 mb-3">
+           <br> * 선생님 아이디는 식별을 위해 앞에 t가 붙습니다. 실제 로그인과는 상관없습니다.
               <label for="teacherid">아이디</label>
               <input oninput="idcheck()" type="text" class="form-control" name="teacherid" id="teacherid" placeholder="" value="${dto.teacherid }" readonly required>
-         	<br> * 선생님 아이디는 식별을 위해 앞에 t가 붙습니다. 실제 로그인과는 상관없습니다.
+         	
             </div>
             <div class="col-md-6 mb-3">
               <label for="name">이름</label>

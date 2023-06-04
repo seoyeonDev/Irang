@@ -16,18 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script>
-$(document).ready(function(){
-	let message = "${msg}";
-	if (message !=""){
-		alert(message);
-		Swal.fire({
-			  title: 'message',
-			  icon: 'error'
-			})
-	}else{
-		
-	}
-})
+
 </script>
 </head>
 
@@ -53,7 +42,7 @@ $(document).ready(function(){
               비밀번호를 입력해주세요.
             </div>
           </div>
-
+			<p style="color: red">${msg }</p>
           <div class="mb-4"></div>
           <button class="btn btn-lg btn-block" type="submit" >로그인</button>
         </form>
