@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'KimjungchulGothic-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+* {
+	color: #363636;
+	font-family: "KimjungchulGothic-Bold";
+	
+}
+.chlForm div{
+	padding : 10px 10px;
+}
+.chlog_title {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+.chlog_title, .info, .cont {
+	padding: 15px;
+}
+#title{
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+}
+.cont textarea {
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 15px;
+	/* box-sizing: border-box; */
+	border: 0;
+	resize: vertical;
+}
+.bt_wrap {
+	margin-top: 30px;
+	text-align: center;
+}
+.button {
+	padding: 7px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 10px;
+	width: 200px;
+  	height: 40px;
+}
+.button2 {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2;
+}
+
+.button2:hover {
+	background-color: #A9CFE2;
+	color: white;
+}
+input[type="file"]::file-selector-button, #del {
+  font-size: 13px;
+  width: 100px;
+  height: 25px;
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #A9CFE2;
+  border-radius:10px;
+}

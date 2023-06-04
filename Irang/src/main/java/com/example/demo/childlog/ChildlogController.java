@@ -111,6 +111,8 @@ public class ChildlogController {
 		ChildlogDto dto = service.getChlog(chlognum);
 		ArrayList<ChcommentDto> comdto = servcom.getAll(chlognum);
 		String classname = dto.getChildid().getClassnum().getClassname();
+		String chImg = dto.getChildid().getImg();
+		map.addAttribute("chImg", chImg);
 		map.addAttribute("classname", classname);
 		map.addAttribute("com", comdto);
 		map.addAttribute("dto", dto);

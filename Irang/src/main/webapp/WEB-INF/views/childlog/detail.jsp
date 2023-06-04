@@ -6,12 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/css/childlogdetail.css">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-});
-
 //선생님이 확인버튼 누름
 function check(num) {
 	const xhttp = new XMLHttpRequest(); 
@@ -84,7 +81,6 @@ function comdel(num) {
 	    xhttp.onload = function(){  
 			let div = document.getElementById("div_"+num);
 			div.remove();
-			document.getElementById("nocom").innerHTML = "작성된 댓글이 없습니다.";
 						
 		}
 		
@@ -97,31 +93,40 @@ function comdel(num) {
 </script>
 </head>
 <body>
-<h3>${dto.childid.name } 일지</h3>
+<div id="info">
+		<span id="chimg"><img src="/childlog/read_img?fname=${chImg }"> </span>
+		<span><span id="child">${classname}반 ${dto.childid.name }</span> &nbsp; | &nbsp;</span>
+		<span>${dto.wdate } &nbsp;| &nbsp;</span>
+		<c:if test="${dto.tcheck eq 1}"> <!-- 확인함 -->
+			<span style="color:blue">확인</span>
+		</c:if>
+		<c:if test="${dto.tcheck eq 0}"> <!-- 미확인 -->
+			<span id="check_${dto.chlognum}" style="color:red">미확인</span>
+			<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
+				<input class="button2" type="button" name="tcheck" id="tcheck" value="확인" onclick="check(${dto.chlognum})">
+			</c:if>
+		</c:if>
+</div>
 
-<c:if test="${dto.tcheck eq 1}"> <!-- 확인함 -->
-	<span>확인</span>
-</c:if>
-<c:if test="${dto.tcheck eq 0}"> <!-- 미확인 -->
-	<span id="check_${dto.chlognum}">미확인</span>
-	<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
-		<input type="button" name="tcheck" id="tcheck" value="확인" onclick="check(${dto.chlognum})">
+<div id="content">
+<div id="img">
+	<c:if test="${not empty dto.img}">
+		<img src="/childlog/read_img?fname=${dto.img }" style="width:200px;height:200px"> <br/>
 	</c:if>
-</c:if>
-<br/>
-<c:if test="${not empty dto.img}">
-	<img src="/childlog/read_img?fname=${dto.img }" style="width:200px;height:200px"> <br/>
-</c:if>
-<c:if test="${empty dto.img}">
-	<img src="../image/nopic.jpg" style="width:200px;height:200px"> <br/>
-</c:if>
-날짜: ${dto.wdate} <br/>
-내용: ${dto.content }<br/>
+	<c:if test="${empty dto.img}">
+		<img src="../image/nopic.jpg" style="width:200px;height:200px"> <br/>
+	</c:if>
+</div>
 
+<div> ${dto.content }</div>
+</div>
+
+<div class="bt_wrap">
 <c:if test="${sessionScope.loginId eq dto.childid.childid}">
-	<input type="button" id="edit" value="수정" onclick="location.href='/childlog/edit?chlognum=${dto.chlognum}'">
-	<input type="button" id="delete" value="삭제" onclick="logdel(${dto.chlognum}, '${dto.childid.childid }')">
+	<input class="button button2" type="button" id="edit" value="수정" onclick="location.href='/childlog/edit?chlognum=${dto.chlognum}'">
+	<input class="button button2" type="button" id="delete" value="삭제" onclick="logdel(${dto.chlognum}, '${dto.childid.childid }')">
 </c:if>
+</div>
 <br/><br/>
 
 <!-- 댓글 리스트 -->
@@ -129,7 +134,6 @@ function comdel(num) {
 	작성된 댓글이 없습니다.
 </c:if>
 <c:if test="${not empty com }">
-	<span id="nocom"></span>
 	<c:forEach var="vo" items="${com}">
 	<div id="div_${vo.num }">
 		${vo.wdate } <br/>
