@@ -145,3 +145,34 @@ html, body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+.irangclasstable {
+	padding: 10px;
+	margin-top: 10px;
+	margin: 50px;
+	border: 1px solid #ccc;
+	align-items: center;
+}
+
+td {
+	border: 1px solid #ccc;
+}
+
+.classname{
+	color: #363636;
+	text-align: center;
+/* 	background: #A9CFE2; */
+	margin: 50px;
+	padding: 10px;
+	font-style: oblique;
+}
+
+.classcontent{
+	padding-right: 30px;
+	padding: 10px;
+}
+
+.classbtn{
+	align-items: center;
+	display: flex;
+}

@@ -9,32 +9,17 @@
 *{
 	font-family: 'KimjungchulGothic-Bold';
 	color: #363636;
-	width:500px;
 }
 
-table {
-	border: 1px #a39485 solid;
-	font-size: .9em;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-	width: 100%;
-	border-collapse: collapse;
-	border-radius: 5px;
-	overflow: hidden;
-	margin: 50px;
-}
-
-.title {
-	background-color: #A9CFE2;
-}
-
-
-td {
-	vertical-align: middle;
-}
-
-td {
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
-	background: #fff;
+body {
+	min-height: 100vh;
+	background: -webkit-gradient(linear, left bottom, right top, from(#92b5db),
+		to(#1d466c));
+	background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+	background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+	margin: 4%;
 }
 
 .btn {
