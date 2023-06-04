@@ -189,7 +189,8 @@
 $(document).ready(function(){
 	$(document).on("change","#searchBar",function(){
 		// 뭘로 검색할꺼야?
-		let check = parseInt($("select[name=searchBar]").val());
+		let check = $("select[name=searchBar]").val();
+		console.log(check);
 		console.log(check);
 		
 		if(check==1){ // 날짜로 검색
@@ -267,16 +268,17 @@ $(document).ready(function(){
 							txt += '<div class="col">';
 							txt += '<div class="card h-100">';
 							if(li.img1 != null){ // 사진 보여주기
-								txt += '<a href="/teacherlog/detail?tlnum=' + li.tlnum '"><img  class="card-img-top" src="/teacherlog/read_img?fname=' + li.img1 + '&tlnum=' + li.tlnum + '"></a>';
+								txt += '<a href="/teacherlog/detail?tlnum=' + li.tlnum + '"><img  class="card-img-top" src="/teacherlog/read_img?fname=' + li.img1 + '&tlnum=' + li.tlnum + '"></a>';
 							} else {	// 기본 이미지 보여주기 
 								
 							}
 							txt += '<div class="card-body">';
 							txt += ' <h5 class="card-title">' + li.tdate + '</h5>';
 							txt += ' <p class="card-text">';
-							txt += li.teacherid.name '<br/><span class="actSpan">' + li.activity + '</span></p></div></div></div></div>';
+							txt += li.teacherid.name + '<br/><span class="actSpan">' + li.activity + '</span></p></div></div></div>';
 						}
-						$("#tlist").text(txt);
+						txt += '</div>';
+						$("#tlist").html(txt);
 					} else{
 						$("#tlist").text("검색 결과가 없습니다.");
 					}

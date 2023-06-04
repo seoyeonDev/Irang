@@ -50,7 +50,7 @@
 			<div><span class="addSpan">이미지 첨부</span><input class="form-control" type="file" name="f[0]"></div>
 			<div><span class="addSpan">이미지 첨부</span><input class="form-control" type="file" name="f[1]"></div>
 			<div><span class="addSpan">이미지 첨부</span><input class="form-control" type="file" name="f[2]"></div>
-			<div><input class="btn btn-outline-dark" type="submit" value="일지 작성"></div>
+			<div><input class="btn btn-outline-dark" type="button" value="일지 작성"></div>
 		</form>
 		</div>
 	</div>
@@ -79,8 +79,11 @@
 				success:function(result){
 					console.log(result.list);
 					let list = result.list;
+					if(list.length > 0){
+						
+					}
 					let txt = '<select class="form-select" name="selectName" id="selectName">';
-					txt += '<option selected>--아이 선택--</option>';
+					txt += '<option value="">--아이 선택--</option>';
 					for(li of list){
 						txt += '<option value="' + li.childid + '">' + li.name + '</option>';
 					}
@@ -93,8 +96,9 @@
 				}
 			});
 			
+			console.log("처음으로 선택된 값 :" + $("#selectName").val());
+			
 			$(document).on("change","#selectName",function(){
-				console.log("흔들");
 				console.log($("#selectName").val());
 				$("#childid").val($("#selectName").val());
 			});
