@@ -29,8 +29,18 @@
 	float: left;
 }
 
+.searchbtn, .everybtn, .yetbtn {
+	padding: 7px 10px;
+	background-color: #A9CFE2;
+	color: #363636;
+	border: 2px solid white;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .search {
 	float: right;
+	
 }
 
 .chloglist {
@@ -39,7 +49,20 @@
 }
 
 .cont {
-	overflow: hidden;
+	display: inline-block;
+/*     width: 200px; */
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
-	-webkit-line-clamp: 2 ;
+
+    /* 여러 줄 자르기 추가 스타일 */
+    white-space: normal;
+    line-height: 1.2;
+    height: 3.6em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
+
