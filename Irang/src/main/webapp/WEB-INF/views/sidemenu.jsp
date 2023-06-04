@@ -34,7 +34,7 @@
 			<a href="/childlog/add">일지작성</a>
 
 			<div class="dropdown">
-				<a href="/child/edit" class="dropbtn">마이페이지</a>
+			<a href="/child/childinfo?childid=${sessionScope.loginId}" class="dropbtn">마이페이지</a>
 				<div class="dropdown-content">
 					<a href="/child/join"> 아이정보입력</a> <a href="/child/listmyclass">
 						${sessionScope.loginId}반 정보</a> <a href="/child/logout">로그아웃</a>
@@ -52,11 +52,11 @@
 				href="/teacherlog/add?teacherid=${sessionScope.loginId}">일지 작성</a>
 
 			<div class="dropdown">
-				<a href="/teacher/mypage" class="dropbtn">마이페이지</a>
+			<a href="/teacher/mypage?teacherid=${sessionScope.loginId }" class="dropbtn">마이페이지</a>
 				<div class="dropdown-content">
 					<a href="/child/listmyclass2">우리반 관리</a> 
 					<a href="/teacher/logout">로그아웃</a>
-					<a href="/teacher/delete">탈퇴</a>
+					<a href="/teacher/delete?teacherid=$sessionScope.loginId}">탈퇴</a>
 				</div>
 			</div>
 		</c:if>
