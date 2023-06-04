@@ -14,11 +14,29 @@
 			$('#imgf').show();
 		})
 		
+		$('#delbtn').click(function(event) {
+		    event.preventDefault(); // 기본 링크 동작 방지
+		    
+		    var deleteUrl = $(this).data('delete-url');
+		    var confirmed = confirm("Are you sure you want to delete this data?"); // 프롬프트 창으로 확인 메시지 표시
+		    
+		    if (confirmed) {
+		      window.location.href = deleteUrl; // 예를 선택한 경우 링크로 이동하여 데이터 삭제
+		    }
+		 });
+		
 	});
 </script>
 <style>
+@font-face {
+	font-family: 'KimjungchulGothic-Bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
 body {
-  font-family: Arial, sans-serif;
   padding: 20px;
 }
 
@@ -81,10 +99,10 @@ img {
       <label for="allergy">아이의 알러지 정보:</label>
       <input type="text" value="${dto.allergy}" id="allergy" name="allergy"><br/>
 
-      <label for="classnum">아이의 반:</label>
+      <label for="classnum">아이의 반명: ${dto.classnum.classname }반</label>
       <input type="number" value="${dto.classnum.classnum}" id="classnum" name="classnum">
 	<button type="submit">아이정보수정</button>
-	<a href="/child/out?id=${dto.childid }"><input type="button" value="아이계정 삭제" id="delbtn"></a>
+	<input type="button" value="아이계정 삭제" id="delbtn" data-delete-url="/child/out?id=${dto.childid }">
     </form>
       <p>아이계정 사진:</p>
       <img src="/child/read_img?fname=${dto.img}" name="f" style="width:200px; height:200px">

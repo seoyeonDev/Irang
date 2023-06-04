@@ -43,7 +43,7 @@ function idcheck(){
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-        <h4 class="mb-3">회원가입</h4>
+        <h4 class="mb-3">선생님이 아이회원추가 <br/>※학부모님께 (ID,PWD,이름,반) 꼭 전달</h4>
         <form action="/child/childadd" method="post" class="validation-form" enctype="multipart/form-data" novalidate>
           <div class="row">
            <div class="col-md-6 mb-3">
@@ -85,6 +85,7 @@ function idcheck(){
          
           <div class="mb-4"></div>
           <button class="btn btn-lg btn-block" type="submit">가입 완료</button>
+          <a href="/child/listmyclass2"><button class="btn btn-lg btn-block" type="button">이전으로</button></a>
         </form>
       </div>
     </div>

@@ -43,7 +43,7 @@ function idcheck(){
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-        <h4 class="mb-3">회원가입</h4>
+        <h4 class="mb-3">정보 추가 입력</h4>
         <form action="/child/join" method="post" class="validation-form" enctype="multipart/form-data" novalidate>
         <div class="mb-3">
             <label for="profile">프로필사진</label>

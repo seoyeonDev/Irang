@@ -15,18 +15,11 @@
 </head>
 <body>
 <h3>${cto.classname }반 아이들전체 목록</h3>
-<c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
-<a href="/child/join">아이부모가추가</a>
-<a href="/child/listmyclass">나랑 같은 반 아이들</a>
-</c:if>
-<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
-<a href="/child/listmyclass2">내 반 애들</a>
-<a href="/child/childadd">선생님이추가</a>
-</c:if>
 
-<a href="/child/listall">반전체</a>
-<c:forEach var="cl" items = "${clist }">
-	<a href="/child/listbyclass?classnum=${cl.classnum }"><input type="button" value="${cl.classname }"></a>
+<c:forEach var="cl" items="${clist}">
+  <a href="/child/listbyclass?classnum=${cl.classnum}">
+    <input type="button" value="${cl.classname}" style="padding: 10px; margin: 5px; background-color: #a9cfe2; border: none; border-radius: 50px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); font-size: 14px; color: #fff; text-transform: uppercase; cursor: pointer;">
+  </a>
 </c:forEach>
 
 
@@ -47,7 +40,7 @@
                       <div class="frontside">
                           <div class="card">
                               <div class="card-body text-center">
-                                  <p><img class=" img-fluid" src="/child/read_img?fname=${list.img }" alt="card image"></p>
+                                  <p><img class="img-fluid" src="/child/read_img?fname=${list.img}" alt="../image/nopic.jpg" onerror="this.onerror=null; this.src='../image/nopic.jpg';"></p>
                                   <h4 class="card-title">${list.name }</h4>
                                   <p class="card-text">생년월일: ${list.birthday }<br/>부모님 전화번호:${list.phone }<br/>아이의 반:${list.classnum.classname }반</p>
                                   <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
@@ -58,7 +51,7 @@
                           <div class="card">
                               <div class="card-body text-center mt-4">
                                   <h4 class="card-title">${list.name }</h4>
-                                  <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                  <p class="card-text text-xs-center">---------------------------------<br/>아이계정ID: ${list.childid} <br/>※※(필독) 알러지사항: ${list.allergy }※※</p>
                                   <ul class="list-inline">
                                       <li class="list-inline-item">
                                           <a class="social-icon text-xs-center" href="/child/childinfo?childid=${list.childid}">

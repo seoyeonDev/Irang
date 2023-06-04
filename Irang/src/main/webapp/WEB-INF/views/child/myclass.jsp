@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,12 @@
 <body>
 <h3>${cto.classname }반 학급 아이목록</h3>
 
+<c:forEach var="cl" items="${clist}">
+  <a href="/child/listbyclass?classnum=${cl.classnum}">
+    <input type="button" value="${cl.classname}" style="padding: 10px; margin: 5px; background-color: #a9cfe2; border: none; border-radius: 50px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); font-size: 14px; color: #fff; text-transform: uppercase; cursor: pointer;">
+  </a>
+</c:forEach>
+
 <form action="/child/listbyname" method="post">
 <input type="text" id="name" name="name">
 <input type="submit" id="namebtn" value="이름검색">
@@ -22,7 +29,7 @@
 
 <section id="team" class="pb-5">
   <div class="container">
-      <h5 class="section-title h1">우리반(${cto.classname }반) 전체리스트</h5>
+      <h5 class="section-title h1">우리반(${cto.classname }반) 원아목록</h5>
       <div class="row">
       <c:forEach var="list" items="${list }">
           <!-- Team member -->
@@ -32,7 +39,7 @@
                       <div class="frontside">
                           <div class="card">
                               <div class="card-body text-center">
-                                  <p><img class=" img-fluid" src="/child/read_img?fname=${list.img }" alt="card image"></p>
+                                  <p><img class="img-fluid" src="/child/read_img?fname=${list.img}" alt="../image/nopic.jpg" onerror="this.onerror=null; this.src='../image/nopic.jpg';"></p>
                                   <h4 class="card-title">${list.name }</h4>
                                   <p class="card-text">생년월일: ${list.birthday }<br/>부모님 전화번호:${list.phone }<br/>아이의 반:${list.classnum.classname }반</p>
                                   <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
@@ -43,8 +50,9 @@
                           <div class="card">
                               <div class="card-body text-center mt-4">
                                   <h4 class="card-title">${list.name }</h4>
-                                  <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                  <p class="card-text text-xs-center">---------------------------------<br/>아이계정ID: ${list.childid} <br/>※※(필독) 알러지사항: ${list.allergy }※※</p>
                                   <ul class="list-inline">
+                                  <c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
                                       <li class="list-inline-item">
                                           <a class="social-icon text-xs-center" href="/child/childinfo?childid=${list.childid}">
                                               <i class="fa fa-user-circle">상세정보</i>
@@ -55,6 +63,19 @@
                                               <i class="fa fa-list-alt">일지</i>
                                           </a>
                                       </li>
+                                  </c:if>
+                                  <c:if test="${sessionScope.loginId eq list.childid}">
+                                  	  <li class="list-inline-item">
+                                          <a class="social-icon text-xs-center" href="/child/childinfo?childid=${list.childid}">
+                                              <i class="fa fa-user-circle">상세정보</i>
+                                          </a>
+                                      </li>
+                                  	  <li class="list-inline-item">
+                                          <a class="social-icon text-xs-center" href="/childlog/list?childid=${list.childid}">
+                                              <i class="fa fa-list-alt">일지</i>
+                                          </a>
+                                      </li>
+                                  </c:if>
                                   </ul>
                               </div>
                           </div>
