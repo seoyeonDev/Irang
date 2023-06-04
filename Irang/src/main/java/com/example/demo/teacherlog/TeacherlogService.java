@@ -34,7 +34,7 @@ public class TeacherlogService {
 
 	// teacher_id로 검색
 	public ArrayList<TeacherlogDto> getByTeacherId(Teacher teacherid) {
-		ArrayList<Teacherlog> list = dao.findByTeacherid(teacherid);
+		ArrayList<Teacherlog> list = dao.findByTeacheridOrderByTlnumDesc(teacherid);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -45,7 +45,7 @@ public class TeacherlogService {
 
 	// child_id로 검색
 	public ArrayList<TeacherlogDto> getByChildId(Child childid) {
-		ArrayList<Teacherlog> list = dao.findByChildid(childid);
+		ArrayList<Teacherlog> list = dao.findByChildidOrderByTlnumDesc(childid);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -63,7 +63,7 @@ public class TeacherlogService {
 
 	// 선생님이 쓴 글 중 아이 선택해서 글보기
 	public ArrayList<TeacherlogDto> getByCandT(Teacher teacherid, Child childid) {
-		ArrayList<Teacherlog> list = dao.findByTeacheridAndChildid(teacherid, childid);
+		ArrayList<Teacherlog> list = dao.findByTeacheridAndChildidOrderByTlnumDesc(teacherid, childid);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -107,7 +107,7 @@ public class TeacherlogService {
 
 	// 날짜로 찾기
 	public ArrayList<TeacherlogDto> getByDay(LocalDate tdate) {
-		ArrayList<Teacherlog> list = dao.findByTdate(tdate);
+		ArrayList<Teacherlog> list = dao.findByTdateOrderByTlnumDesc(tdate);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -118,7 +118,7 @@ public class TeacherlogService {
 
 	// 날짜 + teacherid 로 찾기
 	public ArrayList<TeacherlogDto> getByDayAndTeacherid(LocalDate tdate, Teacher teacherid) {
-		ArrayList<Teacherlog> list = dao.findByTeacheridAndTdate(teacherid, tdate);
+		ArrayList<Teacherlog> list = dao.findByTeacheridAndTdateOrderByTlnumDesc(teacherid, tdate);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -129,7 +129,7 @@ public class TeacherlogService {
 	
 	// 날짜 + childid 로 찾기
 	public ArrayList<TeacherlogDto> getByDayAndChildid(LocalDate tdate, Child childid) {
-		ArrayList<Teacherlog> list = dao.findByChildidAndTdate(childid, tdate);
+		ArrayList<Teacherlog> list = dao.findByChildidAndTdateOrderByTlnumDesc(childid, tdate);
 		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
 		for (Teacherlog vo : list) {
 			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
@@ -137,4 +137,26 @@ public class TeacherlogService {
 		}
 		return dtoList;
 	}
+	
+	// month + teacherid 로 찾기
+	public ArrayList<TeacherlogDto> getByMonthAndTeacherid(LocalDate start, LocalDate end, Teacher teacherid) {
+		ArrayList<Teacherlog> list = dao.findByTeacheridAndTdateBetweenOrderByTlnumDesc(teacherid, start, end);
+		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
+		for (Teacherlog vo : list) {
+			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
+					vo.getActivity(), vo.getHealth(), vo.getImg1(), vo.getImg2(), vo.getImg3(), null));
+		}
+		return dtoList;
+	}
+	
+	// month + childid 로 찾기
+		public ArrayList<TeacherlogDto> getByMonthAndChildid(LocalDate start, LocalDate end, Child childid) {
+			ArrayList<Teacherlog> list = dao.findByChildidAndTdateBetweenOrderByTlnumDesc(childid, start, end);
+			ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
+			for (Teacherlog vo : list) {
+				dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
+						vo.getActivity(), vo.getHealth(), vo.getImg1(), vo.getImg2(), vo.getImg3(), null));
+			}
+			return dtoList;
+		}
 }

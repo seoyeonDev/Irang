@@ -19,11 +19,13 @@
 }
 #tdetail{
 	 font-family: 'KimjungchulGothic-Bold';
+	 color : #363636;
 }
 .detailimg{
 	width:300px;
 	height:300px;
 	object-fit : cover;
+	margin-bottom:10px;
 }
 
 .me{
@@ -38,7 +40,7 @@
 	padding : 10px 10px;
 	border-radius : 10px;
 	width : 350px;
-	margin-bottom:20px;
+	margin-bottom:10px;
 }
 #imgAll{
 	justify-content: space-between;
@@ -64,6 +66,14 @@
 	resize: none;
 	width : 60%;
 	border-radius : 10px;
+}
+
+#activity, #health{
+	border : 2px solid #a9cfe2;
+	resize: none;
+	width : 70%;
+	border-radius : 10px;
+	padding : 10px 10px;
 }
 
 .taA textarea:focus{
@@ -103,19 +113,87 @@
 	margin-auto:left;
 }
 
-.comWriter{
+.comWriter, .comDate{
 	margin-right:auto;
+	font-size : 13px;
+}
+
+.comWriter, .content{
+	margin-left : 5px;
 }
 
 .comDate{
-	margin-left:auto;
+	margin-right : 5px;
 }
+
+
 .cmt{
 	background-color: #fcedaa;
-	border : 2px solid #d3d3d3;
+	border : 2px solid #a1a1a1;
 	resize: none;
 	border-radius : 10px;
 	width:330px;
+}
+.addImg, .delImg, .cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.addImg, .delImg, #cBtn{
+	background-color : #A9CFE2;
+	color : #363636;
+/* 	background-color: white; */
+/* 	color: #363636; */
+ 	border: 2px solid #A9CFE2; 
+}
+
+.cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
+	background-color: #fcedaa;
+	color: #363636;
+	border: 2px solid #a1a1a1;
+}
+
+.btn{
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #A9CFE2;
+	color: #363636;
+ 	border: 2px solid #A9CFE2; 
+}
+
+.addImg:hover, .delImg:hover, .btn:hover, #cBtn:hover {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2; 
+}
+
+.cEditBtn:hover, .cDelBtn:hover, .jjinEditBtn:hover, .cancelBtn:hover{
+	background-color: #A9CFE2;
+	color: #363636;	
+}
+
+.content{
+	margin-bottom : 20px;
+}
+
+.cBtn, .ccBtn{
+	float : right;
+}
+
+.cEditBtn, .jjinEditBtn{
+	margin-right:10px;
 }
 
 </style>
@@ -126,6 +204,13 @@
 
 <!-- 선생님.ver detail -->
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 't'}">
+	<div id="tInfo">
+		<div id="timg"><img src="/teacher/read_img?fname=${tImg }"> </div>
+		<span><span id="teacher">${vo.teacherid.name }</span> 선생님 &nbsp; | &nbsp;</span>
+		<span>날짜 ${vo.tdate } &nbsp;| &nbsp;</span>
+		<span>글 번호 ${vo.tlnum }</span>
+	</div>
+
 <div id="imgAll">
 	<div id="img1">
 		<div id="image1">
@@ -168,23 +253,19 @@
 	</div>
 </div>
 	
-	<div>${vo.tlnum }</div>
-	<div>${vo.teacherid.name }</div>
-	<div>${vo.tdate }</div>
+	<div style="margin-top:50px; margin-bottom:5px">활동</div>
 	<div>
 		<textarea id="activity">${vo.activity }</textarea>
 	</div>
+	<div style="margin-top:50px; margin-bottom:5px">건강</div>
 	<div>
 		<textarea id="health"> ${vo.health }</textarea>
 	</div>
-	<div>
-		<input type="button" value="수정하기" id="tEditBtn">
-		<input type="button" value="삭제하기" id="tDelBtn">
+	<div style="margin-top : 40px;">
+		<input type="button" value="수정하기" id="tEditBtn" class="btn">
+		<input type="button" value="삭제하기" id="tDelBtn" class="btn">
 	</div>
 	
-	<br/><br/>참고용<br/>
-	<div>${vo.teacherid.teacherid }</div>
-	<div>${vo.childid.name }</div>
 </c:if>
 
 
@@ -242,8 +323,8 @@
 	<div id="clist">
 		<c:forEach var="li" items="${list }">
 			<c:if test="${sessionScope.loginId == li.comwriter }">
-			<div style="display: flex; margin:10px">
-				<div id="${li.commentnum }" class="me">
+			<div id="${li.commentnum }"  style="display: flex; margin:10px">
+				<div class="me">
 					<div style="display:flex; margin-bottom:5px">
 						<c:if test="${fn:substring(li.comwriter, 0, 1) eq 't'}">
 							<div class="comWriter">${className}반 선생님</div>
@@ -272,8 +353,8 @@
 			
 			
 			<c:if test="${sessionScope.loginId != li.comwriter }">
-			<div style="display: flex; margin-bottom:5px">
-				<div id="${li.commentnum }" class="other">
+			<div id="${li.commentnum }" style="display: flex; margin-bottom:5px">
+				<div class="other">
 					<div style="display:flex">
 						<c:if test="${fn:substring(li.comwriter, 0, 1) eq 't'}">
 							<div class="comWriter">${vo.teacherid.name }</div>
@@ -336,26 +417,30 @@
 						let dto = result.dto;
 						
 						let txt = '';
-						txt += '<div id="'+dto.commentnum+'" class="me">';
+						txt += '<div id="'+dto.commentnum+'" style="display: flex; margin:10px">';
+						txt += '<div class="me">';
+						txt += '<div style="display: flex; margin-bottom:5px">';
 						txt += '<div class="comWriter">'+result.tcName;
 						
 						if(dto.comwriter.charAt(0)=='t'){
 							txt+= '반 선생님';
 						}
 						
-						txt += '</div><div style="display:flex; margin-bottom:5px">'
-						txt += '<div class="comDate">'+dto.comdate+'</div>';
-						txt += '<div class="content">'+dto.content+'</div>';
 						txt += '</div>';
+						txt += '<div class="comDate">'+dto.comdate+'</div></div>';
+						txt += '<div class="content" id="content' + dto.commentnum + '">'+dto.content+'</div>';
 						txt += '<div class="cBtn" id="cBtn' + dto.commentnum +'">';
 						txt += '<input type="button" class="cEditBtn" id="c' + dto.commentnum + '" value="수정">';
 						txt += '<input type="button" class="cDelBtn" id="d' + dto.commentnum + '" value="삭제"></div>';
 						txt += '<div class="ccBtn" id="ccBtn' + dto.commentnum + '" style="display:none">';
 						txt += '<input type="button" class="jjinEditBtn" id="r' + dto.commentnum + '" value="찐수정">';
-						txt += '<input type="button" class="cancelBtn" id="cancel' + dto.commentnum + '" value="취소"></div></div>';
+						txt += '<input type="button" class="cancelBtn" id="cancel' + dto.commentnum + '" value="취소"></div></div></div>';
 						
 						
 						$("#clist").append(txt);
+						
+						$("#content").val("");
+						// 댓글 작성한 곳 빈칸으로 만들기
 					},
 					error : function(req, status){
 						console.log(status);
@@ -448,10 +533,13 @@
 			// 댓글 수정하기
 			$(document).on("click", ".cEditBtn", function(){
 				let num = $(this).attr("id").substr(1);
+				console.log("댓글 수정 num :"+num);
 				$("#ccBtn"+num).show();
 				$("#cBtn"+num).hide();				
 				let txt = '<textarea id="text'+num+'" class="cmt">'+$("#content"+num).text()+'</textarea>';
+				console.log(txt);
 				$("#content"+num).html(txt);
+				console.log("#content"+num);
 			});
 			
 			// 댓글 찐수정하기

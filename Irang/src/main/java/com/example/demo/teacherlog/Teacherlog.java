@@ -55,9 +55,9 @@ public class Teacherlog {
 	@Column(nullable=true)
 	private String img3;
 	
-	@PreUpdate
-	@PrePersist
-	public void wdateperprocess() {
-		tdate = LocalDate.now();
-	}
+//	@PreUpdate
+//	@PrePersist
+//	public void wdateperprocess() {
+//		tdate = LocalDate.now();
+//	}
 }

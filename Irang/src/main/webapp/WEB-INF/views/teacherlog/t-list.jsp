@@ -19,7 +19,8 @@
 }
 #tlistbody{
 	font-family: 'KimjungchulGothic-Bold';
-	width:90%;
+/* 	width:90%; */
+	color : #363636;
 }
 .content{
 	display: inline-block;
@@ -33,6 +34,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width:100%;
 }
 
 .tlA{
@@ -86,9 +88,13 @@
 	display: flex;
   	justify-content: center;
   	align-items: center;
+  	margin-bottom:35px;
 }
 #tList{
 	margin-bottom:40px;
+}
+#searchBar{
+	margin-bottom:7px;
 }
 
 </style>
@@ -96,7 +102,7 @@
 <body id="tlistbody">
 
 <!-- 보호자.ver list -->
-<h3 style="text-align:center; margin-bottom:40px"><span id="title">선생님 일지 목록</span></h3>
+<h3 style="text-align:center; margin-bottom:60px"><span id="title">선생님 일지 목록</span></h3>
 <c:if test="${fn:substring(sessionScope.loginId, 0, 1) eq 'c'}">
 	<div id="sDiv">
 		<div id="searchDiv">
@@ -126,11 +132,11 @@
 							<a href="/teacherlog/detail?tlnum=${li.tlnum }"><img  class="card-img-top" src="/teacherlog/read_img?fname=${li.img1 }&tlnum=${li.tlnum }"></a>
 						</c:if>
 						<div class="card-body">
-       					 <h5 class="card-title">${li.tdate }</h5>
-       					 <p class="card-text">
-       						 ${li.teacherid.name }<br/>
-       					 	<span class="actSpan">${li.activity }</span>
-       					 </p>
+       						<h5 class="card-title">${li.tdate }</h5>
+       						<p class="card-text">
+       						 	${li.teacherid.name }<br/>
+       					 		<span class="actSpan">${li.activity }</span>
+       						</p>
 						</div>
 					</div>
 				</div>
@@ -329,9 +335,91 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click", "#searchMonthBtn", function(){
+		let loginId = '${sessionScope.loginId}';
+		console.log(loginId.charAt(0));
+		let id = '';
+		let url = '';
+		let flag = true; // teacher면 true, child면 false
+
+		if(loginId.charAt(0)=='c'){
+			id = 'childid';
+			url = '/teacherlog/childMonth';
+			flag = false;
+		} else if(loginId.charAt(0)=='t'){
+			id = 'teacherid';
+			url = '/teacherlog/month';
+		}
+		
 		let tmonth = $("#tmonth").val();
-		console.log(tmonth);
-		console.log("월별로 검색 클릭");
+		// 추가
+		var year = parseInt(tmonth.split("-")[0]);
+		var month = parseInt(tmonth.split("-")[1]);
+		var lastDay = new Date(year, month, 0).getDate();
+		console.log("마지막날 : "+lastDay);
+		// 추가
+		
+		let requestData = {};
+	    requestData['start'] = tmonth + "-01";
+	    requestData['end'] = tmonth + "-" + lastDay;
+	    requestData[id] = '${sessionScope.loginId}';
+	    console.log("requestData");
+	    console.log(requestData);
+	    
+	    $.ajax({
+			url : url,
+			data : requestData,
+			type : 'get',
+			dataType : 'json',
+			success : function(result){
+				let list = result.list;
+				if(flag){
+					if(result.list.length>0){ // 목록 띄워주기
+						let txt = '<table class="table table-hover">';
+						txt += '<tr><th>번호</th><th>아이 이름</th><th>날짜</th><th>활동</th><th>건강</th></tr>';
+						for(li of list){
+							txt += '<tr>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tlnum + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.childid.name + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '">' + li.tdate + '</a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.activity + '</span></a></td>';
+							txt += '<td><a class="tlA" href="/teacherlog/detail?tlnum=' + li.tlnum + '"><span class="content">' + li.health + '</span></a></td>';
+							txt += '</tr>';
+						}					
+						txt += '</table>';
+						$("#tlist").html(txt);
+					} else{
+						// 검색한 결과가 없습니다.
+						$("#tlist").text("검색 결과가 없습니다.");
+					}
+				}else{
+					// 보호자 로그인으로 검색했을 때 보여줄 결과
+					if(result.list.length>0){
+						let txt = '<div class="row row-cols-1 row-cols-md-3 g-4">';
+						for(li of list){
+							txt += '<div class="col">';
+							txt += '<div class="card h-100">';
+							if(li.img1 != null){ // 사진 보여주기
+								txt += '<a href="/teacherlog/detail?tlnum=' + li.tlnum + '"><img  class="card-img-top" src="/teacherlog/read_img?fname=' + li.img1 + '&tlnum=' + li.tlnum + '"></a>';
+							} else {	// 기본 이미지 보여주기 
+								
+							}
+							txt += '<div class="card-body">';
+							txt += ' <h5 class="card-title">' + li.tdate + '</h5>';
+							txt += ' <p class="card-text">';
+							txt += li.teacherid.name + '<br/><span class="actSpan">' + li.activity + '</span></p></div></div></div>';
+						}
+						txt += '</div>';
+						$("#tlist").html(txt);
+					} else{
+						$("#tlist").text("검색 결과가 없습니다.");
+					}
+						
+				}
+			},
+			error : function(req, status){
+				console.log(status);
+			}
+		});
 	});
 });
 </script>

@@ -7,14 +7,35 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.child.Child;
+import com.example.demo.childlog.Childlog;
 import com.example.demo.teacher.Teacher;
 
 @Repository
 public interface TeacherlogDao extends JpaRepository<Teacherlog, Integer> {
-	ArrayList<Teacherlog> findByTeacherid(Teacher teacherid);
-	ArrayList<Teacherlog> findByChildid(Child childid);
-	ArrayList<Teacherlog> findByTeacheridAndChildid(Teacher teacherid, Child childid);
-	ArrayList<Teacherlog> findByTdate(LocalDate tdate);
-	ArrayList<Teacherlog> findByTeacheridAndTdate(Teacher teacherid, LocalDate tdate);
-	ArrayList<Teacherlog> findByChildidAndTdate(Child childid, LocalDate tdate);
+	// 선생님 : 일지 리스트
+	ArrayList<Teacherlog> findByTeacheridOrderByTlnumDesc(Teacher teacherid);
+	
+	// 보호자 : 일지 리스트
+	ArrayList<Teacherlog> findByChildidOrderByTlnumDesc(Child childid);
+	
+	// 선생님 : 특정 아이 select 
+	ArrayList<Teacherlog> findByTeacheridAndChildidOrderByTlnumDesc(Teacher teacherid, Child childid);
+	
+	// 특정 날짜 검색 (근데 아마 안쓴듯?)
+	ArrayList<Teacherlog> findByTdateOrderByTlnumDesc(LocalDate tdate);
+	
+	// 선생님 : 특정 날짜 검색 
+	ArrayList<Teacherlog> findByTeacheridAndTdateOrderByTlnumDesc(Teacher teacherid, LocalDate tdate);
+	
+	// 아이 : 특정 날짜 검색
+	ArrayList<Teacherlog> findByChildidAndTdateOrderByTlnumDesc(Child childid, LocalDate tdate);
+	
+	// 선생님 : 월별 검색
+	ArrayList<Teacherlog> findByTeacheridAndTdateBetweenOrderByTlnumDesc(Teacher teacherid, LocalDate start, LocalDate end);
+	
+	// 아이 : 월별 검색
+	ArrayList<Teacherlog> findByChildidAndTdateBetweenOrderByTlnumDesc(Child childid, LocalDate start, LocalDate end);
+	
+	// childid 와 날짜로 검색 (기간)
+	//ArrayList<Childlog> findByChildidAndWdateBetweenOrderByChlognumDesc(Child childid, LocalDate start, LocalDate end);
 }
