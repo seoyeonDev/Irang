@@ -11,23 +11,24 @@
   <link rel="stylesheet" href="/css/childlistcard.css">
 </head>
 <body>
-<h3>아이전체 목록</h3>
+<h3>클래스로 조회:</h3>
 
 <c:forEach var="cl" items="${clist}">
   <a href="/child/listbyclass?classnum=${cl.classnum}">
-    <input type="button" value="${cl.classname}" style="padding: 10px; margin: 5px; background-color: #a9cfe2; border: none; border-radius: 50px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); font-size: 14px; color: #fff; text-transform: uppercase; cursor: pointer;">
+    <input type="button" value="${cl.classname}반" style="padding: 10px; margin: 5px; background-color: #a9cfe2; border: none; border-radius: 50px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); font-size: 14px; color: #fff; text-transform: uppercase; cursor: pointer;">
   </a>
 </c:forEach>
 
 
-<form action="/child/listbyname" method="post">
+<form action="/child/listbyname" method="post" style="text-align: right;">
 <input type="text" id="name" name="name">
-<input type="submit" id="namebtn" value="이름검색">
+<input type="submit" id="namebtn" value="이름검색" style="background-color: #A9CFE2;
+    color: #363636;">
 </form>
 
 <section id="team" class="pb-5">
   <div class="container">
-      <h5 class="section-title h1">원아 전체리스트</h5>
+      <h5 class="section-title h1" style="text-align: center;">원아 전체리스트</h5>
       <div class="row">
       <c:forEach var="list" items="${list }">
           <!-- Team member -->
