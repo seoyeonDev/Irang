@@ -6,19 +6,18 @@
     font-weight: 700;
     font-style: normal;
 }
-* {
+#chlogbody {
 	color: #363636;
 	font-family: "KimjungchulGothic-Bold";
 	text-align: center;
 }
-div{
-	padding : 10px 10px;
-}
+
 #info{
+	margin-top: 50px;
 	display: flex;
     align-items: center;
     justify-content: center;
-    margin-top:10px;
+    margin: 50px;
 }
 #chimg{
 	width : 50px;
@@ -32,15 +31,31 @@ div{
 	height: 100%;
 	object-fit : cover;
 }
+#img {
+	margin-top: 50px;
+}
 #child{
-	font-size: 15px;
+	font-size: 2.5em;
+	color: #363636;
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
 }
+.cont {
+	margin-top: 50px;
+	display: block;
+	width: 100%;
+	height: 150px;
+	padding: 15px;
+	/* box-sizing: border-box; */
+	border: 0;
+	resize: vertical;
+}
 .bt_wrap, #content {
-	margin-top: 30px;
+	margin: 30px;
 	text-align: center;
 }
+
 .button {
+	font-family: "KimjungchulGothic-Bold";
 	padding: 7px 10px;
 	text-align: center;
 	text-decoration: none;
@@ -48,7 +63,7 @@ div{
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 10px;
-	width: 200px;
+	width: 100px;
   	height: 40px;
 }
 .button2 {
@@ -60,4 +75,89 @@ div{
 .button2:hover {
 	background-color: #A9CFE2;
 	color: white;
+}
+
+.taA textarea:focus{
+	border:3px solid #a9cfe2;
+}
+.taA{
+	border : 2px solid #d3d3d3;
+	resize: none;
+	width : 60%;
+	border-radius : 10px;
+}
+
+#clist{
+	width:70%;
+}
+.me{
+	background-color:#fcedaa;
+	margin-left: auto;
+}
+.other{
+	background-color:#a9cfe2;
+	margin-right: auto;
+}
+.me, .other{
+	padding : 10px 10px;
+	border-radius : 10px;
+	width : 350px;
+	margin-bottom:10px;
+}
+.comWriter, .comDate{
+	margin-right:auto;
+	font-size : 13px;
+}
+
+.comWriter, .content{
+	margin-left : 5px;
+}
+
+.comDate{
+	margin-right : 5px;
+}
+.cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #fcedaa;
+	color: #363636;
+	border: 2px solid #a1a1a1;
+	font-family: "KimjungchulGothic-Bold";
+}
+
+.cEditBtn:hover, .cDelBtn:hover, .jjinEditBtn:hover, .cancelBtn:hover{
+	background-color: #A9CFE2;
+	color: #363636;	
+}
+
+.content{
+	margin-bottom : 20px;
+}
+
+.cBtn, .ccBtn{
+	float : right;
+}
+
+.cEditBtn, .jjinEditBtn{
+	margin-right:10px;
+}
+
+#cBtn{
+	width:90px;
+	margin-auto:left;
+	background-color : #A9CFE2;
+	color : #363636;
+ 	border: 2px solid #A9CFE2;
+ 	font-family: "KimjungchulGothic-Bold";
+}
+#cBtn:hover {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2; 
 }

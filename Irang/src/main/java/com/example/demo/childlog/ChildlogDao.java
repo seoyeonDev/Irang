@@ -20,5 +20,5 @@ public interface ChildlogDao extends JpaRepository<Childlog, Integer> {
 	ArrayList<Childlog> findByChildidAndWdateLikeOrderByChlognumDesc(Child childid, String month);
 	
 	// tcheck 가 0인거 검색 
-	ArrayList<Childlog> findByTcheckOrderByChlognumDesc(int tcheck);
+	ArrayList<Childlog> findByChildidAndTcheckOrderByChlognumDesc(Child childid, int tcheck);
 }
