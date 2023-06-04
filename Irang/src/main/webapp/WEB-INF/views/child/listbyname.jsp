@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/css/childlistcard.css">
 </head>
 <body>
-<h3>이름에 ${name }(이)가 들어간 아이 검색결과</h3>
+<h3>클래스로 조회:</h3>
 
 <c:forEach var="cl" items="${clist}">
   <a href="/child/listbyclass?classnum=${cl.classnum}">
@@ -22,14 +22,15 @@
   </a>
 </c:forEach>
 
-<form action="/child/listbyname" method="post">
+<form action="/child/listbyname" method="post" style="text-align: right;">
 <input type="text" id="name" name="name">
-<input type="submit" id="namebtn" value="이름검색">
+<input type="submit" id="namebtn" value="이름검색" style="background-color: #A9CFE2;
+    color: #363636;">
 </form>
 
 <section id="team" class="pb-5">
   <div class="container">
-      <h5 class="section-title h1">이름검색결과 리스트</h5>
+      <h5 class="section-title h1">${name }(이)가 들어간 아이 검색결과</h5>
       <div class="row">
       <c:if test="${empty list }">
       	<h3 class="section-title h1" style="text-align: center;">${name }으로 검색된 아이가 없습니다..<br/>다시 입력해주세요</h3>

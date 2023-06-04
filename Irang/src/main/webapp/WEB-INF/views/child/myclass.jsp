@@ -22,9 +22,10 @@
   </a>
 </c:forEach>
 
-<form action="/child/listbyname" method="post">
+<form action="/child/listbyname" method="post" style="text-align: right;">
 <input type="text" id="name" name="name">
-<input type="submit" id="namebtn" value="이름검색">
+<input type="submit" id="namebtn" value="이름검색" style="background-color: #A9CFE2;
+    color: #363636;">
 </form>
 
 <section id="team" class="pb-5">
