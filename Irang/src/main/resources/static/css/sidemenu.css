@@ -97,6 +97,22 @@ span.toggle {
   cursor: pointer;
 }
 
+#mySidenav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toggle,
+img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.toggle {
+  margin-right: 10px; /* 필요한 간격 조정 */
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
