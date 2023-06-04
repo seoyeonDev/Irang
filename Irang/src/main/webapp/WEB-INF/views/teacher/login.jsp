@@ -24,7 +24,9 @@
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
+      <div style="text-align:center;">
         <h4 class="mb-3">선생님 로그인</h4>
+        </div>
         <form action="/teacher/login" method="post" class="validation-form" novalidate>
 
           <div class="mb-3">

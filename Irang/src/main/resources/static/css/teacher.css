@@ -16,7 +16,7 @@ body {
 	background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
 	background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
 	background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
-	margin: 4%;
+	margin-top: 4%;
 }
 
 
@@ -34,7 +34,7 @@ body {
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 
-* { padding: 0; margin: 0; }
+/* * { padding: 0; margin: 0; } */
 
 html, body {
   height: 100%;
@@ -113,11 +113,12 @@ html, body {
 }
 
 .title {
+	width: 100%;
 	color: #363636;
-	text-align: center;
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
 	font-size: 2.5em;
 	margin: 50px;
+	
 }
 
 .btn {
@@ -126,17 +127,23 @@ html, body {
 	margin-bottom: 10px;
 }
 
-#getbynamesearch{
-	margin: 10px;
-	text-align: right;
-}
-
-#titlename{
-	margin: 10px;
-	height: 35px;
+#getbynamesearch input[type="text"] {
+    height: 35px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin:5px;
+}
+
+#getbynamesearch{
+    margin: 5px;
+	text-align: right;
+    margin-top: 40px;
+}
+
+#titlename{
+    font-size: 20px;
+   
 }
 #getbynamesearchtext{
 	margin: 10px;

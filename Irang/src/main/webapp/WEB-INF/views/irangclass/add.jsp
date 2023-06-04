@@ -21,7 +21,9 @@
  <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
+      <div style="text-align:center;">
         <h4 class="mb-3">클래스 추가</h4>
+        </div>
         <form action="/irangclass/add" method="post" class="validation-form" novalidate>
 	
           <div class="mb-3">
