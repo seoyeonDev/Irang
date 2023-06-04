@@ -43,6 +43,7 @@
 		</c:if>
 
 
+
 		<c:if test="${fn:startsWith(sessionScope.loginId, 't')}">
 			<a href="/child/childadd">아이회원등록</a>
 			<a href="/irangclass/list">클래스 리스트</a>
