@@ -48,7 +48,6 @@
           <div class="mb-4"></div>
           <button class="btn btn-lg btn-block" type="submit" style="background-color:#A9CFE2; color:#363636;">로그인</button>
         </form>
-       <a href="/child/join"> <button class="btn btn-lg btn-block" type="submit">회원가입</button></a>
       </div>
     </div>
     <footer class="my-3 text-center text-small">

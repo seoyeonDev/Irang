@@ -11,9 +11,7 @@
 body {
 	font-family: "KimjungchulGothic-Bold";
 }
-#team {
-    background: #eee !important;
-}
+
 
 .btn-primary:hover,
 .btn-primary:focus {
@@ -34,15 +32,19 @@ section {
 }
 
 section .section-title {
-    text-align: center;
-    color: #007b5e;
+	color: #363636;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+    font-size: 2.5em;
+    margin: 50px;    
     margin-bottom: 50px;
     text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
 }
 
 #team .card {
     border: none;
-    background: #ffffff;
+    background: #f1e8cb;
 }
 
 .image-flip:hover .backside,

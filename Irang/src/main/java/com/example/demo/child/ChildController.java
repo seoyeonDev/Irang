@@ -78,7 +78,7 @@ public class ChildController {
 		System.out.println(dto3);
 		}
 		
-		return "redirect:/child/listall";
+		return "redirect:/childlog/list?childid="+dto.getChildid();
 		//return "redirect:/child/getbyclass?class="+dto2.getClassnum();
 	}
 	
@@ -197,8 +197,11 @@ public class ChildController {
 		public String listmyclass2(ModelMap map, HttpSession session) {
 			String loginId = (String) session.getAttribute("loginId");
 			TeacherDto dto = tservice.getTeacher(loginId);
+			Irangclass ct = dto.getClassnum();
+			IrangclassDto cto = classservice.getName(ct.getClassnum());
 			Irangclass dto2 = dto.getClassnum();
 			ArrayList<ChildDto> list = service.getByClass(dto2.getClassnum());
+			map.put("cto", cto);
 			map.put("list", list);
 			map.addAttribute("bodyview", "/WEB-INF/views/child/myclass.jsp");
 			return "index";
@@ -227,9 +230,8 @@ public class ChildController {
 	
 	//아이정보수정(사진제외한 정보수정)
 	@PostMapping("/edit")
-	public String editInfo(ModelMap map, ChildDto dto, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
-		ChildDto dto3 = service.getById(loginId);
+	public String editInfo(ModelMap map, ChildDto dto) {
+		ChildDto dto3 = service.getById(dto.getChildid());
 		dto.setImg(dto3.getImg());
 		ChildDto dto2 = service.save(dto);
 		map.put("dto", dto2);
@@ -239,8 +241,7 @@ public class ChildController {
 	
 	//아이사진수정
 	@PostMapping("/editimg")
-	public String editimg(String childid, MultipartFile f1, HttpSession session) {
-		String loginId = (String) session.getAttribute("loginId");
+	public String editimg(String childid, MultipartFile f1) {
 		ChildDto dto = service.getById(childid);
 		String fname = f1.getOriginalFilename();
 		if (fname != null && !fname.equals("")) {
@@ -264,7 +265,7 @@ public class ChildController {
 				e.printStackTrace();
 			}
 		}
-		return "redirect:/child/childinfo?childid=" + loginId;
+		return "redirect:/child/childinfo?childid=" + childid;
 	}
 	
 	//로그아웃
@@ -281,12 +282,17 @@ public class ChildController {
 		ArrayList<IrangclassDto> clist = classservice.getAll();
 		
 		ChildDto dto = service.getById(id);
-		File delf = new File(path+dto.getImg());
-		delf.delete();
-		service.out(id);
+		if(dto.getImg() != null) {
+			File delf = new File(path+dto.getImg());
+			delf.delete();
+			service.out(id);
+		}else {
+			service.out(id);
+		}
+		
 		map.put("clist",clist);
 		map.put("list", list);
 		map.addAttribute("bodyview", "/WEB-INF/views/child/listall.jsp");
-		return "redirect:/";
+		return "index";
 	}
 }
