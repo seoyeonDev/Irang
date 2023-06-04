@@ -118,6 +118,11 @@ public class TeacherlogController {
 		map.addAttribute("className", className);
 		System.out.println("className :" + className);
 		// 그 반 이름을 가져오기
+		
+		String tImg = vo.getTeacherid().getProfile();
+		map.addAttribute("tImg", tImg);
+		// 선생님 이미지 가져오기 
+		
 
 		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
 		return "index";
@@ -135,6 +140,8 @@ public class TeacherlogController {
 	@GetMapping("/childDetail")
 	public String tChildDetail(int tlnum, ModelMap map) {
 		map.addAttribute("vo", service.getByTlnum(tlnum));
+		String tImg = service.getByTlnum(tlnum).getTeacherid().getProfile();
+		map.addAttribute("tImg", tImg);
 		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/t-detail.jsp");
 		return "index";
 	}
