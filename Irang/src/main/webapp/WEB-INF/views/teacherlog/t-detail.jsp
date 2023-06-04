@@ -7,199 +7,14 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/css/teacherlogdetail.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <title>Insert title here</title>
-<style>
-@font-face {
-    font-family: 'KimjungchulGothic-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-#tdetail{
-	 font-family: 'KimjungchulGothic-Bold';
-	 color : #363636;
-}
-.detailimg{
-	width:300px;
-	height:300px;
-	object-fit : cover;
-	margin-bottom:10px;
-}
-
-.me{
-	background-color:#fcedaa;
-	margin-left: auto;
-}
-.other{
-	background-color:#a9cfe2;
-	margin-right: auto;
-}
-.me, .other{
-	padding : 10px 10px;
-	border-radius : 10px;
-	width : 350px;
-	margin-bottom:10px;
-}
-#imgAll{
-	justify-content: space-between;
-	margin-left:10%;
-	margin-right:10%;
-	display : flex;
-	margin-top : 40px;
-	margin-bottom : 60px;
-}
-.article{
-	padding : 20px 20px;
-	border-radius : 10px;
-	border : 2px solid #a9cfe2;
-	width:70%;
-}
-.articleP{
-	display: flex;
-    justify-content: center;
-}
-
-.taA{
-	border : 2px solid #d3d3d3;
-	resize: none;
-	width : 60%;
-	border-radius : 10px;
-}
-
-#activity, #health{
-	border : 2px solid #a9cfe2;
-	resize: none;
-	width : 70%;
-	border-radius : 10px;
-	padding : 10px 10px;
-}
-
-.taA textarea:focus{
-	border:3px solid #a9cfe2;
-}
-#teacher{
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE235%);
-}
-
-#timg{
-	width : 50px;
-	height : 50px;
-	border-radius : 70%;
-	overflow:hidden;
-	margin-right:10px;
-}
-
-#tInfo{
-	display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top:35px;
-}
-
-#timg img{
-	width: 100%;
-	height: 100%;
-	object-fit : cover;
-}
-
-#clist{
-	width:70%;
-}
-
-#cBtn{
-	width:90px;
-	margin-auto:left;
-}
-
-.comWriter, .comDate{
-	margin-right:auto;
-	font-size : 13px;
-}
-
-.comWriter, .content{
-	margin-left : 5px;
-}
-
-.comDate{
-	margin-right : 5px;
-}
-
-
-.cmt{
-	background-color: #fcedaa;
-	border : 2px solid #a1a1a1;
-	resize: none;
-	border-radius : 10px;
-	width:330px;
-}
-.addImg, .delImg, .cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
-	padding: 6px 10px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	transition-duration: 0.4s;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-.addImg, .delImg, #cBtn{
-	background-color : #A9CFE2;
-	color : #363636;
-/* 	background-color: white; */
-/* 	color: #363636; */
- 	border: 2px solid #A9CFE2; 
-}
-
-.cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
-	background-color: #fcedaa;
-	color: #363636;
-	border: 2px solid #a1a1a1;
-}
-
-.btn{
-	padding: 6px 10px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 14px;
-	transition-duration: 0.4s;
-	cursor: pointer;
-	border-radius: 5px;
-	background-color: #A9CFE2;
-	color: #363636;
- 	border: 2px solid #A9CFE2; 
-}
-
-.addImg:hover, .delImg:hover, .btn:hover, #cBtn:hover {
-	background-color: white;
-	color: #363636;
-	border: 2px solid #A9CFE2; 
-}
-
-.cEditBtn:hover, .cDelBtn:hover, .jjinEditBtn:hover, .cancelBtn:hover{
-	background-color: #A9CFE2;
-	color: #363636;	
-}
-
-.content{
-	margin-bottom : 20px;
-}
-
-.cBtn, .ccBtn{
-	float : right;
-}
-
-.cEditBtn, .jjinEditBtn{
-	margin-right:10px;
-}
-
-</style>
 </head>
-<body id="tdetail">
 
+<body id="tdetail">
+<div style="text-align:center; margin-bottom:50px"><span id="dTitle">글 상세보기</span></div>
 <div style="text-align:center">
 
 <!-- 선생님.ver detail -->
@@ -262,8 +77,8 @@
 		<textarea id="health"> ${vo.health }</textarea>
 	</div>
 	<div style="margin-top : 40px;">
-		<input type="button" value="수정하기" id="tEditBtn" class="btn">
-		<input type="button" value="삭제하기" id="tDelBtn" class="btn">
+		<input type="button" value="수정하기" id="tEditBtn" class="zBtn">
+		<input type="button" value="삭제하기" id="tDelBtn" class="zBtn">
 	</div>
 	
 </c:if>
@@ -379,17 +194,12 @@
 	
 	
 	
-	
-	
-	
-	
 	<script>
 		$(document).ready(function(){
 			let num = ${vo.tlnum};
-			
 			let nopic = '../image/nopic.jpg';
 			
-			// 이미지 유무에 따라 버튼 value 변경
+			// 이미지 유무에 따라 버튼 value 변경 (등록된 이미지 있으면 삭제 버튼, 없으면 추가 버튼)
 			if($("#detailimg1").attr("src") == nopic){
 				$("#add1").show();
 			} else {
@@ -423,7 +233,7 @@
 						txt += '<div class="comWriter">'+result.tcName;
 						
 						if(dto.comwriter.charAt(0)=='t'){
-							txt+= '반 선생님';
+							txt+= '반 선생님'; // teacherid에만 '반 선생님' 붙여주기 
 						}
 						
 						txt += '</div>';
@@ -436,9 +246,7 @@
 						txt += '<input type="button" class="jjinEditBtn" id="r' + dto.commentnum + '" value="찐수정">';
 						txt += '<input type="button" class="cancelBtn" id="cancel' + dto.commentnum + '" value="취소"></div></div></div>';
 						
-						
 						$("#clist").append(txt);
-						
 						$("#content").val("");
 						// 댓글 작성한 곳 빈칸으로 만들기
 					},
@@ -448,6 +256,7 @@
 				});
 			});
 			
+			
 			// 글 수정하기
 			$(document).on("click","#tEditBtn", function(){
 				$.ajax({
@@ -456,6 +265,7 @@
 					type : 'post',
 					dataType : 'json',
 					success : function(result){
+						
 					},
 					error : function(req, status){
 						console.log(status);
@@ -474,7 +284,6 @@
 				
 				var file = $(this).prop("files")[0];
  				var fileName = file.name;
- 				console.log(fileName);
  				// 파일명 가져오기
  				
  				var formData = new FormData(); // FormData 객체 생성
@@ -490,39 +299,31 @@
 					processData: false, // 데이터 처리 방지
 				    contentType: false, // 컨텐츠 타입 설정
 					success:function(result){
-						console.log(result);
 						$("#detailimg" + imgNum).attr("src", "/teacherlog/read_img?fname=" + fileName + "&tlnum=${vo.tlnum }");
 						console.log("/teacherlog/read_img?fname=" + fileName + "$&tlnum=${vo.tlnum }");
-						$("#add" + imgNum).hide();
-						$("#del" + imgNum).show();
+						$("#add" + imgNum).hide(); // 추가 버튼 hide
+						$("#del" + imgNum).show(); // 삭제 버튼 show
 					},
 					error : function(req, status){
 						console.log(status);
 					}
  				});
- 				
- 				
- 				$("#detailimg"+imgNum).attr("src", fileName);
-
-  				// 파일명 출력 또는 다른 작업 수행
-  				console.log(fileName);
-				
+ 				$("#detailimg"+imgNum).attr("src", fileName); // 변경된 사진으로 바꾸기
 			});
 			
 			// 이미지 삭제하기
 			$(document).on("click",".delImg", function(){
 				let imgNum = $(this).attr("id").substr(3);
-				console.log(imgNum);
+				
 				$.ajax({
 					url : '/teacherlog/imgdel',
 					data : {'tlnum' : num, 'imgnum' : imgNum, 'imgpath' : $("#detailimg"+imgNum).attr("src") },
 					type : 'get',
 					dataType : 'json',
 					success:function(result){
-						console.log(result);
-						$("#detailimg" + imgNum).attr("src", nopic);
-						$("#add" + imgNum).show();
-						$("#del" + imgNum).hide();
+						$("#detailimg" + imgNum).attr("src", nopic); // 삭제했으니 noimage 사진으로 바꾸기
+						$("#add" + imgNum).show(); // 추가 버튼 show
+						$("#del" + imgNum).hide(); // 삭제 버튼 hide
 					},
 					error : function(req, status){
 						console.log(status);
@@ -533,13 +334,11 @@
 			// 댓글 수정하기
 			$(document).on("click", ".cEditBtn", function(){
 				let num = $(this).attr("id").substr(1);
-				console.log("댓글 수정 num :"+num);
 				$("#ccBtn"+num).show();
-				$("#cBtn"+num).hide();				
+				$("#cBtn"+num).hide();
+				
 				let txt = '<textarea id="text'+num+'" class="cmt">'+$("#content"+num).text()+'</textarea>';
-				console.log(txt);
 				$("#content"+num).html(txt);
-				console.log("#content"+num);
 			});
 			
 			// 댓글 찐수정하기
@@ -553,7 +352,6 @@
 					type : 'post',
 					dataType : 'json',
 					success : function(result){
-						console.log(result);
 						$("#content"+num).text(content);
 						$("#ccBtn"+num).hide();
 						$("#cBtn"+num).show();	
@@ -570,7 +368,6 @@
 				$("#ccBtn"+num).hide();
 				$("#cBtn"+num).show();				
 				let txt = $("#content"+num).text();
-				console.log(txt);
 				$("#content"+num).html(txt);
 			});
 			

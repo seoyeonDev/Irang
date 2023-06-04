@@ -49,12 +49,14 @@ public class TeacherlogController {
 	@Value("${spring.servlet.multipart.location}")
 	private String path;
 
+	// 선생 일지 작성폼
 	@GetMapping("/add")
 	public String addForm(ModelMap map) {
 		map.addAttribute("bodyview", "/WEB-INF/views/teacherlog/add.jsp");
 		return "index";
 	}
 
+	// 작성 제출 
 	@PostMapping("/add")
 	public String add(ModelMap map, TeacherlogDto dto) {
 		int num = service.save(dto);
@@ -87,13 +89,12 @@ public class TeacherlogController {
 		dto.setImg2(imgs[1]);
 		dto.setImg3(imgs[2]);
 		dto.setTlnum(num);
-		service.save(dto);// 수정
-		// 어디로 가지? 목록?
+		service.save(dto);
 
 		return "redirect:/teacherlog/list?teacherid=" + dto.getTeacherid().getTeacherid();
 	}
 
-	// 특정쌤이 쓴 일지리스트
+	// 선생님 : 리스트 
 	@GetMapping("/list")
 	public String tlist(Teacher teacherid, ModelMap map) {
 		map.addAttribute("list", service.getByTeacherId(teacherid));
@@ -102,13 +103,12 @@ public class TeacherlogController {
 		return "index";
 	}
 
-	// 특정쌤이 본 디테일 페이지 여기서 수정 가능하죠?
-	// 댓글 리스트도 들고가욤~
+	// 선생님 : 상세보기
 	@GetMapping("/detail")
 	public String tDetail(Teacherlog tlnum, ModelMap map) {
 		TeacherlogDto vo = service.getByTlnum(tlnum.getTlnum());
 		map.addAttribute("vo", vo);
-		// num의 글정보를 가져와서 웹에 뿌리기
+		// 클릭한 num의 글정보를 가져오기
 
 		ArrayList<TcommentDto> list = cService.getByTlnum(tlnum);
 		map.addAttribute("list", list);
@@ -127,7 +127,7 @@ public class TeacherlogController {
 		return "index";
 	}
 
-	// 특정보호자 아이디로 본 일지 리스트
+	// 보호자 : 리스트 
 	@GetMapping("/childList")
 	public String tChildList(Child childid, ModelMap map) {
 		map.addAttribute("list", service.getByChildId(childid));
@@ -135,7 +135,7 @@ public class TeacherlogController {
 		return "index";
 	}
 
-	// 특정보호자가 본 디테일 페이지
+	// 보호자 : 디테일
 	@GetMapping("/childDetail")
 	public String tChildDetail(int tlnum, ModelMap map) {
 		map.addAttribute("vo", service.getByTlnum(tlnum));
@@ -149,7 +149,7 @@ public class TeacherlogController {
 	@GetMapping("/read_img")
 	public ResponseEntity<byte[]> read_img(String fname, int tlnum) {
 		File f = new File(path + tlnum + '/' + fname);
-		System.out.println(path + tlnum + '/' + fname);
+		//System.out.println(path + tlnum + '/' + fname);
 		HttpHeaders header = new HttpHeaders(); // HttpHeaders 객체 생성
 		ResponseEntity<byte[]> result = null; // 선언
 		try {
@@ -167,26 +167,27 @@ public class TeacherlogController {
 	@ResponseBody
 	public Map edit(TeacherlogDto dto) {
 		Map map = new HashMap();
-		System.out.println("dto :" + dto);
+		
 		TeacherlogDto dto2 = service.getByTlnum(dto.getTlnum());
 		dto2.setTlnum(dto.getTlnum());
 		dto2.setActivity(dto.getActivity());
 		dto2.setHealth(dto.getHealth());
-		System.out.println("dto2 :" + dto2);
-		service.save(dto2);
+		service.save(dto2); // 수정하기 
+
 		map.put("vo", dto2);
 		return map;
 	}
 
-	// 디테일 : 삭제하기
+	// 디테일 : 글 삭제하기
 	@GetMapping("/del")
 	public String del(int tlnum, String teacherid) {
 		service.delete(tlnum);
 
+		// 파일도 삭제 
 		String delPath = path + tlnum;
 		File dir = new File(delPath);
 		File[] files = dir.listFiles(); // 디렉토리 안에 있는 파일들을 File 객체로 생성해서 반환
-		for (File f : files) { // 상품 이미지를 삭제
+		for (File f : files) { 
 			f.delete();
 		}
 		dir.delete(); // 디렉토리 삭제
@@ -194,20 +195,22 @@ public class TeacherlogController {
 		return "redirect:/teacherlog/list?teacherid=" + teacherid;
 	}
 
-	// 디테일 : 사진 삭제
+	// 디테일 : 사진 한 개만 삭제
 	@GetMapping("/imgdel")
 	@ResponseBody
 	public boolean imgdel(int tlnum, int imgnum, String imgpath) {
 		boolean flag = false;
 		String delPath = path + tlnum;
 		File dir = new File(delPath);
-		System.out.println("dir:" + dir);
+		//System.out.println("dir:" + dir);
 		File[] files = dir.listFiles();
 
 		int num = 0;
 		while (num < files.length) {
+			// imgpath = 삭제 하고 싶은 파일명
+			// files[num].getAbsolutePath() = 0 부터 files.length-1 까지 돌며 파일명 추출  
 			if (files[num].getAbsolutePath().equals(imgpath)) {
-				files[num].delete();
+				files[num].delete(); // 한 폴더 안에 파일명 일치하면 삭제 
 				flag = true;
 				break;
 			}
@@ -218,20 +221,21 @@ public class TeacherlogController {
 		return flag;
 	}
 
-	// 디테일 : 사진 추가
+	// 디테일 : 사진 한 개만 추가
 	@PostMapping("/imgadd")
 	@ResponseBody
 	public boolean imgadd(int tlnum, int imgnum, MultipartFile imgfile) {
-		boolean flag = true;
+		boolean flag = false;
 		MultipartFile x = imgfile;
-		System.out.println("imgpath :" + imgfile);
-		System.out.println("imgpath.getOriginalFilename() :" + imgfile.getOriginalFilename());
+		//System.out.println("imgpath :" + imgfile);
+		//System.out.println("imgpath.getOriginalFilename() :" + imgfile.getOriginalFilename());
 
 		String fname = x.getOriginalFilename();
 		if (fname != null && !fname.equals("")) {
 			File newfile = new File(path + tlnum + "/" + fname);
 			try {
 				x.transferTo(newfile);
+				flag = true;
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -240,9 +244,7 @@ public class TeacherlogController {
 				e.printStackTrace();
 			}
 		}
-		// 서비스 추가해야해
 		service.addImg(tlnum, imgnum, fname);
-
 		return flag;
 	}
 
@@ -296,20 +298,22 @@ public class TeacherlogController {
 		ArrayList<TeacherlogDto> list = new ArrayList<TeacherlogDto>();
 
 		ArrayList<ChildDto> clist = childService.getByName(name);
-		System.out.println("clist :" + clist);
+		// 동명이인 아이가 있을 수 있음
 		for (ChildDto vo : clist) {
 			Child child = convertToChild(vo);
 			ArrayList<TeacherlogDto> list2 = service.getByChildId(child);
+			// 해당 childid로 작성된 글 list 담기
 			for (TeacherlogDto dto : list2) {
-				System.out.println("dto.getTeacherid() :" + dto.getTeacherid());
-				System.out.println("teacherid :" + teacherid);
+				//System.out.println("dto.getTeacherid() :" + dto.getTeacherid());
+				//System.out.println("teacherid :" + teacherid);
+				
+				// 근데 쌤이 다를 수 있으니 (작성된 teacherid) == (로그인된 teacherid) 이면 list에 담기
 				if (dto.getTeacherid().getTeacherid().equals(teacherid)) {
 					list.add(dto);
 				}
 			}
 		}
-
-		System.out.println("list :" + list);
+		//System.out.println("list :" + list);
 		map.put("list", list);
 		return map;
 	}
@@ -322,7 +326,7 @@ public class TeacherlogController {
 		return child;
 	}
 
-	// 해당 선생님한테 맞는 아이 이름 가져오기
+	// 선생님반에 소속되어있는 아이 이름 리스트
 	@GetMapping("/childlist")
 	@ResponseBody
 	public Map getChildName(String teacherid) {
@@ -330,12 +334,10 @@ public class TeacherlogController {
 		TeacherDto dto = teacherService.getTeacher(teacherid);
 		int classNum = dto.getClassnum().getClassnum();
 		// 선생님 해당 반 정보를 가져오기
+		
 		ArrayList<ChildDto> list = childService.getByClass(classNum);
 		// 아이 정보를 담아서 보내기 select 버튼에 보여줄꺼에용
-		System.out.println("teacherid :" + teacherid);
-		System.out.println("dto :" + dto);
-		System.out.println("classNum :" + classNum);
-		System.out.println("list :" + list);
+		
 		map.put("list", list);
 		return map;
 	}

@@ -72,48 +72,37 @@ public class TeacherlogService {
 		return dtoList;
 	}
 
-	// 삭제
+	// 글삭제
 	public void delete(int tlnum) {
 		dao.deleteById(tlnum);
 	}
-	
-	// 사진 삭제 
+
+	// 사진 삭제
 	public void deleteImg(int tlnum, int imgnum) {
 		Teacherlog vo = dao.findById(tlnum).orElse(null);
-		System.out.println("imgnum :"+imgnum);
-		if(imgnum == 1) {
+		//System.out.println("imgnum :" + imgnum);
+		if (imgnum == 1) {
 			vo.setImg1(null);
-		} else if(imgnum == 2) {
+		} else if (imgnum == 2) {
 			vo.setImg2(null);
-		} else if(imgnum == 3) {
+		} else if (imgnum == 3) {
 			vo.setImg3(null);
 		}
 		dao.save(vo);
 	}
-	
-	// 사진 추가 
+
+	// 사진 추가
 	public void addImg(int tlnum, int imgnum, String imgpath) {
 		Teacherlog vo = dao.findById(tlnum).orElse(null);
-		
-		if(imgnum == 1) {
+
+		if (imgnum == 1) {
 			vo.setImg1(imgpath);
-		} else if(imgnum == 2) {
+		} else if (imgnum == 2) {
 			vo.setImg2(imgpath);
-		} else if(imgnum == 3) {
+		} else if (imgnum == 3) {
 			vo.setImg3(imgpath);
 		}
 		dao.save(vo);
-	}
-
-	// 날짜로 찾기
-	public ArrayList<TeacherlogDto> getByDay(LocalDate tdate) {
-		ArrayList<Teacherlog> list = dao.findByTdateOrderByTlnumDesc(tdate);
-		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
-		for (Teacherlog vo : list) {
-			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
-					vo.getActivity(), vo.getHealth(), vo.getImg1(), vo.getImg2(), vo.getImg3(), null));
-		}
-		return dtoList;
 	}
 
 	// 날짜 + teacherid 로 찾기
@@ -126,7 +115,7 @@ public class TeacherlogService {
 		}
 		return dtoList;
 	}
-	
+
 	// 날짜 + childid 로 찾기
 	public ArrayList<TeacherlogDto> getByDayAndChildid(LocalDate tdate, Child childid) {
 		ArrayList<Teacherlog> list = dao.findByChildidAndTdateOrderByTlnumDesc(childid, tdate);
@@ -137,7 +126,7 @@ public class TeacherlogService {
 		}
 		return dtoList;
 	}
-	
+
 	// month + teacherid 로 찾기
 	public ArrayList<TeacherlogDto> getByMonthAndTeacherid(LocalDate start, LocalDate end, Teacher teacherid) {
 		ArrayList<Teacherlog> list = dao.findByTeacheridAndTdateBetweenOrderByTlnumDesc(teacherid, start, end);
@@ -148,15 +137,15 @@ public class TeacherlogService {
 		}
 		return dtoList;
 	}
-	
+
 	// month + childid 로 찾기
-		public ArrayList<TeacherlogDto> getByMonthAndChildid(LocalDate start, LocalDate end, Child childid) {
-			ArrayList<Teacherlog> list = dao.findByChildidAndTdateBetweenOrderByTlnumDesc(childid, start, end);
-			ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
-			for (Teacherlog vo : list) {
-				dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
-						vo.getActivity(), vo.getHealth(), vo.getImg1(), vo.getImg2(), vo.getImg3(), null));
-			}
-			return dtoList;
+	public ArrayList<TeacherlogDto> getByMonthAndChildid(LocalDate start, LocalDate end, Child childid) {
+		ArrayList<Teacherlog> list = dao.findByChildidAndTdateBetweenOrderByTlnumDesc(childid, start, end);
+		ArrayList<TeacherlogDto> dtoList = new ArrayList<TeacherlogDto>();
+		for (Teacherlog vo : list) {
+			dtoList.add(new TeacherlogDto(vo.getTlnum(), vo.getTeacherid(), vo.getChildid(), vo.getTdate(),
+					vo.getActivity(), vo.getHealth(), vo.getImg1(), vo.getImg2(), vo.getImg3(), null));
 		}
+		return dtoList;
+	}
 }

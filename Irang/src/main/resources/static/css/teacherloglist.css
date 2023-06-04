@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'KimjungchulGothic-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+#tlistbody{
+	font-family: 'KimjungchulGothic-Bold';
+/* 	width:90%; */
+	color : #363636;
+}
+.content{
+	display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.actSpan{
+	display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:100%;
+}
+
+.tlA{
+	text-decoration:none;
+	color : black;
+}
+.tlA hover{
+	color:#A9CFE2;
+}
+
+#title{
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+	color: #363636;
+	font-size: 2.5em;
+	margin: 50px;
+ 	text-align: center;
+}
+#searchDiv{
+	float: left;
+ 	padding-left:10px;
+ 	padding-right:10px;
+}
+.sInput{
+	float: left;
+ 	margin-left:10px;
+ 	margin-right:10px;
+}
+.sBtn{
+	float: left;
+	display:inline-block;
+	margin-left:10px;
+ 	margin-right:10px;
+}
+#search, #searchBtn {
+	padding: 7px 14px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition-duration: 0.4s;
+	background-color: #A9CFE2;
+	border: none;
+}
+
+#search:hover, #searchBtn:hover {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2;
+}
+
+#sDiv{
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	margin-bottom:35px;
+}
+#tList{
+	margin-bottom:40px;
+}
+#searchBar{
+	margin-bottom:7px;
+}
