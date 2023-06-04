@@ -18,8 +18,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TeacherlogDto {
 	private int tlnum;
-	private Teacher teacherid; // 테이블 추가하면 entity명 고쳐 적기
-	private Child childid; // 테이블 추가하면 entity명 고쳐 적기
+	private Teacher teacherid; 
+	private Child childid; 
 	private LocalDate tdate;
 	private String activity;
 	private String health;

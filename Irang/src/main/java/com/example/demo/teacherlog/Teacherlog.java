@@ -54,10 +54,4 @@ public class Teacherlog {
 	private String img2;
 	@Column(nullable=true)
 	private String img3;
-	
-//	@PreUpdate
-//	@PrePersist
-//	public void wdateperprocess() {
-//		tdate = LocalDate.now();
-//	}
 }

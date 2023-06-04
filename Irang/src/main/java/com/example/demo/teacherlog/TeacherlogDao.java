@@ -21,9 +21,6 @@ public interface TeacherlogDao extends JpaRepository<Teacherlog, Integer> {
 	// 선생님 : 특정 아이 select 
 	ArrayList<Teacherlog> findByTeacheridAndChildidOrderByTlnumDesc(Teacher teacherid, Child childid);
 	
-	// 특정 날짜 검색 (근데 아마 안쓴듯?)
-	ArrayList<Teacherlog> findByTdateOrderByTlnumDesc(LocalDate tdate);
-	
 	// 선생님 : 특정 날짜 검색 
 	ArrayList<Teacherlog> findByTeacheridAndTdateOrderByTlnumDesc(Teacher teacherid, LocalDate tdate);
 	
@@ -35,7 +32,4 @@ public interface TeacherlogDao extends JpaRepository<Teacherlog, Integer> {
 	
 	// 아이 : 월별 검색
 	ArrayList<Teacherlog> findByChildidAndTdateBetweenOrderByTlnumDesc(Child childid, LocalDate start, LocalDate end);
-	
-	// childid 와 날짜로 검색 (기간)
-	//ArrayList<Childlog> findByChildidAndWdateBetweenOrderByChlognumDesc(Child childid, LocalDate start, LocalDate end);
 }

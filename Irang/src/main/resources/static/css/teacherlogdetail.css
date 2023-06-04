@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'KimjungchulGothic-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+#tdetail{
+	 font-family: 'KimjungchulGothic-Bold';
+	 color : #363636;
+}
+
+.detailimg{
+	width:300px;
+	height:300px;
+	object-fit : cover;
+	margin-bottom:10px;
+}
+
+.me{
+	background-color:#fcedaa;
+	margin-left: auto;
+}
+
+.other{
+	background-color:#a9cfe2;
+	margin-right: auto;
+}
+
+.me, .other{
+	padding : 10px 10px;
+	border-radius : 10px;
+	width : 350px;
+	margin-bottom:10px;
+}
+
+#imgAll{
+	justify-content: space-between;
+	margin-left:10%;
+	margin-right:10%;
+	display : flex;
+	margin-top : 40px;
+	margin-bottom : 60px;
+}
+
+.article{
+	padding : 20px 20px;
+	border-radius : 10px;
+	border : 2px solid #a9cfe2;
+	width:70%;
+}
+
+.articleP{
+	display: flex;
+    justify-content: center;
+}
+
+.taA{
+	border : 2px solid #d3d3d3;
+	resize: none;
+	width : 60%;
+	border-radius : 10px;
+}
+
+#activity, #health{
+	border : 2px solid #a9cfe2;
+	resize: none;
+	width : 70%;
+	border-radius : 10px;
+	padding : 10px 10px;
+}
+
+.taA textarea:focus{
+	border:3px solid #a9cfe2;
+}
+
+#teacher{
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+}
+
+#timg{
+	width : 50px;
+	height : 50px;
+	border-radius : 70%;
+	overflow:hidden;
+	margin-right:10px;
+}
+
+#tInfo{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:35px;
+}
+
+#timg img{
+	width: 100%;
+	height: 100%;
+	object-fit : cover;
+}
+
+#clist{
+	width:70%;
+}
+
+.comWriter, .comDate{
+	margin-right:auto;
+	font-size : 13px;
+}
+
+.comWriter, .content{
+	margin-left : 5px;
+}
+
+.comDate{
+	margin-right : 5px;
+}
+
+
+.cmt{
+	background-color: #fcedaa;
+	border : 2px solid #a1a1a1;
+	resize: none;
+	border-radius : 10px;
+	width:330px;
+}
+
+.addImg, .delImg, .cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.addImg, .delImg, #cBtn{
+	background-color : #A9CFE2;
+	color : #363636;
+ 	border: 2px solid #A9CFE2; 
+}
+
+#cBtn{
+	width:90px;
+}
+
+.cEditBtn, .cDelBtn, .jjinEditBtn, .cancelBtn{
+	background-color: #fcedaa;
+	color: #363636;
+	border: 2px solid #a1a1a1;
+}
+
+
+.zBtn{
+	padding: 6px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #A9CFE2;
+	color: #363636;
+ 	border: 2px solid #A9CFE2; 
+}
+
+.addImg:hover, .delImg:hover, .zBtn:hover, #cBtn:hover {
+	background-color: white;
+	color: #363636;
+	border: 2px solid #A9CFE2; 
+}
+
+.cEditBtn:hover, .cDelBtn:hover, .jjinEditBtn:hover, .cancelBtn:hover{
+	background-color: #A9CFE2;
+	color: #363636;	
+}
+
+.content{
+	margin-bottom : 20px;
+}
+
+.cBtn, .ccBtn{
+	float : right;
+}
+
+.cEditBtn, .jjinEditBtn{
+	margin-right:10px;
+}
+
+#dTitle{
+	color: #363636;
+ 	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #A9CFE2 35%);
+ 	font-size: 2.5em;
+	margin: 50px;
+	text-align : center;
+}
