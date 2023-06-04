@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/childlogadd.css">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script>
 
 window.onload = function() {
@@ -25,38 +28,46 @@ window.onload = function() {
 function imgReset() {
 	document.getElementById('upload-preview').src = "../image/nopic.jpg";
 	document.getElementById('imagepath').value = null;
-//	input된 파일은 readonly 속성이기 때문에 value를 임의로 건드릴 수 없음
-//	따라서 초기화하고자 할 경우 아래 코드
-//		img.upload.select();
-//		document.selection.clear();
 	 }
 </script>
 </head>
 <body>
-<h3>아이 일지 수정</h3>
+<div class = "chlog_title">
+<h3 style="text-align:center"><span id="title">아이 일지 수정</span></h3>
+</div>
 
-<form action="/childlog/edit" method="post" enctype="multipart/form-data">
+<div class = "info" style="text-align:center">
+<div style="width:70%; display:inline-block">
+<form action="/childlog/edit" method="post" enctype="multipart/form-data"  class="chlForm">
 
+<div>
 <c:if test="${not empty dto.img}">
 	<img src="/childlog/read_img?fname=${dto.img }" id="upload-preview" style="width:200px;height:200px"> <br/>
 	
 </c:if>
 <c:if test="${empty dto.img}">
-	<img src="../image/nopic.jpg" id="upload-preview" style="width:200px;height:200px"> <br/>
+	<img src="../image/nopic.jpg" id="upload-preview" style="width:200px;height:200px"><br/><br/>
 </c:if>
 <input type="file" name="f" id="imagepath" accept="image/*">
 <input type="button" value="이미지삭제" id="del" onclick="imgReset();"> <br/>
+</div>
 
-날짜: ${dto.wdate} <br/>
-내용: <textarea cols="20" rows="5" name="content">${dto.content }</textarea><br/>
+<div> 날짜: ${dto.wdate} </div>
+<div class="cont"><textarea cols="20" rows="5" name="content">${dto.content }</textarea></div>
 
 <input type="hidden" name="childid" value="${dto.childid}">
 <input type="hidden" name="chlognum" value="${dto.chlognum }">
 <input type="hidden" name="tcheck" value="${dto.tcheck}">
 
-<input type="submit" id="edit" value="수정">
-<input type="button" id="cancle" value="취소" onclick="location.href='/childlog/detail?chlognum=${dto.chlognum}'">
+<div class="bt_wrap">
+<input class="button button2" type="submit" value="일지 수정">
+<input class="button button2"  type="button" value="수정 취소" onclick="location.href='/childlog/detail?chlognum=${dto.chlognum}'">
+</div>
 
 </form>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 </body>
 </html>
