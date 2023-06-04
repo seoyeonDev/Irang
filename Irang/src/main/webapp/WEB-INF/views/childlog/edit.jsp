@@ -31,9 +31,9 @@ function imgReset() {
 	 }
 </script>
 </head>
-<body>
+<body  id="chlogbody">
 <div class = "chlog_title">
-<h3 style="text-align:center"><span id="title">아이 일지 수정</span></h3>
+	<span id="title">${dto.wdate} 일지 수정</span>
 </div>
 
 <div class = "info" style="text-align:center">
@@ -52,7 +52,6 @@ function imgReset() {
 <input type="button" value="이미지삭제" id="del" onclick="imgReset();"> <br/>
 </div>
 
-<div> 날짜: ${dto.wdate} </div>
 <div class="cont"><textarea cols="20" rows="5" name="content">${dto.content }</textarea></div>
 
 <input type="hidden" name="childid" value="${dto.childid}">

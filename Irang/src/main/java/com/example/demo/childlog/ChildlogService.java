@@ -57,19 +57,19 @@ public class ChildlogService {
 	
 	// 월별 검색 
 	// 연도랑 월 다 가져와서 검색해야 함~~
-	public ArrayList<ChildlogDto> getMonth(Child childid, int month) {
-		ArrayList<Childlog> list = dao.findByChildidAndWdateLikeOrderByChlognumDesc(childid, "___" + month + "___"); //수정하기 
-		ArrayList<ChildlogDto> dtolist = new ArrayList<ChildlogDto>();
-		for (Childlog entity:list) {
-			dtolist.add(new ChildlogDto(entity.getChlognum(), entity.getChildid(), entity.getWdate(), entity.getContent(), entity.getImg(), entity.getTcheck(), null));
-		}
-		return dtolist;
-	}
+//	public ArrayList<ChildlogDto> getMonth(Child childid, int month) {
+//		ArrayList<Childlog> list = dao.findByChildidAndWdateLikeOrderByChlognumDesc(childid, "___" + month + "___"); //수정하기 
+//		ArrayList<ChildlogDto> dtolist = new ArrayList<ChildlogDto>();
+//		for (Childlog entity:list) {
+//			dtolist.add(new ChildlogDto(entity.getChlognum(), entity.getChildid(), entity.getWdate(), entity.getContent(), entity.getImg(), entity.getTcheck(), null));
+//		}
+//		return dtolist;
+//	}
 	
 	
 	// 미확인 (tcheck=0) 
-	public ArrayList<ChildlogDto> getByTcheck(int tcheck) {
-		ArrayList<Childlog> list = (ArrayList<Childlog>) dao.findByTcheckOrderByChlognumDesc(tcheck);
+	public ArrayList<ChildlogDto> getByTcheck(Child childid, int tcheck) {
+		ArrayList<Childlog> list = (ArrayList<Childlog>) dao.findByChildidAndTcheckOrderByChlognumDesc(childid, tcheck);
 		ArrayList<ChildlogDto> dtolist = new ArrayList<ChildlogDto>();
 		for (Childlog entity:list) {
 			dtolist.add(new ChildlogDto(entity.getChlognum(), entity.getChildid(), entity.getWdate(), entity.getContent(), entity.getImg(), entity.getTcheck(), null));

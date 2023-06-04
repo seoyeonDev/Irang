@@ -79,8 +79,6 @@ public class ChildlogController {
 		return "index";
 	}
 	
-	// (리스트) 월별 보기 
-	
 	// (리스트) 기간 보기
 	@GetMapping("/datesearch")
 	public String uncheckedlist(ModelMap map, String childid, LocalDate start, LocalDate end) {
@@ -96,7 +94,8 @@ public class ChildlogController {
 	// (리스트) 미확인 보기 
 	@GetMapping("/unchecked")
 	public String uncheckedlist(ModelMap map, String childid) {
-		ArrayList<ChildlogDto> list = service.getByTcheck(0);
+		ArrayList<ChildlogDto> dto = service.getByChildid(childid);
+		ArrayList<ChildlogDto> list = service.getByTcheck(dto.get(0).getChildid(), 0);
 		map.addAttribute("childid", childid);
 		map.addAttribute("list", list);
 		map.addAttribute("bodyview", "/WEB-INF/views/childlog/list.jsp");
@@ -183,7 +182,6 @@ public class ChildlogController {
 	
 	// 삭제
 	@GetMapping("/delete")
-	///childlog/delete?chlognum=2&childid=child
 	public String del(int chlognum, String childid) {
 		ChildlogDto dto = service.getChlog(chlognum);
 		String delPath = path + dto.getImg();

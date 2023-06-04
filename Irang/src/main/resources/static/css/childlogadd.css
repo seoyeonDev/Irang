@@ -6,18 +6,19 @@
     font-weight: 700;
     font-style: normal;
 }
-* {
+#chlogbody {
 	color: #363636;
 	font-family: "KimjungchulGothic-Bold";
-	
+	text-align: center;
 }
 .chlForm div{
 	padding : 10px 10px;
 }
 .chlog_title {
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin: 50px;
 	text-align: center;
+	font-size: 2.5em;
+	color: #363636;
 }
 .chlog_title, .info, .cont {
 	padding: 15px;

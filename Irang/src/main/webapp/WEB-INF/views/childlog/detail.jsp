@@ -92,11 +92,18 @@ function comdel(num) {
 
 </script>
 </head>
-<body>
+<body id="chlogbody">
 <div id="info">
-		<span id="chimg"><img src="/childlog/read_img?fname=${chImg }"> </span>
-		<span><span id="child">${classname}반 ${dto.childid.name }</span> &nbsp; | &nbsp;</span>
-		<span>${dto.wdate } &nbsp;| &nbsp;</span>
+		<span id="chimg">
+			<c:if test="${not empty chImg}">
+				<img src="/childlog/read_img?fname=${chImg }"> 
+			</c:if>
+			<c:if test="${empty chImg}">
+				<img src="../image/person.jpg">
+			</c:if>
+		</span>
+		<span id="child">${classname}반 ${dto.childid.name }</span>
+		<span>&nbsp; | &nbsp; ${dto.wdate } &nbsp;| &nbsp;</span>
 		<c:if test="${dto.tcheck eq 1}"> <!-- 확인함 -->
 			<span style="color:blue">확인</span>
 		</c:if>
@@ -111,14 +118,14 @@ function comdel(num) {
 <div id="content">
 <div id="img">
 	<c:if test="${not empty dto.img}">
-		<img src="/childlog/read_img?fname=${dto.img }" style="width:200px;height:200px"> <br/>
+		<img src="/childlog/read_img?fname=${dto.img }" style="width:400px;height:400px"> <br/>
 	</c:if>
 	<c:if test="${empty dto.img}">
-		<img src="../image/nopic.jpg" style="width:200px;height:200px"> <br/>
+		<img src="../image/nopic.jpg" style="width:400px;height:400px"> <br/>
 	</c:if>
 </div>
 
-<div> ${dto.content }</div>
+<div class="cont"> ${dto.content }</div>
 </div>
 
 <div class="bt_wrap">
@@ -127,35 +134,57 @@ function comdel(num) {
 	<input class="button button2" type="button" id="delete" value="삭제" onclick="logdel(${dto.chlognum}, '${dto.childid.childid }')">
 </c:if>
 </div>
-<br/><br/>
+<br/><br/><br/>
 
 <!-- 댓글 리스트 -->
+<div style="display: flex; align-items: center; justify-content: center">
+<div id="clist">
 <c:if test="${empty com }">
 	작성된 댓글이 없습니다.
 </c:if>
 <c:if test="${not empty com }">
 	<c:forEach var="vo" items="${com}">
-	<div id="div_${vo.num }">
-		${vo.wdate } <br/>
-		${vo.name} <br/>
-		<p id="comcont_${vo.num}">${vo.content }</p>
 		<c:if test="${sessionScope.loginId eq vo.id}">
-			<div id="combtn_${vo.num }">
-				<input type="button" value="수정" onclick="editFrom(${vo.num })">
-				<input type="button" value="삭제" onclick="comdel(${vo.num })">
+		<div id="div_${vo.num }" style="display: flex; margin:10px">
+			<div class="me">
+				<div style="display:flex; margin-bottom:5px">
+					<div class="comWriter">${vo.name}</div>
+					<div class="comDate">${vo.wdate }</div>
+				</div>
+				<div class="content" id="comcont_${vo.num}">${vo.content }</div>
+				<div class="cBtn" id="combtn_${vo.num }">
+					<input class="cEditBtn" type="button" value="수정" onclick="editFrom(${vo.num })">
+					<input class="cDelBtn" type="button" value="삭제" onclick="comdel(${vo.num })">
+				</div>
+				<div class="ccBtn" id="edit_${vo.num}" style="display: none">
+					<form>
+						<input class="jjinEditBtn" type="button" value="수정완료" onclick="comEdit(${vo.num})">
+						<input class="cancelBtn" type="button" value="취소" onclick="editCancel(${vo.num})">
+					</form>
+				</div>
 			</div>
-			<div id="edit_${vo.num}" style="display: none">
-				<form>
-					<input type="button" value="수정완료" onclick="comEdit(${vo.num})">
-					<input type="button" value="취소" onclick="editCancel(${vo.num})">
-				</form>
-			</div>
+		</div>
 		</c:if>
-	</div>
+		<c:if test="${sessionScope.loginId ne vo.id}">
+		<div id="div_${vo.num }" style="display: flex; margin-bottom:5px">
+			<div class="other">
+				<div style="display:flex">
+					<div class="comWriter">${vo.name}</div>
+					<div class="comDate">${vo.wdate }</div>
+				</div>
+				<div class="content" id="comcont_${vo.num}">${vo.content }</div>
+			</div>
+		</div>
+		</c:if>
 	</c:forEach>
 </c:if>
+</div>
+</div>
+
+<br/><br/>
 
 <!-- 댓글 작성폼 -->
+<div style="margin-bottom:50px; flex-direction: column; justify-content: center">
 <form action="/chlogcom/add" method="GET">
 	<input type="hidden" value="${dto.chlognum}" name="chlognum">
 	<input type="hidden" value="${sessionScope.loginId}" name="id">
@@ -165,9 +194,10 @@ function comdel(num) {
 	<c:if test="${fn:startsWith(sessionScope.loginId, 'c')}">
 		<input type="hidden" value="${dto.childid.name}" name="name">
 	</c:if>
-	<textarea name="content" rows="5" cols="30"></textarea>
-	<input type="submit" value="작성">
+	<textarea class="taA" name="content" rows="5" cols="30"></textarea>
+	<input type="submit" value="댓글 작성" id="cBtn">
 </form>
+</div>
 
 
 </body>

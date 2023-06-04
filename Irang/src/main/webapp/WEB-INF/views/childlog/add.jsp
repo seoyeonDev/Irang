@@ -29,9 +29,9 @@ function imgReset() {
 	 }
 </script>
 </head>
-<body>
+<body id="chlogbody">
 <div class = "chlog_title">
-<h3 style="text-align:center"><span id="title">아이 일지 작성</span></h3>
+	<span id="title">아이 일지 작성</span>
 </div>
 
 <div class = "info" style="text-align:center">
