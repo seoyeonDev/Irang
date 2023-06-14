@@ -115,7 +115,7 @@ java, java script, jpa, spring
 </table>
 
 
-## 팀 멤버
+## 팀 멤버 소개
 <table style="vertical-align:center;">
   <tr>
     <td style="width:30px"> 이름 </td>
