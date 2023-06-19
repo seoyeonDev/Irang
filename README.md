@@ -1,5 +1,6 @@
 # Irang (아이랑) 사이드 프로젝트
 2023_04 to 2023_06 Irang_SideProject
+http://3.37.88.174:8081/
 
 ## 프로젝트 소개
 ### Irang
