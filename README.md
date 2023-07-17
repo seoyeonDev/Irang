@@ -144,7 +144,7 @@ java, java script, jpa, spring
   <tr>
     <td> 윤해현 </td>
     <td> <a href="https://github.com/hennie-yun" target="_blank">hennie-yun</a> </td>
-    <td> 보드, nav bar, side bar, 공통 페이지의 뼈대를 만듦 </td>
+    <td> 보드, side bar, 공통 페이지의 뼈대를 만듦 </td>
     <td> </td>
     <td> 프로젝트를 진행하면서 팀원들과의 소통과 협업이 필요하고 의견을 주고받고 효과적으로 협력하여 프로젝트를 완성하는 능력이 향상된 것 같다.  </td>
   </tr>
