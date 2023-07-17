@@ -129,42 +129,42 @@ java, java script, jpa, spring
 <table style="vertical-align:center;">
   <tr>
     <td style="width:30px"> 이름 </td>
-    <td> <a href="https://github.com/Seoyeon1003/Irang" target="_blank">깃허브 Irang</a> </td>
+    <td> <a href="https://github.com/seoyeonDev/Irang" target="_blank">깃허브 Irang</a> </td>
     <td> 역할 </td>
     <td> 동기 </td>
     <td> 소감 </td>
   </tr>
   <tr>
     <td> 이서연 </td>
-    <td> <a href="https://github.com/Seoyeon1003" target="_blank">Seoyeon1003</a> </td>
+    <td> <a href="https://github.com/seoyeonDev" target="_blank">seoyeonDev</a> </td>
     <td> 리더, 깃 관리, 클래스 & 선생님 백/프론트 </td>
     <td> 배운 내용을 복습하고 프로젝트 경험을 쌓기 위해 참여하였다. </td>
     <td> 리더를 맡으며 깃에 대한 이해도가 올라가고, 기술적 역량이 강화되었다. 리더로서 소통과 협업 능력에 대해 고민하며 역량을 강화하는 계기가 되었다.  </td>
   </tr>
   <tr>
     <td> 윤해현 </td>
-    <td> <a href="" target="_blank">Seoyeon1003</a> </td>
-    <td>  </td>
+    <td> <a href="https://github.com/hennie-yun" target="_blank">hennie-yun</a> </td>
+    <td> 보드, nav bar, side bar, 공통 페이지의 뼈대를 만듦 </td>
     <td> </td>
     <td> 프로젝트를 진행하면서 팀원들과의 소통과 협업이 필요하고 의견을 주고받고 효과적으로 협력하여 프로젝트를 완성하는 능력이 향상된 것 같다.  </td>
   </tr>
   <tr>
     <td> 김혜원 </td>
     <td> <a href="https://github.com/haeburney" target="_blank">haeburney</a> </td>
-    <td>  </td>
+    <td> 선생님 일지 </td>
     <td> JPA와 Spring과 Jquery에 대한 기술을 이해해보고 습득해보고자 참여하게 됐다. </td>
     <td> JPA와 Spring을 제대로 활용하는 법을 배우게 됐고, Jquery를 쓰면서 비동기에 대한 이해도가 상승하게 됐다.  </td>
   </tr>
   <tr>
     <td> 전준하 </td>
-    <td> <a href="" target="_blank">Seoyeon1003</a> </td>
-    <td>  </td>
+    <td> <a href="https://github.com/reacting97" target="_blank">reacting97</a> </td>
+    <td> Child (아이) 관리 </td>
     <td> JPA와 Spring을 배우고나서 프로젝트를 통해 직접 구현해보면서 기술을 완벽히 습득하고 싶어서 진행하게 되었다. </td>
     <td> JPA를 이용한 Entity를 설계하고 각 엔터티간의 연관관계를 설정하는 방법에 대해 배웠다. </td>
   </tr>
   <tr>
     <td> 최예은 </td>
-    <td> <a href="" target="_blank">Seoyeon1003</a> </td>
+    <td> <a href="https://github.com/YeeBoss" target="_blank">YeeBoss</a> </td>
     <td>학부모가 작성하는 그날의 아이 특이사항 (아이 일지) 작성, 댓글 작성, 상세보기, 아이 별 일지 전체리스트 기능 및 뷰페이지 담당 </td>
     <td> JAVA Spring JPA 연습 및 활용</td>
     <td>계획한 기능을 Spring을 통해 설계하는 방법에 대해 배웠다. 또한 기능 구현에 앞서 팀원과의 소통이 원활하게 이루어져야 프로젝트가 성공적으로 완성될 수 있음을 알게 되었다. </td>
